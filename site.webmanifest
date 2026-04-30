@@ -1,0 +1,16 @@
+{
+  "name": "Dubai Flooring & Fixing",
+  "short_name": "DFF Dubai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4efe6",
+  "theme_color": "#9f5632",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

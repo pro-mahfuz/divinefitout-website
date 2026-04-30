@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Dubai Flooring &amp; Fixing favicon</title>
+  <desc id="desc">Monogram mark for Dubai Flooring &amp; Fixing.</desc>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9f5632"/>
+      <stop offset="100%" stop-color="#be9f59"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#f9f1e3"/>
+  <path d="M28 24h33c23 0 39 13 39 35 0 21-16 35-39 35H44v10H28V24Zm16 16v38h15c15 0 25-7 25-19 0-12-10-19-25-19H44Z" fill="url(#g)"/>
+</svg>
