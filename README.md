@@ -1,4 +1,4 @@
-# Dubai Flooring & Fixing Website
+﻿# Decoriva Interior & Services Website
 
 Static multi-page SEO website for a Dubai flooring business.
 
@@ -20,9 +20,9 @@ Static multi-page SEO website for a Dubai flooring business.
 Replace the following placeholder details everywhere they appear:
 
 - Business name if needed
-- Domain: `https://www.dubaiflooringfixing.com`
+- Domain: `https://flooring.decovira-interior.com`
 - Phone: `+971 50 000 0000`
-- Email: `hello@dubaiflooringfixing.com`
+- Email: `hello@flooring.decovira-interior.com`
 - Address: `Warehouse 14, Al Quoz Industrial Area 3, Dubai`
 - Testimonials and project claims
 
@@ -32,3 +32,4 @@ Replace the following placeholder details everywhere they appear:
 - Add real project photos and optimized alt text
 - Update schema with your exact business details
 - Submit the sitemap after deployment
+

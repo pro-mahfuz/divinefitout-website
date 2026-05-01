@@ -1,4 +1,5 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-Sitemap: https://www.dubaiflooringfixing.com/sitemap.xml
+Sitemap: https://flooring.decovira-interior.com/sitemap.xml
+
