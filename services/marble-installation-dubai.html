@@ -98,8 +98,8 @@
   <header class="site-header">
     <div class="header-wrap">
       <a class="brand" href="../index.html" aria-label="Decoriva Interior &amp; Services home">
-        <span class="brand-mark">D</span>
-        <span class="brand-text">Decoriva Interior &amp; Services <small>Wood | Tile | Marble | Stone | Carpet</small></span>
+        <img class="brand-mark brand-mark--logo" src="../images/decoriva-logo-full.png" alt="Decoriva Interior &amp; Services logo" width="1280" height="1280">
+        <span class="brand-text">Decoriva Interior &amp; Services <small>Wood-Carpet-Tile-Stone-Marble</small></span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation" data-nav-toggle>
         <span></span>
@@ -112,11 +112,18 @@
           <li class="has-submenu">
             <a data-nav-link data-services-root href="index.html">Our Services</a>
             <ul class="submenu">
-              <li><a data-nav-link href="wooden-flooring-dubai.html">Wooden Flooring</a></li>
-              <li><a data-nav-link href="tile-fixing-dubai.html">Tile Fixing</a></li>
-              <li><a data-nav-link href="marble-installation-dubai.html">Marble Installation</a></li>
-              <li><a data-nav-link href="stone-installation-dubai.html">Stone Installation</a></li>
+              <li class="submenu-group">
+                <a data-nav-link data-wood-root href="wooden-flooring-dubai.html">Wooden Flooring</a>
+                <ul class="submenu submenu--nested">
+                  <li><a data-nav-link href="spc-flooring-dubai.html">SPC Flooring</a></li>
+                  <li><a data-nav-link href="lvt-flooring-dubai.html">LVT Flooring</a></li>
+                  <li><a data-nav-link href="wpc-flooring-dubai.html">WPC Flooring</a></li>
+                </ul>
+              </li>
               <li><a data-nav-link href="carpet-installation-dubai.html">Carpet Installation</a></li>
+              <li><a data-nav-link href="tile-fixing-dubai.html">Tile Fixing</a></li>
+              <li><a data-nav-link href="stone-installation-dubai.html">Stone Installation</a></li>
+              <li><a data-nav-link href="marble-installation-dubai.html">Marble Installation</a></li>
             </ul>
           </li>
           <li><a data-nav-link href="../about.html">About</a></li>
@@ -142,7 +149,7 @@
           <h1>Marble installation in Dubai for floors, walls, staircases and luxury interiors</h1>
           <p>We provide marble installation in Dubai for villas, apartments, offices, showrooms and hospitality spaces that need a refined, durable and properly finished surface. Our service covers marble flooring, wall cladding, staircase fitting, vanity areas, feature surfaces, precise cutting, layout planning, polishing, sealing and clean detailing around edges, corners and transitions.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#whatsapp">Request Marble Installation Service</a>
+            <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Marble Installation" data-whatsapp-force-selection="false" href="#whatsapp">Request Marble Installation Service</a>
             <a class="button button-secondary" href="#details">View applications</a>
           </div>
         </div>
@@ -194,15 +201,19 @@
             <h3>Need marble flooring or wall-cladding pricing?</h3>
             <p>Share the marble type, approximate area and whether the project is residential, commercial or hospitality so we can guide you faster.</p>
             <div class="inline-actions">
-              <a class="button button-primary" href="#whatsapp">Request Service</a>
+              <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Marble Installation" data-whatsapp-force-selection="false" href="#whatsapp">Request Service</a>
             </div>
           </div>
           <div class="contact-card">
             <strong>Related Services</strong>
             <ul class="sidebar-list">
-              <li><a href="stone-installation-dubai.html">Stone Installation Dubai</a></li>
-              <li><a href="tile-fixing-dubai.html">Tile Fixing Dubai</a></li>
               <li><a href="wooden-flooring-dubai.html">Wooden Flooring Dubai</a></li>
+              <li><a href="spc-flooring-dubai.html">SPC Flooring Dubai</a></li>
+              <li><a href="lvt-flooring-dubai.html">LVT Flooring Dubai</a></li>
+              <li><a href="wpc-flooring-dubai.html">WPC Flooring Dubai</a></li>
+              <li><a href="tile-fixing-dubai.html">Tile Fixing Dubai</a></li>
+              <li><a href="stone-installation-dubai.html">Stone Installation Dubai</a></li>
+              <li><a href="carpet-installation-dubai.html">Carpet Installation Dubai</a></li>
             </ul>
           </div>
         </aside>
@@ -309,6 +320,9 @@
                 <select id="marble-wa-service" name="service" required>
                   <option value="">Select a service</option>
                   <option value="Wooden Flooring">Wooden Flooring</option>
+                  <option value="SPC Flooring">SPC Flooring</option>
+                  <option value="LVT Flooring">LVT Flooring</option>
+                  <option value="WPC Flooring">WPC Flooring</option>
                   <option value="Tile Fixing">Tile Fixing</option>
                   <option value="Marble Installation">Marble Installation</option>
                   <option value="Stone Installation">Stone Installation</option>
@@ -362,7 +376,7 @@
           <h2>Planning a marble installation project in Dubai?</h2>
           <p>Tell us the area, marble type and finish you want, and we can guide you on marble flooring, wall cladding, staircases, vanities and feature surfaces.</p>
           <div class="inline-actions">
-            <a class="button button-primary" href="#whatsapp">Request Service</a>
+            <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Marble Installation" data-whatsapp-force-selection="false" href="#whatsapp">Request Service</a>
             <a class="button button-secondary" href="index.html">View all services</a>
           </div>
         </div>
@@ -374,9 +388,8 @@
     <div class="footer-wrap">
       <div class="footer-grid">
         <div class="footer-column">
-          <a class="brand" href="../index.html">
-            <span class="brand-mark">D</span>
-            <span class="brand-text">Decoriva Interior &amp; Services <small>Dubai flooring and surface installation</small></span>
+          <a class="brand brand--footer" href="../index.html" aria-label="Decoriva Interior &amp; Services home">
+            <img class="brand-logo-full" src="../images/decoriva-logo-full.png" alt="Decoriva Interior &amp; Services logo" width="1280" height="1280">
           </a>
           <p>Wooden flooring, tile fixing, marble installation, stone installation and carpet installation services across Dubai.</p>
         </div>
@@ -402,7 +415,7 @@
           <h3>Contact</h3>
           <ul>
             <li><a href="tel:+971568163016">+971 56 816 3016</a></li>
-            <li><a href="mailto:hello@flooring.decovira-interior.com">hello@flooring.decovira-interior.com</a></li>
+            <li><a href="mailto:service@decovira-interior.com">service@decovira-interior.com</a></li>
             <li>Warehouse 14, Al Quoz Industrial Area 3, Dubai</li>
           </ul>
         </div>

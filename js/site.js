@@ -1,17 +1,13 @@
 const navToggle = document.querySelector("[data-nav-toggle]");
 const mainNav = document.querySelector("[data-main-nav]");
 const heroSlider = document.querySelector("[data-hero-slider]");
+const mobileNavQuery = window.matchMedia("(max-width: 820px)");
 const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
   return normalized === "" ? "/" : normalized;
 };
-
-if (navToggle && mainNav) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = mainNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-  });
-}
+const getDirectChildByClass = (parent, className) => Array.from(parent.children).find((child) => child.classList?.contains(className));
+const getDirectAnchor = (parent) => Array.from(parent.children).find((child) => child.tagName === "A");
 
 if (heroSlider) {
   const heroSlides = Array.from(heroSlider.querySelectorAll("[data-hero-slide]"));
@@ -98,7 +94,92 @@ if (heroSlider) {
 const currentPath = normalizePath(window.location.pathname);
 const navLinks = document.querySelectorAll("[data-nav-link]");
 const servicesRootLinks = document.querySelectorAll("[data-services-root]");
+const woodRootLinks = document.querySelectorAll("[data-wood-root]");
 const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
+const woodServicePaths = ["/wooden-flooring-dubai", "/spc-flooring-dubai", "/lvt-flooring-dubai", "/wpc-flooring-dubai"];
+
+const syncBodyScrollLock = () => {
+  document.body.classList.toggle("nav-open", Boolean(mainNav && mainNav.classList.contains("is-open") && mobileNavQuery.matches));
+};
+
+const closeMobileNav = () => {
+  if (!mainNav || !navToggle) return;
+  mainNav.classList.remove("is-open");
+  navToggle.setAttribute("aria-expanded", "false");
+  syncBodyScrollLock();
+};
+
+const expandableMenuItems = mainNav
+  ? Array.from(mainNav.querySelectorAll(".has-submenu, .submenu-group")).filter((item) => getDirectChildByClass(item, "submenu"))
+  : [];
+
+const setSubmenuExpanded = (item, isExpanded) => {
+  item.classList.toggle("is-expanded", isExpanded);
+  const toggle = getDirectChildByClass(item, "submenu-toggle");
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(isExpanded));
+  }
+};
+
+expandableMenuItems.forEach((item, index) => {
+  const link = getDirectAnchor(item);
+  const submenu = getDirectChildByClass(item, "submenu");
+
+  if (!link || !submenu) return;
+
+  if (!submenu.id) {
+    submenu.id = `nav-submenu-${index + 1}`;
+  }
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "submenu-toggle";
+  toggle.setAttribute("aria-label", `Toggle ${link.textContent.trim()} menu`);
+  toggle.setAttribute("aria-controls", submenu.id);
+  toggle.setAttribute("aria-expanded", "false");
+  link.insertAdjacentElement("afterend", toggle);
+
+  toggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setSubmenuExpanded(item, !item.classList.contains("is-expanded"));
+  });
+});
+
+const applyMobileMenuState = (reset = false) => {
+  if (!mainNav) return;
+
+  if (!mobileNavQuery.matches) {
+    closeMobileNav();
+    expandableMenuItems.forEach((item) => setSubmenuExpanded(item, true));
+    return;
+  }
+
+  expandableMenuItems.forEach((item) => {
+    const initialized = item.dataset.mobileMenuReady === "true";
+    const shouldExpand = item.classList.contains("has-submenu")
+      ? currentPath.includes("/services")
+      : woodServicePaths.some((match) => currentPath.includes(match));
+
+    if (reset || !initialized) {
+      setSubmenuExpanded(item, shouldExpand);
+      item.dataset.mobileMenuReady = "true";
+    }
+  });
+
+  syncBodyScrollLock();
+};
+
+if (navToggle && mainNav) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    if (isOpen) {
+      applyMobileMenuState();
+    }
+    syncBodyScrollLock();
+  });
+}
 
 navLinks.forEach((link) => {
   const target = link.getAttribute("href");
@@ -115,6 +196,40 @@ if (currentPath.includes("/services")) {
     link.classList.add("is-active");
   });
 }
+
+if (["/wooden-flooring-dubai", "/spc-flooring-dubai", "/lvt-flooring-dubai", "/wpc-flooring-dubai"].some((match) => currentPath.includes(match))) {
+  woodRootLinks.forEach((link) => {
+    link.classList.add("is-active");
+  });
+}
+
+if (mainNav) {
+  mainNav.querySelectorAll("a, .button").forEach((control) => {
+    control.addEventListener("click", () => {
+      if (mobileNavQuery.matches) {
+        closeMobileNav();
+      }
+    });
+  });
+}
+
+const handleMobileNavViewportChange = () => {
+  applyMobileMenuState(true);
+};
+
+if (typeof mobileNavQuery.addEventListener === "function") {
+  mobileNavQuery.addEventListener("change", handleMobileNavViewportChange);
+} else if (typeof mobileNavQuery.addListener === "function") {
+  mobileNavQuery.addListener(handleMobileNavViewportChange);
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeMobileNav();
+  }
+});
+
+applyMobileMenuState(true);
 
 if (sectionLinks.length) {
   const sectionTargets = sectionLinks.map((link) => {
@@ -213,6 +328,9 @@ document.querySelectorAll('a[href*="wa.me"]').forEach((link) => {
 const serviceOptions = [
   { value: "", label: "Select a service" },
   { value: "Wooden Flooring", label: "Wooden Flooring" },
+  { value: "SPC Flooring", label: "SPC Flooring" },
+  { value: "LVT Flooring", label: "LVT Flooring" },
+  { value: "WPC Flooring", label: "WPC Flooring" },
   { value: "Tile Fixing", label: "Tile Fixing" },
   { value: "Marble Installation", label: "Marble Installation" },
   { value: "Stone Installation", label: "Stone Installation" },
@@ -222,6 +340,9 @@ const serviceOptions = [
 
 const serviceDefaults = [
   { match: "/wooden-flooring-dubai", value: "Wooden Flooring" },
+  { match: "/spc-flooring-dubai", value: "SPC Flooring" },
+  { match: "/lvt-flooring-dubai", value: "LVT Flooring" },
+  { match: "/wpc-flooring-dubai", value: "WPC Flooring" },
   { match: "/tile-fixing-dubai", value: "Tile Fixing" },
   { match: "/marble-installation-dubai", value: "Marble Installation" },
   { match: "/stone-installation-dubai", value: "Stone Installation" },
@@ -278,7 +399,7 @@ floatingUi.innerHTML = `
 document.body.appendChild(floatingUi);
 
 const scrollTopButton = document.querySelector("[data-scroll-top]");
-const openWhatsappButton = document.querySelector("[data-open-whatsapp]");
+const openWhatsappButtons = document.querySelectorAll("[data-open-whatsapp]");
 const whatsappTriggerButtons = document.querySelectorAll("[data-whatsapp-trigger]");
 const whatsappBackdrop = document.querySelector("[data-whatsapp-backdrop]");
 const closeWhatsappButtons = document.querySelectorAll("[data-close-whatsapp]");
@@ -389,18 +510,22 @@ const closeWhatsappModal = () => {
   document.body.style.overflow = "";
 };
 
-if (openWhatsappButton) {
-  openWhatsappButton.addEventListener("click", () => openWhatsappModal());
-}
+openWhatsappButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    openWhatsappModal();
+  });
+});
 
 whatsappTriggerButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     event.preventDefault();
     if (button.dataset.whatsappTrigger === "service-request") {
+      const forceServiceSelection = button.dataset.whatsappForceSelection !== "false";
       openWhatsappModal({
         requestType: "service-request",
         preferredService: button.dataset.whatsappService || "",
-        forceServiceSelection: true
+        forceServiceSelection
       });
       return;
     }
@@ -434,7 +559,11 @@ whatsappForms.forEach((form) => {
     const formData = new FormData(form);
     const name = String(formData.get("name") || "").trim();
     const phone = String(formData.get("phone") || "").trim();
+    const email = String(formData.get("email") || "").trim();
+    const area = String(formData.get("area") || "").trim();
     const service = String(formData.get("service") || "").trim();
+    const details = String(formData.get("message") || "").trim();
+    const requestType = form.dataset.whatsappRequest || whatsappModalRequestType;
 
     if (!name || !phone || !service) {
       return;
@@ -442,14 +571,17 @@ whatsappForms.forEach((form) => {
 
     const pageName = document.title;
     const message = [
-      whatsappModalRequestType === "service-request"
+      requestType === "service-request"
         ? "Hello, I would like to request a service."
         : "Hello, I would like to request a quote.",
       `Name: ${name}`,
       `Phone: ${phone}`,
+      email ? `Email: ${email}` : "",
+      area ? `Area: ${area}` : "",
       `Service: ${service}`,
+      details ? `Details: ${details}` : "",
       `Page: ${pageName}`
-    ].join("\n");
+    ].filter(Boolean).join("\n");
 
     openWhatsappMessage(message);
     closeWhatsappModal();

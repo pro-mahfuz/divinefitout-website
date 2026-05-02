@@ -21,8 +21,8 @@ Replace the following placeholder details everywhere they appear:
 
 - Business name if needed
 - Domain: `https://flooring.decovira-interior.com`
-- Phone: `+971 50 000 0000`
-- Email: `hello@flooring.decovira-interior.com`
+- Phone: `+971 56 816 3016`
+- Email: `service@decovira-interior.com`
 - Address: `Warehouse 14, Al Quoz Industrial Area 3, Dubai`
 - Testimonials and project claims
 

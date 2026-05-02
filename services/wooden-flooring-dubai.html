@@ -98,8 +98,8 @@
   <header class="site-header">
     <div class="header-wrap">
       <a class="brand" href="../index.html" aria-label="Decoriva Interior &amp; Services home">
-        <span class="brand-mark">D</span>
-        <span class="brand-text">Decoriva Interior &amp; Services <small>Wood | Tile | Marble | Stone | Carpet</small></span>
+        <img class="brand-mark brand-mark--logo" src="../images/decoriva-logo-full.png" alt="Decoriva Interior &amp; Services logo" width="1280" height="1280">
+        <span class="brand-text">Decoriva Interior &amp; Services <small>Wood-Carpet-Tile-Stone-Marble</small></span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation" data-nav-toggle>
         <span></span>
@@ -112,11 +112,18 @@
           <li class="has-submenu">
             <a data-nav-link data-services-root href="index.html">Our Services</a>
             <ul class="submenu">
-              <li><a data-nav-link href="wooden-flooring-dubai.html">Wooden Flooring</a></li>
-              <li><a data-nav-link href="tile-fixing-dubai.html">Tile Fixing</a></li>
-              <li><a data-nav-link href="marble-installation-dubai.html">Marble Installation</a></li>
-              <li><a data-nav-link href="stone-installation-dubai.html">Stone Installation</a></li>
+              <li class="submenu-group">
+                <a data-nav-link data-wood-root href="wooden-flooring-dubai.html">Wooden Flooring</a>
+                <ul class="submenu submenu--nested">
+                  <li><a data-nav-link href="spc-flooring-dubai.html">SPC Flooring</a></li>
+                  <li><a data-nav-link href="lvt-flooring-dubai.html">LVT Flooring</a></li>
+                  <li><a data-nav-link href="wpc-flooring-dubai.html">WPC Flooring</a></li>
+                </ul>
+              </li>
               <li><a data-nav-link href="carpet-installation-dubai.html">Carpet Installation</a></li>
+              <li><a data-nav-link href="tile-fixing-dubai.html">Tile Fixing</a></li>
+              <li><a data-nav-link href="stone-installation-dubai.html">Stone Installation</a></li>
+              <li><a data-nav-link href="marble-installation-dubai.html">Marble Installation</a></li>
             </ul>
           </li>
           <li><a data-nav-link href="../about.html">About</a></li>
@@ -142,7 +149,7 @@
           <h1>Wooden flooring installation in Dubai for villas, apartments and offices</h1>
           <p>We install engineered wood, parquet, laminate, SPC, LVT and WPC flooring for Dubai interiors that need a warm, durable and premium-looking finish. Our wooden flooring service includes site review, subfloor preparation, leveling, underlay planning, clean cuts, skirting, stair nosing, trim detailing and a finish that suits the space.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#whatsapp">Request wooden flooring service</a>
+            <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Wooden Flooring" data-whatsapp-force-selection="false" href="#whatsapp">Request wooden flooring service</a>
             <a class="button button-secondary" href="#details">View flooring types</a>
           </div>
         </div>
@@ -197,14 +204,18 @@
             <h3>Need pricing for wooden flooring in Dubai?</h3>
             <p>Send room photos, the approximate area and whether the existing floor needs removal so we can guide you faster.</p>
             <div class="inline-actions">
-              <a class="button button-primary" href="#whatsapp">Request Service</a>
+              <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Wooden Flooring" data-whatsapp-force-selection="false" href="#whatsapp">Request Service</a>
             </div>
           </div>
           <div class="contact-card">
             <strong>Related Services</strong>
             <ul class="sidebar-list">
+              <li><a href="spc-flooring-dubai.html">SPC Flooring Dubai</a></li>
+              <li><a href="lvt-flooring-dubai.html">LVT Flooring Dubai</a></li>
+              <li><a href="wpc-flooring-dubai.html">WPC Flooring Dubai</a></li>
               <li><a href="tile-fixing-dubai.html">Tile Fixing Dubai</a></li>
               <li><a href="marble-installation-dubai.html">Marble Installation Dubai</a></li>
+              <li><a href="stone-installation-dubai.html">Stone Installation Dubai</a></li>
               <li><a href="carpet-installation-dubai.html">Carpet Installation Dubai</a></li>
             </ul>
           </div>
@@ -269,7 +280,7 @@
             <div class="service-thumb">
               <img src="../images/wood-type-spc.jpg" alt="SPC flooring installation in a modern Dubai family living room" width="1536" height="1025" loading="lazy">
               <div class="service-thumb-copy">
-                <h3>SPC Flooring</h3>
+                <h3><a href="spc-flooring-dubai.html">SPC Flooring</a></h3>
                 <p>SPC flooring installation for clients who want a rigid, durable wood-look floor with strong day-to-day performance in busy homes and commercial interiors.</p>
               </div>
             </div>
@@ -278,7 +289,7 @@
             <div class="service-thumb">
               <img src="../images/wood-type-lvt.jpg" alt="LVT flooring in a stylish Dubai apartment lounge" width="1536" height="1025" loading="lazy">
               <div class="service-thumb-copy">
-                <h3>LVT Flooring</h3>
+                <h3><a href="lvt-flooring-dubai.html">LVT Flooring</a></h3>
                 <p>LVT flooring work for customers who want a stylish, practical and softer underfoot wood-look vinyl finish for residential or commercial spaces.</p>
               </div>
             </div>
@@ -287,7 +298,7 @@
             <div class="service-thumb">
               <img src="../images/wood-type-wpc.jpg" alt="WPC flooring in a cozy Dubai family bedroom" width="1536" height="1025" loading="lazy">
               <div class="service-thumb-copy">
-                <h3>WPC Flooring</h3>
+                <h3><a href="wpc-flooring-dubai.html">WPC Flooring</a></h3>
                 <p>WPC flooring installation for interiors that need comfort, water resistance and a warmer timber-inspired look with practical maintenance.</p>
               </div>
             </div>
@@ -460,6 +471,9 @@
                 <select id="wood-wa-service" name="service" required>
                   <option value="">Select a service</option>
                   <option value="Wooden Flooring">Wooden Flooring</option>
+                  <option value="SPC Flooring">SPC Flooring</option>
+                  <option value="LVT Flooring">LVT Flooring</option>
+                  <option value="WPC Flooring">WPC Flooring</option>
                   <option value="Tile Fixing">Tile Fixing</option>
                   <option value="Marble Installation">Marble Installation</option>
                   <option value="Stone Installation">Stone Installation</option>
@@ -524,7 +538,7 @@
           <h2>Ready to request wooden flooring installation in Dubai?</h2>
           <p>Send your room details, preferred wood look and approximate area, and we can help you move from product choice to measurement, pricing and installation.</p>
           <div class="inline-actions">
-            <a class="button button-primary" href="#whatsapp">Request Service</a>
+            <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Wooden Flooring" data-whatsapp-force-selection="false" href="#whatsapp">Request Service</a>
             <a class="button button-secondary" href="index.html">View all services</a>
           </div>
         </div>
@@ -536,9 +550,8 @@
     <div class="footer-wrap">
       <div class="footer-grid">
         <div class="footer-column">
-          <a class="brand" href="../index.html">
-            <span class="brand-mark">D</span>
-            <span class="brand-text">Decoriva Interior &amp; Services <small>SEO-ready service website</small></span>
+          <a class="brand brand--footer" href="../index.html" aria-label="Decoriva Interior &amp; Services home">
+            <img class="brand-logo-full" src="../images/decoriva-logo-full.png" alt="Decoriva Interior &amp; Services logo" width="1280" height="1280">
           </a>
           <p>Wooden flooring, tile fixing, marble installation, stone installation and carpet installation services across Dubai.</p>
         </div>
@@ -564,7 +577,7 @@
           <h3>Contact</h3>
           <ul>
             <li><a href="tel:+971568163016">+971 56 816 3016</a></li>
-            <li><a href="mailto:hello@flooring.decovira-interior.com">hello@flooring.decovira-interior.com</a></li>
+            <li><a href="mailto:service@decovira-interior.com">service@decovira-interior.com</a></li>
             <li>Warehouse 14, Al Quoz Industrial Area 3, Dubai</li>
           </ul>
         </div>
