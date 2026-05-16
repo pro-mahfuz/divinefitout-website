@@ -1,5 +1,5 @@
 ﻿User-agent: *
 Allow: /
 
-Sitemap: https://flooring.decovira-interior.com/sitemap.xml
+Sitemap: https://divinefitout.com/sitemap.xml
 
