@@ -226,9 +226,9 @@
             <span class="chip"><strong>Fast response</strong> WhatsApp service requests and site visit scheduling across Dubai</span>
           </div>
         </div>
-        <figure class="hero-visual hero-slider reveal-up reveal-delay-2" data-hero-slider aria-label="Featured flooring and installation services in Dubai">
+        <figure class="hero-visual hero-slider reveal-up reveal-delay-2" data-hero-slider aria-label="Featured flooring and installation services in Dubai" aria-roledescription="carousel">
           <div class="hero-slider-stage">
-            <article class="hero-slide is-active" data-hero-slide>
+            <article class="hero-slide is-active" id="hero-slide-wood" role="tabpanel" aria-labelledby="hero-tab-wood" aria-hidden="false" data-hero-slide>
               <img src="images/service-wooden-flooring.jpg" alt="Engineered wooden flooring installation in a Dubai bedroom and lounge" width="1774" height="887" loading="eager" fetchpriority="high" decoding="async">
               <div class="hero-visual-note hero-slide-note">
                 <strong>Wooden Flooring Installation Dubai</strong>
@@ -236,7 +236,7 @@
                 <a class="button button-secondary" href="services/wooden-flooring-dubai.html">View wooden flooring</a>
               </div>
             </article>
-            <article class="hero-slide" data-hero-slide>
+            <article class="hero-slide" id="hero-slide-tile" role="tabpanel" aria-labelledby="hero-tab-tile" aria-hidden="true" data-hero-slide>
               <img src="images/service-tile-fixing.jpg" alt="Large-format tile fixing in a Dubai bathroom and kitchen interior" width="1838" height="856" loading="lazy" decoding="async" fetchpriority="low">
               <div class="hero-visual-note hero-slide-note">
                 <strong>Tile Fixing Services Dubai</strong>
@@ -244,7 +244,7 @@
                 <a class="button button-secondary" href="services/tile-fixing-dubai.html">View tile fixing</a>
               </div>
             </article>
-            <article class="hero-slide" data-hero-slide>
+            <article class="hero-slide" id="hero-slide-marble" role="tabpanel" aria-labelledby="hero-tab-marble" aria-hidden="true" data-hero-slide>
               <img src="images/service-marble-installation.jpg" alt="Polished marble installation in a Dubai luxury reception interior" width="1717" height="916" loading="lazy" decoding="async" fetchpriority="low">
               <div class="hero-visual-note hero-slide-note">
                 <strong>Marble Installation Dubai</strong>
@@ -252,7 +252,7 @@
                 <a class="button button-secondary" href="services/marble-installation-dubai.html">View marble installation</a>
               </div>
             </article>
-            <article class="hero-slide" data-hero-slide>
+            <article class="hero-slide" id="hero-slide-stone" role="tabpanel" aria-labelledby="hero-tab-stone" aria-hidden="true" data-hero-slide>
               <img src="images/service-stone-installation.jpg" alt="Natural stone floor and wall installation in a Dubai villa courtyard transition space" width="1774" height="887" loading="lazy" decoding="async" fetchpriority="low">
               <div class="hero-visual-note hero-slide-note">
                 <strong>Stone Installation Dubai</strong>
@@ -260,7 +260,7 @@
                 <a class="button button-secondary" href="services/stone-installation-dubai.html">View stone installation</a>
               </div>
             </article>
-            <article class="hero-slide" data-hero-slide>
+            <article class="hero-slide" id="hero-slide-carpet" role="tabpanel" aria-labelledby="hero-tab-carpet" aria-hidden="true" data-hero-slide>
               <img src="images/service-carpet-installation.jpg" alt="Premium carpet installation in a Dubai hotel suite or executive lounge" width="1536" height="1024" loading="lazy" decoding="async" fetchpriority="low">
               <div class="hero-visual-note hero-slide-note">
                 <strong>Carpet Installation Dubai</strong>
@@ -269,14 +269,14 @@
               </div>
             </article>
           </div>
-          <div class="hero-slider-controls" aria-label="Hero banner controls">
+          <div class="hero-slider-controls" role="group" aria-label="Hero banner controls">
             <button class="hero-slider-button" type="button" data-hero-prev aria-label="Previous service banner">&#8592;</button>
-            <div class="hero-slider-dots">
-              <button class="hero-slider-dot is-active" type="button" data-hero-dot aria-label="Show wooden flooring banner"></button>
-              <button class="hero-slider-dot" type="button" data-hero-dot aria-label="Show tile fixing banner"></button>
-              <button class="hero-slider-dot" type="button" data-hero-dot aria-label="Show marble installation banner"></button>
-              <button class="hero-slider-dot" type="button" data-hero-dot aria-label="Show stone installation banner"></button>
-              <button class="hero-slider-dot" type="button" data-hero-dot aria-label="Show carpet installation banner"></button>
+            <div class="hero-slider-dots" role="tablist" aria-label="Choose a featured service banner">
+              <button class="hero-slider-dot is-active" id="hero-tab-wood" role="tab" aria-controls="hero-slide-wood" aria-selected="true" tabindex="0" type="button" data-hero-dot><span class="sr-only">Show wooden flooring banner</span></button>
+              <button class="hero-slider-dot" id="hero-tab-tile" role="tab" aria-controls="hero-slide-tile" aria-selected="false" tabindex="-1" type="button" data-hero-dot><span class="sr-only">Show tile fixing banner</span></button>
+              <button class="hero-slider-dot" id="hero-tab-marble" role="tab" aria-controls="hero-slide-marble" aria-selected="false" tabindex="-1" type="button" data-hero-dot><span class="sr-only">Show marble installation banner</span></button>
+              <button class="hero-slider-dot" id="hero-tab-stone" role="tab" aria-controls="hero-slide-stone" aria-selected="false" tabindex="-1" type="button" data-hero-dot><span class="sr-only">Show stone installation banner</span></button>
+              <button class="hero-slider-dot" id="hero-tab-carpet" role="tab" aria-controls="hero-slide-carpet" aria-selected="false" tabindex="-1" type="button" data-hero-dot><span class="sr-only">Show carpet installation banner</span></button>
             </div>
             <button class="hero-slider-button" type="button" data-hero-next aria-label="Next service banner">&#8594;</button>
           </div>

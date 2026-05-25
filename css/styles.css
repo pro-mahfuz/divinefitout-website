@@ -149,6 +149,18 @@ h3 {
   left: 1rem;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -723,8 +735,8 @@ main {
 }
 
 .hero-slider-button {
-  width: 2.85rem;
-  height: 2.85rem;
+  width: 3rem;
+  height: 3rem;
   border: 0;
   border-radius: 50%;
   background: rgba(17, 22, 19, 0.72);
@@ -744,8 +756,8 @@ main {
 .hero-slider-dots {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.55rem 0.7rem;
+  gap: 0.35rem;
+  padding: 0.3rem 0.45rem;
   border-radius: 999px;
   background: rgba(255, 250, 242, 0.76);
   border: 1px solid rgba(29, 38, 30, 0.08);
@@ -753,20 +765,43 @@ main {
 }
 
 .hero-slider-dot {
-  width: 0.75rem;
-  height: 0.75rem;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
   padding: 0;
   border: 0;
+  border-radius: 999px;
+  background: transparent;
+  transition: background 180ms ease;
+}
+
+.hero-slider-dot::before {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
   border-radius: 50%;
-  background: rgba(29, 38, 30, 0.22);
-  transition: transform 180ms ease, background 180ms ease;
+  background: rgba(29, 38, 30, 0.3);
+  border: 2px solid rgba(29, 38, 30, 0.58);
+  box-shadow: 0 2px 6px rgba(17, 22, 19, 0.16);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
 .hero-slider-dot:hover,
 .hero-slider-dot:focus-visible,
-.hero-slider-dot.is-active {
+.hero-slider-dot.is-active,
+.hero-slider-dot[aria-selected="true"] {
+  background: rgba(159, 86, 50, 0.12);
+}
+
+.hero-slider-dot:hover::before,
+.hero-slider-dot:focus-visible::before,
+.hero-slider-dot.is-active::before,
+.hero-slider-dot[aria-selected="true"]::before {
   background: var(--accent);
-  transform: scale(1.1);
+  border-color: var(--accent-deep);
+  transform: scale(1.08);
 }
 
 .hero-panel-top {
@@ -1858,23 +1893,28 @@ textarea {
     right: 0.75rem;
     left: 0.75rem;
     bottom: auto;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.35rem;
   }
 
   .hero-slider-button {
-    width: 2.45rem;
-    height: 2.45rem;
+    width: 3rem;
+    height: 3rem;
     font-size: 0.95rem;
   }
 
   .hero-slider-dots {
-    gap: 0.35rem;
-    padding: 0.45rem 0.6rem;
+    order: 3;
+    flex: 0 0 100%;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.26rem 0.38rem;
   }
 
   .hero-slider-dot {
-    width: 0.68rem;
-    height: 0.68rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .service-jump {
@@ -2000,25 +2040,23 @@ textarea {
     right: 0.65rem;
     left: 0.65rem;
     bottom: auto;
-    gap: 0.45rem;
+    gap: 0.4rem;
   }
 
   .hero-slider-button {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 3rem;
+    height: 3rem;
     font-size: 0.88rem;
   }
 
   .hero-slider-dots {
-    flex: 1 1 auto;
-    justify-content: center;
-    gap: 0.28rem;
-    padding: 0.38rem 0.5rem;
+    gap: 0.2rem;
+    padding: 0.24rem 0.26rem;
   }
 
   .hero-slider-dot {
-    width: 0.62rem;
-    height: 0.62rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   .floating-action--whatsapp {

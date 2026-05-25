@@ -28,6 +28,7 @@ if (navToggle && mainNav) {
 if (heroSlider) {
   const heroSlides = Array.from(heroSlider.querySelectorAll("[data-hero-slide]"));
   const heroDots = Array.from(heroSlider.querySelectorAll("[data-hero-dot]"));
+  const heroDotList = heroSlider.querySelector(".hero-slider-dots");
   const heroPrev = heroSlider.querySelector("[data-hero-prev]");
   const heroNext = heroSlider.querySelector("[data-hero-next]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -37,6 +38,27 @@ if (heroSlider) {
   if (activeHeroIndex < 0) {
     activeHeroIndex = 0;
   }
+
+  if (heroDotList) {
+    heroDotList.setAttribute("role", "tablist");
+    heroDotList.setAttribute("aria-label", heroDotList.getAttribute("aria-label") || "Choose a featured service banner");
+  }
+
+  heroSlides.forEach((slide, slideIndex) => {
+    if (!slide.id) {
+      slide.id = `hero-slide-${slideIndex + 1}`;
+    }
+    slide.setAttribute("role", "tabpanel");
+  });
+
+  heroDots.forEach((dot, dotIndex) => {
+    if (!dot.id) {
+      dot.id = `hero-slide-tab-${dotIndex + 1}`;
+    }
+    dot.setAttribute("role", "tab");
+    dot.setAttribute("aria-controls", heroSlides[dotIndex]?.id || "");
+    heroSlides[dotIndex]?.setAttribute("aria-labelledby", dot.id);
+  });
 
   const setHeroSlide = (index) => {
     if (!heroSlides.length) return;
@@ -52,8 +74,15 @@ if (heroSlider) {
     heroDots.forEach((dot, dotIndex) => {
       const isActive = dotIndex === activeHeroIndex;
       dot.classList.toggle("is-active", isActive);
-      dot.setAttribute("aria-pressed", String(isActive));
+      dot.setAttribute("aria-selected", String(isActive));
+      dot.removeAttribute("aria-pressed");
+      dot.tabIndex = isActive ? 0 : -1;
     });
+  };
+
+  const focusHeroDot = (index) => {
+    const nextDot = heroDots[(index + heroDots.length) % heroDots.length];
+    nextDot?.focus();
   };
 
   const stopHeroAutoplay = () => {
@@ -84,6 +113,41 @@ if (heroSlider) {
     dot.addEventListener("click", () => {
       setHeroSlide(dotIndex);
       startHeroAutoplay();
+    });
+
+    dot.addEventListener("keydown", (event) => {
+      if (!heroDots.length) return;
+
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        event.preventDefault();
+        const nextIndex = (dotIndex + 1) % heroDots.length;
+        setHeroSlide(nextIndex);
+        focusHeroDot(nextIndex);
+        startHeroAutoplay();
+      }
+
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        event.preventDefault();
+        const nextIndex = (dotIndex - 1 + heroDots.length) % heroDots.length;
+        setHeroSlide(nextIndex);
+        focusHeroDot(nextIndex);
+        startHeroAutoplay();
+      }
+
+      if (event.key === "Home") {
+        event.preventDefault();
+        setHeroSlide(0);
+        focusHeroDot(0);
+        startHeroAutoplay();
+      }
+
+      if (event.key === "End") {
+        event.preventDefault();
+        const nextIndex = heroDots.length - 1;
+        setHeroSlide(nextIndex);
+        focusHeroDot(nextIndex);
+        startHeroAutoplay();
+      }
     });
   });
 
