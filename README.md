@@ -1,4 +1,4 @@
-﻿# Decoriva Interior & Services Website
+# Devine Fit-out & Renovation Website
 
 Static multi-page SEO website for a Dubai flooring business.
 
@@ -32,4 +32,3 @@ Replace the following placeholder details everywhere they appear:
 - Add real project photos and optimized alt text
 - Update schema with your exact business details
 - Submit the sitemap after deployment
-
