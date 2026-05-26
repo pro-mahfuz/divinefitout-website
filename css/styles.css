@@ -404,40 +404,33 @@ h3 {
   white-space: nowrap;
 }
 
-.main-nav .submenu .submenu-group {
+.main-nav .submenu .submenu-item--nested {
   list-style: none;
 }
 
-.main-nav .submenu .submenu-group > a {
-  width: 100%;
-  justify-content: flex-start;
-}
-
-.main-nav .submenu .submenu--nested {
-  position: static;
-  min-width: 0;
-  padding: 0.2rem 0 0.1rem 1rem;
-  margin-top: 0.1rem;
-  list-style: none;
-  display: grid;
-  gap: 0.2rem;
-  border: 0;
-  box-shadow: none;
-  background: transparent;
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-}
-
-.main-nav .submenu .submenu--nested a {
-  padding: 0.62rem 0.95rem;
+.main-nav .submenu .submenu-item--nested a {
+  position: relative;
+  padding: 0.62rem 0.95rem 0.62rem 1.55rem;
   font-size: 0.9rem;
   color: var(--muted);
 }
 
-.main-nav .submenu .submenu--nested a:hover,
-.main-nav .submenu .submenu--nested a:focus-visible,
-.main-nav .submenu .submenu--nested a.is-active {
+.main-nav .submenu .submenu-item--nested a::before {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  top: 50%;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.6;
+  transform: translateY(-50%);
+}
+
+.main-nav .submenu .submenu-item--nested a:hover,
+.main-nav .submenu .submenu-item--nested a:focus-visible,
+.main-nav .submenu .submenu-item--nested a.is-active {
   color: var(--accent-deep);
 }
 
@@ -575,20 +568,34 @@ main {
   gap: 1.4rem;
 }
 
-.hero-copy h1,
+.hero-copy h1 {
+  display: block;
+  max-width: 12ch;
+  padding: 0;
+  background: none;
+  text-shadow: none;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.hero-copy h1::after {
+  content: "";
+  display: block;
+  width: clamp(4.5rem, 18vw, 8rem);
+  height: 0.42rem;
+  margin-top: 0.75rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold), var(--accent-soft));
+}
+
 .page-hero-copy h1 {
   display: inline;
   padding: 0 0.16em 0.08em 0.04em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0 0%, rgba(190, 159, 89, 0.88) 20% 100%);
-}
-
-.hero-copy h1 {
-  text-shadow: 0 3px 14px rgba(255, 250, 242, 0.18);
-}
-
-.page-hero-copy h1 {
   text-shadow: 0 4px 18px rgba(0, 0, 0, 0.44);
 }
 
@@ -682,6 +689,11 @@ main {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
+}
+
+.hero-slide picture {
+  display: block;
+  height: 100%;
 }
 
 .hero-slide img {
@@ -923,6 +935,10 @@ main {
   position: relative;
 }
 
+.service-thumb picture {
+  display: block;
+}
+
 .service-thumb img {
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -1066,6 +1082,11 @@ main {
 }
 
 .pill-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.pill-list-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
@@ -1820,34 +1841,10 @@ textarea {
     white-space: normal;
   }
 
-  .main-nav .submenu .submenu-group {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    gap: 0.2rem;
-  }
-
-  .main-nav .submenu .submenu-group > a {
-    width: auto;
-    justify-content: flex-start;
-    padding-inline: 0.95rem 0.45rem;
-  }
-
-  .main-nav .submenu .submenu--nested {
-    grid-column: 1 / -1;
-    display: none;
-    padding: 0 0 0.2rem 0.85rem;
-    margin-top: -0.05rem;
-  }
-
-  .main-nav .submenu .submenu-group.is-expanded > .submenu--nested {
-    display: grid;
-  }
-
-  .main-nav .submenu .submenu--nested a {
+  .main-nav .submenu .submenu-item--nested a {
     min-height: 2.65rem;
     padding-block: 0.55rem;
-    padding-inline: 0.95rem;
+    padding-inline: 1.45rem 0.95rem;
   }
 
   .main-nav .button {
@@ -1976,8 +1973,7 @@ textarea {
   .topbar-wrap,
   .hero-trust,
   .hero-actions,
-  .inline-actions,
-  .pill-list {
+  .inline-actions {
     flex-direction: column;
     align-items: stretch;
   }

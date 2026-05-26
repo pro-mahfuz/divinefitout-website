@@ -208,7 +208,6 @@ const navLinks = document.querySelectorAll("[data-nav-link]");
 const servicesRootLinks = document.querySelectorAll("[data-services-root]");
 const woodRootLinks = document.querySelectorAll("[data-wood-root]");
 const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
-const woodServicePaths = ["/wooden-flooring-dubai", "/spc-flooring-dubai", "/lvt-flooring-dubai", "/wpc-flooring-dubai"];
 
 const syncMainNavA11yState = () => {
   if (!mainNav) return;
@@ -250,7 +249,7 @@ const closeMobileNav = (restoreFocus = false) => {
 };
 
 const expandableMenuItems = mainNav
-  ? Array.from(mainNav.querySelectorAll(".has-submenu, .submenu-group")).filter((item) => getDirectChildByClass(item, "submenu"))
+  ? Array.from(mainNav.querySelectorAll(".has-submenu")).filter((item) => getDirectChildByClass(item, "submenu"))
   : [];
 const desktopHoverMenus = mainNav
   ? Array.from(mainNav.querySelectorAll(".has-submenu")).filter((item) => getDirectChildByClass(item, "submenu"))
@@ -361,9 +360,7 @@ const applyMobileMenuState = (reset = false) => {
 
   expandableMenuItems.forEach((item) => {
     const initialized = item.dataset.mobileMenuReady === "true";
-    const shouldExpand = item.classList.contains("has-submenu")
-      ? currentPath.includes("/services")
-      : woodServicePaths.some((match) => currentPath.includes(match));
+    const shouldExpand = currentPath.includes("/services");
 
     if (reset || !initialized) {
       setSubmenuExpanded(item, shouldExpand);
