@@ -6,8 +6,35 @@ const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
   return normalized === "" ? "/" : normalized;
 };
+const safeQuerySelector = (selector, root = document) => {
+  try {
+    return root.querySelector(selector);
+  } catch {
+    return null;
+  }
+};
 const getDirectChildByClass = (parent, className) => Array.from(parent.children).find((child) => child.classList?.contains(className));
 const getDirectAnchor = (parent) => Array.from(parent.children).find((child) => child.tagName === "A");
+const addMediaQueryChangeListener = (mediaQuery, handler) => {
+  if (!mediaQuery || typeof handler !== "function") return;
+
+  if (typeof mediaQuery.addEventListener === "function") {
+    mediaQuery.addEventListener("change", handler);
+    return;
+  }
+
+  if (typeof mediaQuery.addListener === "function") {
+    mediaQuery.addListener(handler);
+  }
+};
+const queueFrame = (callback) => {
+  if (typeof window.requestAnimationFrame === "function") {
+    return window.requestAnimationFrame(callback);
+  }
+
+  return window.setTimeout(callback, 16);
+};
+const isSelectField = (field) => Boolean(field && typeof field.tagName === "string" && field.tagName.toUpperCase() === "SELECT" && field.options);
 const setCurrentState = (element, value) => {
   if (!element) return;
   if (value) {
@@ -193,11 +220,7 @@ if (heroSlider) {
     startHeroAutoplay();
   };
 
-  if (typeof reduceMotion.addEventListener === "function") {
-    reduceMotion.addEventListener("change", handleReduceMotionChange);
-  } else if (typeof reduceMotion.addListener === "function") {
-    reduceMotion.addListener(handleReduceMotionChange);
-  }
+  addMediaQueryChangeListener(reduceMotion, handleReduceMotionChange);
 
   setHeroSlide(activeHeroIndex);
   startHeroAutoplay();
@@ -435,11 +458,7 @@ const handleMobileNavViewportChange = () => {
   applyMobileMenuState(true);
 };
 
-if (typeof mobileNavQuery.addEventListener === "function") {
-  mobileNavQuery.addEventListener("change", handleMobileNavViewportChange);
-} else if (typeof mobileNavQuery.addListener === "function") {
-  mobileNavQuery.addListener(handleMobileNavViewportChange);
-}
+addMediaQueryChangeListener(mobileNavQuery, handleMobileNavViewportChange);
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
@@ -458,7 +477,7 @@ if (sectionLinks.length) {
     const hash = link.getAttribute("href");
     if (!hash || !hash.startsWith("#")) return null;
 
-    const section = document.querySelector(hash);
+    const section = safeQuerySelector(hash);
     if (!section) return null;
 
     return { hash, link, section };
@@ -503,7 +522,7 @@ if (sectionLinks.length) {
     if (sectionScrollTicking) return;
 
     sectionScrollTicking = true;
-    window.requestAnimationFrame(() => {
+    queueFrame(() => {
       updateActiveSectionLink();
       sectionScrollTicking = false;
     });
@@ -673,6 +692,13 @@ const setWhatsappServiceDefault = (form) => {
   if (!serviceField) return;
 
   const preferredService = form.dataset.whatsappDefault || currentService || "";
+  if (!isSelectField(serviceField)) {
+    if (preferredService) {
+      serviceField.value = preferredService;
+    }
+    return;
+  }
+
   const hasOption = Array.from(serviceField.options).some((option) => option.value === preferredService);
 
   if (preferredService && hasOption) {
@@ -707,7 +733,16 @@ if (scrollTopButton) {
 }
 
 const openWhatsappMessage = (message) => {
-  window.open(`https://wa.me/971568163016?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+  const whatsappUrl = `https://wa.me/971568163016?text=${encodeURIComponent(message)}`;
+
+  if (typeof window.open === "function") {
+    const popup = window.open(whatsappUrl, "_blank", "noopener");
+    if (popup) {
+      return;
+    }
+  }
+
+  window.location.href = whatsappUrl;
 };
 
 const buildSiteVisitMessage = (button) => {
@@ -750,6 +785,11 @@ const setWhatsappModalMode = ({ requestType = "quote", preferredService = "", fo
   }
 
   const fallbackService = preferredService || currentService || "";
+  if (!isSelectField(whatsappModalServiceField)) {
+    whatsappModalServiceField.value = fallbackService;
+    return;
+  }
+
   const hasOption = Array.from(whatsappModalServiceField.options).some((option) => option.value === fallbackService);
   whatsappModalServiceField.value = hasOption ? fallbackService : "";
 };
@@ -851,7 +891,11 @@ whatsappForms.forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    if (!form.reportValidity()) {
+    if (typeof form.reportValidity === "function" && !form.reportValidity()) {
+      return;
+    }
+
+    if (typeof form.reportValidity !== "function" && typeof form.checkValidity === "function" && !form.checkValidity()) {
       return;
     }
 

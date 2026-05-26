@@ -59,6 +59,7 @@ body::before {
 img {
   max-width: 100%;
   display: block;
+  height: auto;
 }
 
 a {
@@ -466,6 +467,8 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 0.75rem;
+  min-width: 3rem;
+  min-height: 3rem;
   flex-direction: column;
   gap: 0.22rem;
 }
@@ -668,6 +671,7 @@ main {
   inset: 0;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: scale(1.02);
   transition: opacity 360ms ease, transform 360ms ease, visibility 360ms ease;
 }
@@ -682,12 +686,13 @@ main {
 .hero-slide.is-active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
   transform: scale(1);
 }
 
 .hero-slide picture {
   display: block;
-  height: 100%;
 }
 
 .hero-slide img {
@@ -1144,11 +1149,15 @@ main {
 
 .faq-card summary {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
   padding: 1.15rem 1.25rem;
   list-style: none;
   font-weight: 700;
   color: var(--ink);
   position: relative;
+  padding-right: 3.5rem;
 }
 
 .faq-card summary::-webkit-details-marker {
@@ -1530,8 +1539,8 @@ textarea {
 }
 
 .whatsapp-close {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.9rem;
+  height: 2.9rem;
   border-radius: 50%;
   border: 1px solid rgba(29, 38, 30, 0.1);
   background: rgba(255, 255, 255, 0.78);
@@ -2011,9 +2020,69 @@ textarea {
     width: 100%;
   }
 
+  .topbar-wrap > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font-size: 0;
+  }
+
+  .topbar-wrap > div:last-child a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.85rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 248, 237, 0.12);
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
   .button,
   button.button {
     width: 100%;
+  }
+
+  .breadcrumb {
+    gap: 0.45rem;
+  }
+
+  .breadcrumb a,
+  .breadcrumb > span:last-child {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 250, 242, 0.74);
+  }
+
+  .breadcrumb > span:not(:last-child) {
+    display: none;
+  }
+
+  .service-jump-wrap a {
+    min-height: 2.85rem;
+    padding-block: 0.65rem;
+    padding-inline: 1rem;
+  }
+
+  .contact-card p > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-block: 0.3rem;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-column a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-block: 0.3rem;
   }
 
   .floating-tools {
@@ -2022,12 +2091,30 @@ textarea {
   }
 
   .hero-slider-stage {
-    min-height: 20.75rem;
+    display: grid;
+    min-height: 0;
     width: 100vw;
   }
 
+  .hero-slide {
+    position: relative;
+    inset: auto;
+    grid-area: 1 / 1;
+  }
+
+  .hero-slide picture {
+    height: auto;
+  }
+
   .hero-visual img {
-    min-height: 20.75rem;
+    height: auto;
+    min-height: 0;
+  }
+
+  .service-thumb img,
+  .service-card--overlay .service-thumb img {
+    height: auto;
+    aspect-ratio: auto;
   }
 
   .hero-visual.hero-slider {
