@@ -575,8 +575,10 @@ const serviceDefaults = [
 
 const currentService = serviceDefaults.find((item) => currentPath.includes(item.match))?.value || "";
 
-const floatingUi = document.createElement("div");
-floatingUi.innerHTML = `
+const floatingUi = document.querySelector("[data-floating-ui-root]") || document.createElement("div");
+if (!floatingUi.hasAttribute("data-floating-ui-root")) {
+  floatingUi.setAttribute("data-floating-ui-root", "");
+  floatingUi.innerHTML = `
   <div class="floating-tools" aria-label="Quick actions">
     <button class="floating-action floating-action--scroll" type="button" data-scroll-top aria-label="Scroll to top">
       <span class="floating-icon">&#8593;</span>
@@ -619,8 +621,8 @@ floatingUi.innerHTML = `
     </div>
   </div>
 `;
-
-document.body.appendChild(floatingUi);
+  document.body.appendChild(floatingUi);
+}
 
 const scrollTopButton = document.querySelector("[data-scroll-top]");
 const openWhatsappButtons = document.querySelectorAll("[data-open-whatsapp]");

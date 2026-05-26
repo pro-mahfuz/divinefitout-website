@@ -61,14 +61,6 @@ img {
   display: block;
 }
 
-@supports (content-visibility: auto) {
-  .section,
-  .site-footer {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 960px;
-  }
-}
-
 a {
   color: inherit;
   text-decoration: none;
