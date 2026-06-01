@@ -1,0 +1,13 @@
+{
+  "name": "divine-website",
+  "private": true,
+  "scripts": {
+    "build:css": "esbuild css/styles.css --minify --legal-comments=none --outfile=css/styles.min.css",
+    "build:js": "esbuild js/site.js --minify --legal-comments=none --outfile=js/site.min.js",
+    "build:assets": "npm run build:css && npm run build:js",
+    "watch:assets": "node scripts/watch-assets.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  }
+}

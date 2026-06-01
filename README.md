@@ -21,7 +21,7 @@ Replace the following placeholder details everywhere they appear:
 
 - Business name if needed
 - Domain: `https://divinefitout.com`
-- Phone: `+971 56 816 3016`
+- Phones: `+971 56 636 3850`, `+971 56 234 0231`, `+971 56 816 3016`
 - Email: `service@divinefitout.com`
 - Address: `299992 Duabi, United Arab Emirates`
 - Testimonials and project claims
@@ -32,3 +32,9 @@ Replace the following placeholder details everywhere they appear:
 - Add real project photos and optimized alt text
 - Update schema with your exact business details
 - Submit the sitemap after deployment
+
+## Asset build
+
+- Install dependencies with `npm install`
+- Rebuild minified assets once with `npm run build:assets`
+- Watch `css/styles.css` and `js/site.js` and auto-regenerate minified files with `npm run watch:assets`

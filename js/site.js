@@ -2,6 +2,7 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const mainNav = document.querySelector("[data-main-nav]");
 const heroSlider = document.querySelector("[data-hero-slider]");
 const mobileNavQuery = window.matchMedia("(max-width: 820px)");
+const mediumNavQuery = window.matchMedia("(max-width: 1040px)");
 const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
   return normalized === "" ? "/" : normalized;
@@ -254,11 +255,42 @@ const updateNavToggleLabel = () => {
   navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
 };
 
+const mountRelatedServicesBeforeFaq = () => {
+  const faqSection = document.querySelector("section.service-anchor#faq");
+  const relatedCard = Array.from(document.querySelectorAll(".sticky-panel .contact-card")).find((card) => {
+    const label = card.querySelector("strong");
+    return label && label.textContent.trim().toLowerCase() === "related services";
+  });
+
+  if (!faqSection || !relatedCard) return;
+  relatedCard.classList.add("related-services-source");
+
+  let mobileRelatedSection = document.querySelector("[data-related-services-mobile]");
+  if (!mobileRelatedSection) {
+    mobileRelatedSection = document.createElement("section");
+    mobileRelatedSection.className = "section section-tight related-services-mobile";
+    mobileRelatedSection.dataset.relatedServicesMobile = "";
+
+    const wrap = document.createElement("div");
+    wrap.className = "section-wrap";
+    mobileRelatedSection.append(wrap);
+    faqSection.before(mobileRelatedSection);
+  }
+
+  if (!mobileRelatedSection.firstElementChild?.firstElementChild) {
+    const clonedCard = relatedCard.cloneNode(true);
+    clonedCard.classList.add("related-services-mobile-card");
+    mobileRelatedSection.firstElementChild?.append(clonedCard);
+  }
+};
+
 const syncBodyScrollLock = () => {
   document.body.classList.toggle("nav-open", Boolean(mainNav && mainNav.classList.contains("is-open") && mobileNavQuery.matches));
   syncMainNavA11yState();
   updateNavToggleLabel();
 };
+
+mountRelatedServicesBeforeFaq();
 
 const closeMobileNav = (restoreFocus = false) => {
   if (!mainNav || !navToggle) return;
@@ -565,7 +597,7 @@ document.querySelectorAll("[data-demo-form]").forEach((form) => {
 });
 
 document.querySelectorAll('a[href*="wa.me"]').forEach((link) => {
-  link.setAttribute("href", "https://wa.me/971568163016");
+  link.setAttribute("href", "https://wa.me/971566363850");
 });
 
 const serviceOptions = [
@@ -602,7 +634,7 @@ if (!floatingUi.hasAttribute("data-floating-ui-root")) {
     <button class="floating-action floating-action--scroll" type="button" data-scroll-top aria-label="Scroll to top">
       <span class="floating-icon">&#8593;</span>
     </button>
-    <a class="floating-action floating-action--call" href="tel:+971568163016" data-call-action aria-label="Call +971 56 816 3016">
+    <a class="floating-action floating-action--call" href="tel:+971566363850" data-call-action aria-label="Call +971 56 636 3850">
       <span class="floating-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" focusable="false">
           <path fill="currentColor" d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.56 3.52.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.19 2.41.56 3.52a1 1 0 0 1-.24 1.01l-2.2 2.26Z"/>
@@ -654,9 +686,9 @@ const floatingTools = floatingUi.querySelector(".floating-tools");
 if (floatingTools && !floatingTools.querySelector("[data-call-action]")) {
   const callAction = document.createElement("a");
   callAction.className = "floating-action floating-action--call";
-  callAction.href = "tel:+971568163016";
+  callAction.href = "tel:+971566363850";
   callAction.setAttribute("data-call-action", "");
-  callAction.setAttribute("aria-label", "Call +971 56 816 3016");
+  callAction.setAttribute("aria-label", "Call +971 56 636 3850");
   callAction.innerHTML = `
       <span class="floating-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" focusable="false">
@@ -758,7 +790,7 @@ if (scrollTopButton) {
 }
 
 const openWhatsappMessage = (message) => {
-  const whatsappUrl = `https://wa.me/971568163016?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/971566363850?text=${encodeURIComponent(message)}`;
 
   if (typeof window.open === "function") {
     const popup = window.open(whatsappUrl, "_blank", "noopener");

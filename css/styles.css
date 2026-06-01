@@ -25,8 +25,8 @@
   --text-lg: clamp(1.02rem, 0.22vw + 0.98rem, 1.08rem);
   --text-xl: clamp(1.16rem, 0.72vw + 1rem, 1.32rem);
   --title-sm: clamp(1.34rem, 1.05vw + 1.08rem, 1.68rem);
-  --display-sm: clamp(2.35rem, 4.2vw + 1rem, 4rem);
-  --display-lg: clamp(2.9rem, 6vw + 1rem, 5.4rem);
+  --display-sm: clamp(1.95rem, 2.85vw, 2.9rem);
+  --display-lg: clamp(2.8rem, 5vw, 4.85rem);
 }
 
 *,
@@ -556,7 +556,7 @@ main {
 }
 
 .section {
-  padding: 5.75rem 0;
+  padding: 2.75rem 0;
 }
 
 .section-tight {
@@ -577,8 +577,8 @@ main {
 }
 
 .hero {
-  margin-top: 1.5rem;
-  padding: 0 0 4rem;
+  margin-top: 0;
+  padding: 0 0 0;
 }
 
 .hero-grid {
@@ -633,7 +633,7 @@ main {
 .page-hero .hero-copy h1 {
   max-width: 15ch;
   font-family: var(--font-serif);
-  font-size: clamp(2.65rem, 4.4vw, 4.1rem);
+  font-size: clamp(2.5rem, 3.35vw, 3.6rem);
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.033em;
@@ -661,7 +661,7 @@ main {
 
 .page-home .section-heading h2 {
   max-width: 45ch;
-  font-size: clamp(2.05rem, 3.3vw, 3.1rem);
+  font-size: clamp(1.95rem, 2.85vw, 2.8rem);
   line-height: 1.02;
   letter-spacing: -0.025em;
 }
@@ -1453,6 +1453,10 @@ main {
   padding: 0 1.25rem 1.15rem;
 }
 
+.related-services-mobile {
+  display: none;
+}
+
 .cta-banner {
   display: grid;
   gap: 1rem;
@@ -1490,6 +1494,23 @@ main {
 
 .page-contact-hero {
   padding-top: 1.9rem;
+}
+
+.page-contact h2 {
+  font-size: clamp(1.9rem, 2.35vw, 2.7rem);
+}
+
+.page-contact .hero-copy h1 {
+  max-width: 40ch;
+  font-size: clamp(2.6rem, 3.8vw, 3.7rem);
+}
+
+.page-contact .hero-copy .breadcrumb {
+  margin-bottom: 1rem;
+}
+
+.page-contact .hero-copy p {
+  max-width: 100%;
 }
 
 .page-hero-copy {
@@ -1987,6 +2008,22 @@ textarea {
 }
 
 @media (max-width: 1040px) {
+  .page-contact .hero-copy .breadcrumb {
+    margin-top: 3rem;
+  }
+
+  .section-wrap {
+    padding: 2rem 0rem;
+  }
+
+  .related-services-mobile {
+    display: block;
+  }
+
+  .sticky-panel .contact-card.related-services-source {
+    display: none;
+  }
+
   .hero-grid,
   .feature-layout,
   .content-columns,
@@ -2261,7 +2298,7 @@ textarea {
 
   .hero {
     margin-top: -1.1rem;
-    padding: 0 0 4.5rem;
+    padding: 0 0 0;
   }
 
   .section {
@@ -2314,7 +2351,7 @@ textarea {
   }
 
   .page-home .hero-copy h1 {
-    max-width: 16.5ch;
+    max-width: 20.5ch;
     font-size: clamp(2.1rem, 7.4vw, 2.85rem);
     line-height: 1.02;
     letter-spacing: -0.025em;
@@ -2326,7 +2363,7 @@ textarea {
   }
 
   .page-home .section-heading h2 {
-    font-size: clamp(1.9rem, 7vw, 2.35rem);
+    font-size: clamp(1.82rem, 6.4vw, 2.3rem);
     line-height: 1.04;
   }
 
@@ -2337,10 +2374,12 @@ textarea {
 
   .page-hero .hero-copy h1 {
     max-width: 14ch;
+    font-size: clamp(2.15rem, 7.4vw, 3rem);
+    line-height: 1.02;
   }
 
   .page-wood-flooring .page-hero-copy h1 {
-    font-size: clamp(2.15rem, 7.4vw, 2.85rem);
+    font-size: clamp(2.1rem, 7.1vw, 2.9rem);
     line-height: 1.02;
   }
 
@@ -2606,10 +2645,10 @@ textarea {
   }
 
   h1 {
-    font-size: clamp(2.6rem, 14vw, 4rem);
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
   }
 
   h2 {
-    font-size: clamp(2rem, 10vw, 2.8rem);
+    font-size: clamp(1.8rem, 7.2vw, 2.4rem);
   }
 }
