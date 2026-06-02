@@ -116,7 +116,7 @@ html {
 body {
   margin: 0;
   font-size: var(--text-base);
-  font-family: var(--font-sans);
+  font-family: "Manrope", Arial, sans-serif;
   color: var(--ink);
   background:
     radial-gradient(circle at top left, rgba(190, 159, 89, 0.18), transparent 32%),
@@ -181,7 +181,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-family: var(--font-serif);
+  font-family: "Libre Baskerville", Georgia, serif;
   line-height: 1.02;
   letter-spacing: -0.028em;
   color: var(--ink);
@@ -277,7 +277,7 @@ h4 {
   background: #7b3f22;
   color: #fffaf2;
   font-size: var(--text-sm);
-  font-family: var(--font-sans);
+  font-family: "Libre Baskerville", Georgia, serif;
 }
 
 .topbar-wrap {
