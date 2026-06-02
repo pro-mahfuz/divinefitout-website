@@ -1432,7 +1432,7 @@ main {
 .pill-list-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
+  gap: 0.5rem;
 }
 
 .pill-list span {
