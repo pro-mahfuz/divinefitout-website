@@ -1759,6 +1759,9 @@ main {
 }
 
 .map-card-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
   overflow: hidden;
   min-height: clamp(20rem, 44vw, 28rem);
   border-radius: calc(var(--radius-md) - 4px);
@@ -1766,11 +1769,44 @@ main {
   background: rgba(255, 250, 242, 0.84);
 }
 
+.map-embed-placeholder {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: inherit;
+  padding: 1.6rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at top, rgba(190, 159, 89, 0.18), transparent 48%),
+    linear-gradient(180deg, rgba(255, 250, 242, 0.96), rgba(244, 239, 230, 0.92));
+}
+
+.map-embed-placeholder strong {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.map-embed-placeholder p {
+  max-width: 32ch;
+  margin: 0;
+}
+
+.map-card-frame.is-loaded .map-embed-placeholder,
+.map-embed-placeholder[hidden] {
+  display: none;
+}
+
 .map-card-frame iframe {
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
+}
+
+.map-card-frame iframe[hidden] {
+  display: none;
 }
 
 .map-card-copy {

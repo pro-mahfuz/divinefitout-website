@@ -35,6 +35,13 @@ const queueFrame = (callback) => {
 
   return window.setTimeout(callback, 16);
 };
+const scheduleIdle = (callback, timeout = 1200) => {
+  if (typeof window.requestIdleCallback === "function") {
+    return window.requestIdleCallback(callback, { timeout });
+  }
+
+  return window.setTimeout(callback, 180);
+};
 const isSelectField = (field) => Boolean(field && typeof field.tagName === "string" && field.tagName.toUpperCase() === "SELECT" && field.options);
 const setCurrentState = (element, value) => {
   if (!element) return;
@@ -674,6 +681,33 @@ document.querySelectorAll('a[href*="wa.me"]').forEach((link) => {
   link.setAttribute("href", "https://wa.me/971566363850");
 });
 
+const loadDeferredIframe = (iframe) => {
+  if (!iframe || iframe.dataset.loaded === "true") return;
+
+  const deferredSrc = iframe.dataset.src;
+  if (!deferredSrc) return;
+
+  iframe.src = deferredSrc;
+  iframe.hidden = false;
+  iframe.dataset.loaded = "true";
+
+  const frame = iframe.closest(".map-card-frame");
+  frame?.classList.add("is-loaded");
+  frame?.querySelector("[data-iframe-placeholder]")?.setAttribute("hidden", "");
+};
+
+document.querySelectorAll("[data-load-iframe]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const targetId = button.dataset.target;
+    const iframe = targetId
+      ? document.getElementById(targetId)
+      : button.closest(".map-card-frame")?.querySelector("[data-deferred-iframe]");
+
+    if (!(iframe instanceof HTMLIFrameElement)) return;
+    loadDeferredIframe(iframe);
+  });
+});
+
 const serviceOptions = [
   { value: "", label: "Select a service" },
   { value: "Wooden Flooring", label: "Wooden Flooring" },
@@ -699,6 +733,10 @@ const serviceDefaults = [
 ];
 
 const currentService = serviceDefaults.find((item) => currentPath.includes(item.match))?.value || "";
+
+const initFloatingUiAndWhatsapp = () => {
+  if (initFloatingUiAndWhatsapp.ready) return;
+  initFloatingUiAndWhatsapp.ready = true;
 
 const floatingUi = document.querySelector("[data-floating-ui-root]") || document.createElement("div");
 if (!floatingUi.hasAttribute("data-floating-ui-root")) {
@@ -1060,4 +1098,10 @@ whatsappForms.forEach((form) => {
     openWhatsappMessage(message);
     closeWhatsappModal();
   });
+});
+};
+
+scheduleIdle(initFloatingUiAndWhatsapp);
+["pointerdown", "keydown", "focusin"].forEach((eventName) => {
+  document.addEventListener(eventName, initFloatingUiAndWhatsapp, { once: true, passive: eventName === "pointerdown" });
 });
