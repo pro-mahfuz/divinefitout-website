@@ -1,69 +1,73 @@
-import { spawn } from "node:child_process";
-import { resolve } from "node:path";
+import * as esbuild from "esbuild";
+import { formatBuildSummary, refreshAssetVersions } from "./assets-lib.mjs";
 
-const esbuildBin = process.platform === "win32"
-  ? resolve("node_modules", ".bin", "esbuild.cmd")
-  : resolve("node_modules", ".bin", "esbuild");
+let isShuttingDown = false;
+let refreshTimer = null;
 
-const tasks = [
-  {
-    label: "css",
-    args: [
-      "css/styles.css",
-      "--minify",
-      "--legal-comments=none",
-      "--outfile=css/styles.min.css",
-      "--watch"
-    ]
-  },
-  {
-    label: "js",
-    args: [
-      "js/site.js",
-      "--minify",
-      "--legal-comments=none",
-      "--outfile=js/site.min.js",
-      "--watch"
-    ]
-  }
-];
+const contexts = await Promise.all([
+  esbuild.context({
+    entryPoints: ["css/styles.css"],
+    minify: true,
+    legalComments: "none",
+    outfile: "css/styles.min.css",
+    plugins: [createVersionRefreshPlugin()]
+  }),
+  esbuild.context({
+    entryPoints: ["js/site.js"],
+    minify: true,
+    legalComments: "none",
+    outfile: "js/site.min.js",
+    plugins: [createVersionRefreshPlugin()]
+  })
+]);
 
-const children = tasks.map(({ label, args }) => {
-  const child = spawn(esbuildBin, args, {
-    cwd: process.cwd(),
-    stdio: "inherit"
-  });
+await Promise.all(contexts.map((context) => context.watch()));
+queueVersionRefresh();
 
-  child.on("exit", (code, signal) => {
-    const details = signal ? `signal ${signal}` : `code ${code ?? 0}`;
-    console.log(`[watch:${label}] exited with ${details}`);
-    shutdown(typeof code === "number" ? code : 0);
-  });
-
-  child.on("error", (error) => {
-    console.error(`[watch:${label}] failed to start:`, error.message);
-    shutdown(1);
-  });
-
-  return child;
-});
-
-let closed = false;
-
-function shutdown(exitCode = 0) {
-  if (closed) return;
-  closed = true;
-
-  children.forEach((child) => {
-    if (!child.killed) {
-      child.kill("SIGINT");
-    }
-  });
-
-  process.exit(exitCode);
-}
-
-process.on("SIGINT", () => shutdown(0));
-process.on("SIGTERM", () => shutdown(0));
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
 
 console.log("Watching css/styles.css and js/site.js for minified rebuilds...");
+
+function queueVersionRefresh() {
+  if (isShuttingDown) return;
+
+  if (refreshTimer) {
+    clearTimeout(refreshTimer);
+  }
+
+  refreshTimer = setTimeout(async () => {
+    refreshTimer = null;
+
+    try {
+      const result = await refreshAssetVersions();
+      console.log(formatBuildSummary(result));
+    } catch (error) {
+      console.error("[watch:version] failed:", error?.message ?? error);
+    }
+  }, 80);
+}
+
+function createVersionRefreshPlugin() {
+  return {
+    name: "refresh-asset-versions",
+    setup(build) {
+      build.onEnd(() => {
+        queueVersionRefresh();
+      });
+    }
+  };
+}
+
+async function shutdown() {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
+  if (refreshTimer) {
+    clearTimeout(refreshTimer);
+    refreshTimer = null;
+  }
+
+  await Promise.all(contexts.map((context) => context.dispose()));
+  process.exit(0);
+}

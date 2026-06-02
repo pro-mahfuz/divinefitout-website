@@ -1,8 +1,7 @@
 const navToggle = document.querySelector("[data-nav-toggle]");
 const mainNav = document.querySelector("[data-main-nav]");
 const heroSlider = document.querySelector("[data-hero-slider]");
-const mobileNavQuery = window.matchMedia("(max-width: 820px)");
-const mediumNavQuery = window.matchMedia("(max-width: 1040px)");
+const mobileNavQuery = window.matchMedia("(max-width: 1040px)");
 const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
   return normalized === "" ? "/" : normalized;
@@ -397,6 +396,14 @@ expandableMenuItems.forEach((item, index) => {
   toggle.setAttribute("aria-expanded", "false");
   link.insertAdjacentElement("afterend", toggle);
 
+  link.addEventListener("click", (event) => {
+    if (!mobileNavQuery.matches) return;
+    if (!item.classList.contains("is-expanded")) {
+      event.preventDefault();
+      setSubmenuExpanded(item, true);
+    }
+  });
+
   toggle.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -431,7 +438,7 @@ if (navToggle && mainNav) {
     const isOpen = mainNav.classList.toggle("is-open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
     if (isOpen) {
-      applyMobileMenuState();
+      applyMobileMenuState(true);
     }
     syncBodyScrollLock();
   });
@@ -471,8 +478,11 @@ if (["/wooden-flooring-dubai", "/spc-flooring-dubai", "/lvt-flooring-dubai", "/w
 
 if (mainNav) {
   mainNav.querySelectorAll("a, .button").forEach((control) => {
-    control.addEventListener("click", () => {
+    control.addEventListener("click", (event) => {
       if (mobileNavQuery.matches) {
+        if (event.defaultPrevented) {
+          return;
+        }
         closeMobileNav();
       }
     });
@@ -496,6 +506,14 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeMobileNav(true);
   }
+});
+
+document.addEventListener("click", (event) => {
+  if (!mobileNavQuery.matches || !mainNav || !navToggle) return;
+  if (!mainNav.classList.contains("is-open")) return;
+  if (!(event.target instanceof Node)) return;
+  if (mainNav.contains(event.target) || navToggle.contains(event.target)) return;
+  closeMobileNav();
 });
 
 applyMobileMenuState(true);
