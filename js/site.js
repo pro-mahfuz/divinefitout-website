@@ -362,8 +362,6 @@ const syncBodyScrollLock = () => {
   updateNavToggleLabel();
 };
 
-mountRelatedServicesBeforeFaq();
-
 const closeMobileNav = (restoreFocus = false) => {
   if (!mainNav || !navToggle) return;
   const wasOpen = mainNav.classList.contains("is-open");
@@ -600,11 +598,9 @@ document.addEventListener("click", (event) => {
 
 applyMobileMenuState(true);
 
-document.querySelectorAll(".breadcrumb > span").forEach((node) => {
-  node.setAttribute("aria-hidden", "true");
-});
+const initSectionLinkTracking = () => {
+  if (!sectionLinks.length) return;
 
-if (sectionLinks.length) {
   const sectionTargets = sectionLinks.map((link) => {
     const hash = link.getAttribute("href");
     if (!hash || !hash.startsWith("#")) return null;
@@ -694,26 +690,7 @@ if (sectionLinks.length) {
 
   refreshSectionPositions();
   updateActiveSectionLink();
-}
-
-document.querySelectorAll("[data-year]").forEach((node) => {
-  node.textContent = new Date().getFullYear();
-});
-
-document.querySelectorAll("[data-demo-form]").forEach((form) => {
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const message = form.querySelector("[data-demo-message]");
-    if (message) {
-      message.classList.add("is-visible");
-      message.textContent = "Preview mode: this form is styled and validated, but you still need to connect it to your email inbox or CRM before launch.";
-    }
-  });
-});
-
-document.querySelectorAll('a[href*="wa.me"]').forEach((link) => {
-  link.setAttribute("href", "https://wa.me/971566363850");
-});
+};
 
 const loadDeferredIframe = (iframe) => {
   if (!iframe || iframe.dataset.loaded === "true") return;
@@ -729,18 +706,46 @@ const loadDeferredIframe = (iframe) => {
   frame?.classList.add("is-loaded");
   frame?.querySelector("[data-iframe-placeholder]")?.setAttribute("hidden", "");
 };
+const initDeferredPageEnhancements = () => {
+  if (initDeferredPageEnhancements.ready) return;
+  initDeferredPageEnhancements.ready = true;
 
-document.querySelectorAll("[data-load-iframe]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const targetId = button.dataset.target;
-    const iframe = targetId
-      ? document.getElementById(targetId)
-      : button.closest(".map-card-frame")?.querySelector("[data-deferred-iframe]");
+  mountRelatedServicesBeforeFaq();
 
-    if (!(iframe instanceof HTMLIFrameElement)) return;
-    loadDeferredIframe(iframe);
+  document.querySelectorAll(".breadcrumb > span").forEach((node) => {
+    node.setAttribute("aria-hidden", "true");
   });
-});
+
+  initSectionLinkTracking();
+
+  document.querySelectorAll("[data-year]").forEach((node) => {
+    node.textContent = new Date().getFullYear();
+  });
+
+  document.querySelectorAll("[data-demo-form]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = form.querySelector("[data-demo-message]");
+      if (message) {
+        message.classList.add("is-visible");
+        message.textContent = "Preview mode: this form is styled and validated, but you still need to connect it to your email inbox or CRM before launch.";
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-load-iframe]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.dataset.target;
+      const iframe = targetId
+        ? document.getElementById(targetId)
+        : button.closest(".map-card-frame")?.querySelector("[data-deferred-iframe]");
+
+      if (!(iframe instanceof HTMLIFrameElement)) return;
+      loadDeferredIframe(iframe);
+    });
+  });
+};
+scheduleAfterLoad(initDeferredPageEnhancements, 1600);
 
 const serviceOptions = [
   { value: "", label: "Select a service" },
