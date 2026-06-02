@@ -1,6 +1,7 @@
 const navToggle = document.querySelector("[data-nav-toggle]");
 const mainNav = document.querySelector("[data-main-nav]");
 const heroSlider = document.querySelector("[data-hero-slider]");
+const siteHeader = document.querySelector(".site-header");
 const mobileNavQuery = window.matchMedia("(max-width: 1040px)");
 const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
@@ -254,6 +255,18 @@ const updateNavToggleLabel = () => {
   navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
 };
 
+const syncMobileNavGeometry = () => {
+  if (!mainNav || !siteHeader) return;
+
+  if (!mobileNavQuery.matches) {
+    document.documentElement.style.removeProperty("--mobile-nav-top");
+    return;
+  }
+
+  const headerBottom = Math.max(0, siteHeader.getBoundingClientRect().bottom);
+  document.documentElement.style.setProperty("--mobile-nav-top", `${headerBottom}px`);
+};
+
 const mountRelatedServicesBeforeFaq = () => {
   const faqSection = document.querySelector("section.service-anchor#faq");
   const relatedCard = Array.from(document.querySelectorAll(".sticky-panel .contact-card")).find((card) => {
@@ -285,6 +298,7 @@ const mountRelatedServicesBeforeFaq = () => {
 
 const syncBodyScrollLock = () => {
   document.body.classList.toggle("nav-open", Boolean(mainNav && mainNav.classList.contains("is-open") && mobileNavQuery.matches));
+  syncMobileNavGeometry();
   syncMainNavA11yState();
   updateNavToggleLabel();
 };
@@ -497,10 +511,16 @@ const handleMobileNavViewportChange = () => {
     });
   }
 
+  syncMobileNavGeometry();
   applyMobileMenuState(true);
 };
 
 addMediaQueryChangeListener(mobileNavQuery, handleMobileNavViewportChange);
+window.addEventListener("resize", syncMobileNavGeometry);
+window.addEventListener("scroll", () => {
+  if (!mainNav || !mainNav.classList.contains("is-open") || !mobileNavQuery.matches) return;
+  syncMobileNavGeometry();
+}, { passive: true });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
