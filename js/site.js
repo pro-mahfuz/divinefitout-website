@@ -61,177 +61,181 @@ if (navToggle && mainNav) {
 }
 
 if (heroSlider) {
-  const heroSlides = Array.from(heroSlider.querySelectorAll("[data-hero-slide]"));
-  const heroDots = Array.from(heroSlider.querySelectorAll("[data-hero-dot]"));
-  const heroDotList = heroSlider.querySelector(".hero-slider-dots");
-  const heroPrev = heroSlider.querySelector("[data-hero-prev]");
-  const heroNext = heroSlider.querySelector("[data-hero-next]");
-  const heroSlideFocusableSelector = "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]";
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let activeHeroIndex = heroSlides.findIndex((slide) => slide.classList.contains("is-active"));
-  let heroAutoplay = null;
+  const initHeroSlider = () => {
+    const heroSlides = Array.from(heroSlider.querySelectorAll("[data-hero-slide]"));
+    const heroDots = Array.from(heroSlider.querySelectorAll("[data-hero-dot]"));
+    const heroDotList = heroSlider.querySelector(".hero-slider-dots");
+    const heroPrev = heroSlider.querySelector("[data-hero-prev]");
+    const heroNext = heroSlider.querySelector("[data-hero-next]");
+    const heroSlideFocusableSelector = "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]";
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let activeHeroIndex = heroSlides.findIndex((slide) => slide.classList.contains("is-active"));
+    let heroAutoplay = null;
 
-  if (activeHeroIndex < 0) {
-    activeHeroIndex = 0;
-  }
-
-  if (heroDotList) {
-    heroDotList.setAttribute("role", "tablist");
-    heroDotList.setAttribute("aria-label", heroDotList.getAttribute("aria-label") || "Choose a featured service banner");
-  }
-
-  heroSlides.forEach((slide, slideIndex) => {
-    if (!slide.id) {
-      slide.id = `hero-slide-${slideIndex + 1}`;
-    }
-    slide.setAttribute("role", "tabpanel");
-  });
-
-  heroDots.forEach((dot, dotIndex) => {
-    if (!dot.id) {
-      dot.id = `hero-slide-tab-${dotIndex + 1}`;
-    }
-    dot.setAttribute("role", "tab");
-    dot.setAttribute("aria-controls", heroSlides[dotIndex]?.id || "");
-    heroSlides[dotIndex]?.setAttribute("aria-labelledby", dot.id);
-  });
-
-  const syncHeroSlideInteractivity = (slide, isActive) => {
-    if (!slide) return;
-
-    slide.toggleAttribute("inert", !isActive);
-    if ("inert" in slide) {
-      slide.inert = !isActive;
+    if (activeHeroIndex < 0) {
+      activeHeroIndex = 0;
     }
 
-    Array.from(slide.querySelectorAll(heroSlideFocusableSelector)).forEach((control) => {
-      if (isActive) {
-        const originalTabIndex = control.dataset.heroSlideTabindex;
-        if (originalTabIndex === "__none__") {
-          control.removeAttribute("tabindex");
-        } else if (originalTabIndex) {
-          control.setAttribute("tabindex", originalTabIndex);
-        }
-        delete control.dataset.heroSlideTabindex;
-        return;
-      }
-
-      if (!("heroSlideTabindex" in control.dataset)) {
-        control.dataset.heroSlideTabindex = control.hasAttribute("tabindex") ? control.getAttribute("tabindex") : "__none__";
-      }
-      control.setAttribute("tabindex", "-1");
-    });
-  };
-
-  const setHeroSlide = (index) => {
-    if (!heroSlides.length) return;
-
-    activeHeroIndex = (index + heroSlides.length) % heroSlides.length;
+    if (heroDotList) {
+      heroDotList.setAttribute("role", "tablist");
+      heroDotList.setAttribute("aria-label", heroDotList.getAttribute("aria-label") || "Choose a featured service banner");
+    }
 
     heroSlides.forEach((slide, slideIndex) => {
-      const isActive = slideIndex === activeHeroIndex;
-      slide.classList.toggle("is-active", isActive);
-      slide.setAttribute("aria-hidden", String(!isActive));
-      syncHeroSlideInteractivity(slide, isActive);
+      if (!slide.id) {
+        slide.id = `hero-slide-${slideIndex + 1}`;
+      }
+      slide.setAttribute("role", "tabpanel");
     });
 
     heroDots.forEach((dot, dotIndex) => {
-      const isActive = dotIndex === activeHeroIndex;
-      dot.classList.toggle("is-active", isActive);
-      dot.setAttribute("aria-selected", String(isActive));
-      dot.removeAttribute("aria-pressed");
-      dot.tabIndex = isActive ? 0 : -1;
+      if (!dot.id) {
+        dot.id = `hero-slide-tab-${dotIndex + 1}`;
+      }
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-controls", heroSlides[dotIndex]?.id || "");
+      heroSlides[dotIndex]?.setAttribute("aria-labelledby", dot.id);
     });
-  };
 
-  const focusHeroDot = (index) => {
-    const nextDot = heroDots[(index + heroDots.length) % heroDots.length];
-    nextDot?.focus();
-  };
+    const syncHeroSlideInteractivity = (slide, isActive) => {
+      if (!slide) return;
 
-  const stopHeroAutoplay = () => {
-    if (!heroAutoplay) return;
-    window.clearInterval(heroAutoplay);
-    heroAutoplay = null;
-  };
+      slide.toggleAttribute("inert", !isActive);
+      if ("inert" in slide) {
+        slide.inert = !isActive;
+      }
 
-  const startHeroAutoplay = () => {
-    if (reduceMotion.matches || heroSlides.length < 2) return;
-    stopHeroAutoplay();
-    heroAutoplay = window.setInterval(() => {
-      setHeroSlide(activeHeroIndex + 1);
-    }, 5200);
-  };
+      Array.from(slide.querySelectorAll(heroSlideFocusableSelector)).forEach((control) => {
+        if (isActive) {
+          const originalTabIndex = control.dataset.heroSlideTabindex;
+          if (originalTabIndex === "__none__") {
+            control.removeAttribute("tabindex");
+          } else if (originalTabIndex) {
+            control.setAttribute("tabindex", originalTabIndex);
+          }
+          delete control.dataset.heroSlideTabindex;
+          return;
+        }
 
-  heroPrev?.addEventListener("click", () => {
-    setHeroSlide(activeHeroIndex - 1);
-    startHeroAutoplay();
-  });
+        if (!("heroSlideTabindex" in control.dataset)) {
+          control.dataset.heroSlideTabindex = control.hasAttribute("tabindex") ? control.getAttribute("tabindex") : "__none__";
+        }
+        control.setAttribute("tabindex", "-1");
+      });
+    };
 
-  heroNext?.addEventListener("click", () => {
-    setHeroSlide(activeHeroIndex + 1);
-    startHeroAutoplay();
-  });
+    const setHeroSlide = (index) => {
+      if (!heroSlides.length) return;
 
-  heroDots.forEach((dot, dotIndex) => {
-    dot.addEventListener("click", () => {
-      setHeroSlide(dotIndex);
+      activeHeroIndex = (index + heroSlides.length) % heroSlides.length;
+
+      heroSlides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === activeHeroIndex;
+        slide.classList.toggle("is-active", isActive);
+        slide.setAttribute("aria-hidden", String(!isActive));
+        syncHeroSlideInteractivity(slide, isActive);
+      });
+
+      heroDots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === activeHeroIndex;
+        dot.classList.toggle("is-active", isActive);
+        dot.setAttribute("aria-selected", String(isActive));
+        dot.removeAttribute("aria-pressed");
+        dot.tabIndex = isActive ? 0 : -1;
+      });
+    };
+
+    const focusHeroDot = (index) => {
+      const nextDot = heroDots[(index + heroDots.length) % heroDots.length];
+      nextDot?.focus();
+    };
+
+    const stopHeroAutoplay = () => {
+      if (!heroAutoplay) return;
+      window.clearInterval(heroAutoplay);
+      heroAutoplay = null;
+    };
+
+    const startHeroAutoplay = () => {
+      if (reduceMotion.matches || heroSlides.length < 2) return;
+      stopHeroAutoplay();
+      heroAutoplay = window.setInterval(() => {
+        setHeroSlide(activeHeroIndex + 1);
+      }, 5200);
+    };
+
+    heroPrev?.addEventListener("click", () => {
+      setHeroSlide(activeHeroIndex - 1);
       startHeroAutoplay();
     });
 
-    dot.addEventListener("keydown", (event) => {
-      if (!heroDots.length) return;
-
-      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-        event.preventDefault();
-        const nextIndex = (dotIndex + 1) % heroDots.length;
-        setHeroSlide(nextIndex);
-        focusHeroDot(nextIndex);
-        startHeroAutoplay();
-      }
-
-      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-        event.preventDefault();
-        const nextIndex = (dotIndex - 1 + heroDots.length) % heroDots.length;
-        setHeroSlide(nextIndex);
-        focusHeroDot(nextIndex);
-        startHeroAutoplay();
-      }
-
-      if (event.key === "Home") {
-        event.preventDefault();
-        setHeroSlide(0);
-        focusHeroDot(0);
-        startHeroAutoplay();
-      }
-
-      if (event.key === "End") {
-        event.preventDefault();
-        const nextIndex = heroDots.length - 1;
-        setHeroSlide(nextIndex);
-        focusHeroDot(nextIndex);
-        startHeroAutoplay();
-      }
+    heroNext?.addEventListener("click", () => {
+      setHeroSlide(activeHeroIndex + 1);
+      startHeroAutoplay();
     });
-  });
 
-  heroSlider.addEventListener("mouseenter", stopHeroAutoplay);
-  heroSlider.addEventListener("mouseleave", startHeroAutoplay);
-  heroSlider.addEventListener("focusin", stopHeroAutoplay);
-  heroSlider.addEventListener("focusout", startHeroAutoplay);
+    heroDots.forEach((dot, dotIndex) => {
+      dot.addEventListener("click", () => {
+        setHeroSlide(dotIndex);
+        startHeroAutoplay();
+      });
 
-  const handleReduceMotionChange = () => {
-    if (reduceMotion.matches) {
-      stopHeroAutoplay();
-      return;
-    }
+      dot.addEventListener("keydown", (event) => {
+        if (!heroDots.length) return;
+
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          event.preventDefault();
+          const nextIndex = (dotIndex + 1) % heroDots.length;
+          setHeroSlide(nextIndex);
+          focusHeroDot(nextIndex);
+          startHeroAutoplay();
+        }
+
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          event.preventDefault();
+          const nextIndex = (dotIndex - 1 + heroDots.length) % heroDots.length;
+          setHeroSlide(nextIndex);
+          focusHeroDot(nextIndex);
+          startHeroAutoplay();
+        }
+
+        if (event.key === "Home") {
+          event.preventDefault();
+          setHeroSlide(0);
+          focusHeroDot(0);
+          startHeroAutoplay();
+        }
+
+        if (event.key === "End") {
+          event.preventDefault();
+          const nextIndex = heroDots.length - 1;
+          setHeroSlide(nextIndex);
+          focusHeroDot(nextIndex);
+          startHeroAutoplay();
+        }
+      });
+    });
+
+    heroSlider.addEventListener("mouseenter", stopHeroAutoplay);
+    heroSlider.addEventListener("mouseleave", startHeroAutoplay);
+    heroSlider.addEventListener("focusin", stopHeroAutoplay);
+    heroSlider.addEventListener("focusout", startHeroAutoplay);
+
+    const handleReduceMotionChange = () => {
+      if (reduceMotion.matches) {
+        stopHeroAutoplay();
+        return;
+      }
+      startHeroAutoplay();
+    };
+
+    addMediaQueryChangeListener(reduceMotion, handleReduceMotionChange);
+
+    setHeroSlide(activeHeroIndex);
     startHeroAutoplay();
   };
 
-  addMediaQueryChangeListener(reduceMotion, handleReduceMotionChange);
-
-  setHeroSlide(activeHeroIndex);
-  startHeroAutoplay();
+  queueFrame(initHeroSlider);
 }
 
 const currentPath = normalizePath(window.location.pathname);

@@ -500,18 +500,14 @@ h4 {
   white-space: nowrap;
 }
 
-.main-nav .submenu .submenu-item--nested {
-  list-style: none;
-}
-
-.main-nav .submenu .submenu-item--nested a {
+.main-nav .submenu .submenu-link--compact {
   position: relative;
   padding: 0.62rem 0.95rem 0.62rem 1.55rem;
   font-size: 0.9rem;
   color: var(--muted);
 }
 
-.main-nav .submenu .submenu-item--nested a::before {
+.main-nav .submenu .submenu-link--compact::before {
   content: "";
   position: absolute;
   left: 0.95rem;
@@ -524,9 +520,9 @@ h4 {
   transform: translateY(-50%);
 }
 
-.main-nav .submenu .submenu-item--nested a:hover,
-.main-nav .submenu .submenu-item--nested a:focus-visible,
-.main-nav .submenu .submenu-item--nested a.is-active {
+.main-nav .submenu .submenu-link--compact:hover,
+.main-nav .submenu .submenu-link--compact:focus-visible,
+.main-nav .submenu .submenu-link--compact.is-active {
   color: var(--accent-deep);
 }
 
@@ -2308,7 +2304,7 @@ textarea {
     white-space: normal;
   }
 
-  .main-nav .submenu .submenu-item--nested a {
+  .main-nav .submenu .submenu-link--compact {
     min-height: 2.65rem;
     padding-block: 0.55rem;
     padding-inline: 1.45rem 0.95rem;
