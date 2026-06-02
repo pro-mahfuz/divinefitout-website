@@ -42,6 +42,18 @@ const scheduleIdle = (callback, timeout = 1200) => {
 
   return window.setTimeout(callback, 180);
 };
+const scheduleAfterLoad = (callback, timeout = 1200) => {
+  if (document.readyState === "complete") {
+    return scheduleIdle(callback, timeout);
+  }
+
+  const runAfterLoad = () => {
+    scheduleIdle(callback, timeout);
+  };
+
+  window.addEventListener("load", runAfterLoad, { once: true });
+  return null;
+};
 const isSelectField = (field) => Boolean(field && typeof field.tagName === "string" && field.tagName.toUpperCase() === "SELECT" && field.options);
 const setCurrentState = (element, value) => {
   if (!element) return;
@@ -67,6 +79,10 @@ if (heroSlider) {
     const heroDotList = heroSlider.querySelector(".hero-slider-dots");
     const heroPrev = heroSlider.querySelector("[data-hero-prev]");
     const heroNext = heroSlider.querySelector("[data-hero-next]");
+    const heroNote = heroSlider.querySelector("[data-hero-note]");
+    const heroNoteTitle = heroNote?.querySelector("[data-hero-note-title]");
+    const heroNoteCopy = heroNote?.querySelector("[data-hero-note-copy]");
+    const heroNoteLink = heroNote?.querySelector("[data-hero-note-link]");
     const heroSlideFocusableSelector = "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]";
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let activeHeroIndex = heroSlides.findIndex((slide) => slide.classList.contains("is-active"));
@@ -124,10 +140,20 @@ if (heroSlider) {
       });
     };
 
+    const syncHeroNote = (slide) => {
+      if (!slide || !heroNoteTitle || !heroNoteCopy || !heroNoteLink) return;
+
+      heroNoteTitle.textContent = slide.dataset.heroTitle || "";
+      heroNoteCopy.textContent = slide.dataset.heroCopy || "";
+      heroNoteLink.href = slide.dataset.heroHref || "#";
+      heroNoteLink.textContent = slide.dataset.heroCta || "View service";
+    };
+
     const setHeroSlide = (index) => {
       if (!heroSlides.length) return;
 
       activeHeroIndex = (index + heroSlides.length) % heroSlides.length;
+      const activeSlide = heroSlides[activeHeroIndex];
 
       heroSlides.forEach((slide, slideIndex) => {
         const isActive = slideIndex === activeHeroIndex;
@@ -143,6 +169,8 @@ if (heroSlider) {
         dot.removeAttribute("aria-pressed");
         dot.tabIndex = isActive ? 0 : -1;
       });
+
+      syncHeroNote(activeSlide);
     };
 
     const focusHeroDot = (index) => {
@@ -235,7 +263,9 @@ if (heroSlider) {
     startHeroAutoplay();
   };
 
-  queueFrame(initHeroSlider);
+  scheduleAfterLoad(() => {
+    queueFrame(initHeroSlider);
+  }, 1500);
 }
 
 const currentPath = normalizePath(window.location.pathname);
