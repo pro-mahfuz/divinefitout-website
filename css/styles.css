@@ -2,7 +2,7 @@
   font-family: "Manrope";
   font-style: normal;
   font-weight: 400 800;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/manrope-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
@@ -11,7 +11,7 @@
   font-family: "Manrope";
   font-style: normal;
   font-weight: 400 800;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/manrope-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -20,7 +20,7 @@
   font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 400 700;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/cormorant-garamond-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
@@ -29,7 +29,7 @@
   font-family: "Cormorant Garamond";
   font-style: normal;
   font-weight: 400 700;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/cormorant-garamond-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -38,7 +38,7 @@
   font-family: "Libre Baskerville";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/libre-baskerville-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
@@ -47,7 +47,7 @@
   font-family: "Libre Baskerville";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/libre-baskerville-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -56,7 +56,7 @@
   font-family: "Libre Baskerville";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/libre-baskerville-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
@@ -65,7 +65,7 @@
   font-family: "Libre Baskerville";
   font-style: normal;
   font-weight: 700;
-  font-display: swap;
+  font-display: optional;
   src: url("../fonts/libre-baskerville-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -89,6 +89,7 @@
   --radius-md: 18px;
   --radius-sm: 12px;
   --max: 1180px;
+  --font-ui: "Segoe UI Variable Text", "Segoe UI", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --font-sans: "Manrope", "Segoe UI Variable Text", "Segoe UI", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Libre Baskerville", "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
   --text-xs: 0.82rem;
@@ -116,7 +117,7 @@ html {
 body {
   margin: 0;
   font-size: var(--text-base);
-  font-family: "Manrope", Arial, sans-serif;
+  font-family: var(--font-sans);
   color: var(--ink);
   background:
     radial-gradient(circle at top left, rgba(190, 159, 89, 0.18), transparent 32%),
@@ -277,7 +278,7 @@ h4 {
   background: #7b3f22;
   color: #fffaf2;
   font-size: var(--text-sm);
-  font-family: var(--font-sans);
+  font-family: var(--font-ui);
 }
 
 .topbar-wrap {
@@ -311,6 +312,17 @@ h4 {
   justify-content: space-between;
   gap: 1rem 1.5rem;
   padding: 0.85rem 0;
+}
+
+.site-header,
+.site-header .brand,
+.site-header .brand-text,
+.site-header .brand-text small,
+.site-header .main-nav,
+.site-header .main-nav a,
+.site-header .button,
+.site-header .nav-toggle {
+  font-family: var(--font-ui);
 }
 
 .brand {
@@ -407,6 +419,7 @@ h4 {
   align-items: center;
   justify-content: center;
   padding: 0.75rem 0.95rem;
+  min-height: 2.8rem;
   border-radius: 999px;
   font-size: var(--text-sm);
   font-weight: 650;
@@ -671,6 +684,14 @@ main {
 .hero-copy {
   display: grid;
   gap: 1.4rem;
+}
+
+.page-home .hero-copy,
+.page-home .hero-copy h1,
+.page-home .hero-copy p,
+.page-home .hero-actions .button,
+.page-home .hero-trust {
+  font-family: var(--font-ui);
 }
 
 .hero-copy h1 {

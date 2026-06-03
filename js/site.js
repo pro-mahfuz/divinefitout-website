@@ -910,7 +910,6 @@ const populateServiceOptions = (field) => {
 const setWhatsappServiceDefault = (form) => {
   const serviceField = form.querySelector('[name="service"]');
   if (!serviceField) return;
-  populateServiceOptions(serviceField);
 
   const preferredService = form.dataset.whatsappDefault || currentService || "";
   if (!isSelectField(serviceField)) {
@@ -1028,6 +1027,7 @@ const getWhatsappModalFocusables = () => {
 const openWhatsappModal = (options = {}) => {
   if (!whatsappBackdrop) return;
   lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  populateServiceOptions(whatsappModalServiceField);
   setWhatsappModalMode(options);
   whatsappBackdrop.classList.add("is-open");
   whatsappBackdrop.setAttribute("aria-hidden", "false");
@@ -1045,6 +1045,9 @@ const closeWhatsappModal = () => {
   whatsappBackdrop.classList.remove("is-open");
   whatsappBackdrop.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  if (isSelectField(whatsappModalServiceField) && whatsappModalServiceField.hasAttribute("data-service-options")) {
+    whatsappModalServiceField.innerHTML = "";
+  }
   if (lastFocusedElement?.isConnected) {
     lastFocusedElement.focus();
   }
@@ -1153,7 +1156,7 @@ whatsappForms.forEach((form) => {
 });
 };
 
-scheduleIdle(initFloatingUiAndWhatsapp);
+scheduleAfterLoad(initFloatingUiAndWhatsapp, 9000);
 ["pointerdown", "keydown", "focusin"].forEach((eventName) => {
   document.addEventListener(eventName, initFloatingUiAndWhatsapp, { once: true, passive: eventName === "pointerdown" });
 });
