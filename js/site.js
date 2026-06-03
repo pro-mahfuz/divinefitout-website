@@ -89,6 +89,7 @@ if (heroSlider) {
     const heroNoteLink = heroNote?.querySelector("[data-hero-note-link]");
     const heroSlideFocusableSelector = "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]";
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const heroAutoplayViewport = window.matchMedia("(min-width: 821px)");
     let activeHeroIndex = heroSlides.findIndex((slide) => slide.classList.contains("is-active"));
     let heroAutoplay = null;
 
@@ -188,8 +189,10 @@ if (heroSlider) {
       heroAutoplay = null;
     };
 
+    const canAutoplayHero = () => !reduceMotion.matches && heroAutoplayViewport.matches && heroSlides.length >= 2;
+
     const startHeroAutoplay = () => {
-      if (reduceMotion.matches || heroSlides.length < 2) return;
+      if (!canAutoplayHero()) return;
       stopHeroAutoplay();
       heroAutoplay = window.setInterval(() => {
         setHeroSlide(activeHeroIndex + 1);
@@ -253,18 +256,19 @@ if (heroSlider) {
     heroSlider.addEventListener("focusin", stopHeroAutoplay);
     heroSlider.addEventListener("focusout", startHeroAutoplay);
 
-    const handleReduceMotionChange = () => {
-      if (reduceMotion.matches) {
+    const syncHeroAutoplayState = () => {
+      if (!canAutoplayHero()) {
         stopHeroAutoplay();
         return;
       }
       startHeroAutoplay();
     };
 
-    addMediaQueryChangeListener(reduceMotion, handleReduceMotionChange);
+    addMediaQueryChangeListener(reduceMotion, syncHeroAutoplayState);
+    addMediaQueryChangeListener(heroAutoplayViewport, syncHeroAutoplayState);
 
     setHeroSlide(activeHeroIndex);
-    startHeroAutoplay();
+    syncHeroAutoplayState();
   };
 
   scheduleAfterLoad(() => {
@@ -273,6 +277,25 @@ if (heroSlider) {
 }
 
 const currentPath = normalizePath(window.location.pathname);
+const servicesSubmenuItems = [
+  { href: "https://divinefitout.com/services/wooden-flooring-dubai.html", label: "Wooden Flooring", woodRoot: true },
+  { href: "https://divinefitout.com/services/spc-flooring-dubai.html", label: "SPC Flooring", compact: true },
+  { href: "https://divinefitout.com/services/lvt-flooring-dubai.html", label: "LVT Flooring", compact: true },
+  { href: "https://divinefitout.com/services/wpc-flooring-dubai.html", label: "WPC Flooring", compact: true },
+  { href: "https://divinefitout.com/services/carpet-installation-dubai.html", label: "Carpet Installation" },
+  { href: "https://divinefitout.com/services/tile-fixing-dubai.html", label: "Tile Fixing" },
+  { href: "https://divinefitout.com/services/stone-installation-dubai.html", label: "Stone Installation" },
+  { href: "https://divinefitout.com/services/marble-installation-dubai.html", label: "Marble Installation" }
+];
+const servicesSubmenuMarkup = servicesSubmenuItems.map(({ href, label, compact, woodRoot }) => {
+  const className = compact ? ' class="submenu-link--compact"' : "";
+  const woodRootAttr = woodRoot ? " data-wood-root" : "";
+  return `<a${className} data-nav-link${woodRootAttr} href="${href}">${label}</a>`;
+}).join("");
+const populateServicesSubmenu = (submenu) => {
+  if (!submenu || submenu.children.length || !submenu.hasAttribute("data-services-submenu")) return;
+  submenu.innerHTML = servicesSubmenuMarkup;
+};
 const navLinks = document.querySelectorAll("[data-nav-link]");
 const servicesRootLinks = document.querySelectorAll("[data-services-root]");
 const woodRootLinks = document.querySelectorAll("[data-wood-root]");
@@ -430,10 +453,12 @@ desktopHoverMenus.forEach((item) => {
   const submenu = getDirectChildByClass(item, "submenu");
 
   link?.addEventListener("mouseenter", () => {
+    populateServicesSubmenu(submenu);
     setDesktopHoverOpen(item, true);
   });
 
   submenu?.addEventListener("mouseenter", () => {
+    populateServicesSubmenu(submenu);
     setDesktopHoverOpen(item, true);
   });
 
@@ -442,6 +467,7 @@ desktopHoverMenus.forEach((item) => {
   });
 
   item.addEventListener("focusin", () => {
+    populateServicesSubmenu(submenu);
     setDesktopHoverOpen(item, true);
   });
 
@@ -473,6 +499,7 @@ expandableMenuItems.forEach((item, index) => {
 
   link.addEventListener("click", (event) => {
     if (!mobileNavQuery.matches) return;
+    populateServicesSubmenu(submenu);
     if (!item.classList.contains("is-expanded")) {
       event.preventDefault();
       setSubmenuExpanded(item, true);
@@ -482,6 +509,7 @@ expandableMenuItems.forEach((item, index) => {
   toggle.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
+    populateServicesSubmenu(submenu);
     setSubmenuExpanded(item, !item.classList.contains("is-expanded"));
   });
 });

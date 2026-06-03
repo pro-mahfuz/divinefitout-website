@@ -902,6 +902,28 @@ main {
   width: max-content;
 }
 
+@media (min-width: 821px) {
+  .hero-slide-note {
+    min-height: 10.75rem;
+    align-content: start;
+  }
+
+  .hero-slide-note strong {
+    display: block;
+    min-height: 2.4rem;
+  }
+
+  .hero-slide-note span {
+    display: block;
+    min-height: 4.1rem;
+  }
+
+  .hero-slide-note .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .hero-slider-controls {
   position: absolute;
   top: auto;
