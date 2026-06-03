@@ -73,7 +73,11 @@ if (navToggle && mainNav) {
 }
 
 if (heroSlider) {
+  let heroSliderInitialized = false;
   const initHeroSlider = () => {
+    if (heroSliderInitialized) return;
+    heroSliderInitialized = true;
+
     const heroSlides = Array.from(heroSlider.querySelectorAll("[data-hero-slide]"));
     const heroDots = Array.from(heroSlider.querySelectorAll("[data-hero-dot]"));
     const heroDotList = heroSlider.querySelector(".hero-slider-dots");
@@ -263,9 +267,9 @@ if (heroSlider) {
     startHeroAutoplay();
   };
 
-  scheduleIdle(() => {
+  scheduleAfterLoad(() => {
     queueFrame(initHeroSlider);
-  }, 300);
+  }, 1800);
 }
 
 const currentPath = normalizePath(window.location.pathname);
