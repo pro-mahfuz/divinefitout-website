@@ -263,9 +263,9 @@ if (heroSlider) {
     startHeroAutoplay();
   };
 
-  scheduleAfterLoad(() => {
+  scheduleIdle(() => {
     queueFrame(initHeroSlider);
-  }, 1500);
+  }, 300);
 }
 
 const currentPath = normalizePath(window.location.pathname);
@@ -759,6 +759,9 @@ const serviceOptions = [
   { value: "Carpet Installation", label: "Carpet Installation" },
   { value: "Multiple Services", label: "Multiple Services" }
 ];
+const serviceOptionsMarkup = serviceOptions
+  .map((option) => `<option value="${option.value}">${option.label}</option>`)
+  .join("");
 
 const serviceDefaults = [
   { match: "/wooden-flooring-dubai", value: "Wooden Flooring" },
@@ -820,9 +823,7 @@ if (!floatingUi.hasAttribute("data-floating-ui-root")) {
         </div>
         <div class="field">
           <label for="wa-service">Service</label>
-          <select id="wa-service" name="service" required>
-            ${serviceOptions.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
-          </select>
+          <select id="wa-service" name="service" required data-service-options></select>
         </div>
         <p class="whatsapp-note">After you submit, WhatsApp opens with your details prefilled and ready to send.</p>
         <button class="button button-primary" type="submit">Continue to WhatsApp</button>
@@ -895,9 +896,21 @@ const configureWhatsappFormAccessibility = (form) => {
   }
 };
 
+const populateServiceOptions = (field) => {
+  if (!isSelectField(field) || !field.hasAttribute("data-service-options")) return;
+
+  const selectedValue = field.value;
+  field.innerHTML = serviceOptionsMarkup;
+
+  if (selectedValue && Array.from(field.options).some((option) => option.value === selectedValue)) {
+    field.value = selectedValue;
+  }
+};
+
 const setWhatsappServiceDefault = (form) => {
   const serviceField = form.querySelector('[name="service"]');
   if (!serviceField) return;
+  populateServiceOptions(serviceField);
 
   const preferredService = form.dataset.whatsappDefault || currentService || "";
   if (!isSelectField(serviceField)) {

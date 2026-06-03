@@ -277,15 +277,28 @@ h4 {
   background: #7b3f22;
   color: #fffaf2;
   font-size: var(--text-sm);
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-sans);
 }
 
 .topbar-wrap {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  min-height: 2.8rem;
   padding: 0.65rem 0;
   flex-wrap: wrap;
+  line-height: 1.35;
+}
+
+.topbar-wrap > div:first-child {
+  flex: 1 1 34rem;
+  min-width: 0;
+}
+
+.topbar-wrap > div:last-child {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .topbar a {
@@ -2584,7 +2597,6 @@ textarea {
     font-size: 0.8rem;
   }
 
-  .topbar-wrap,
   .hero-trust,
   .hero-actions,
   .inline-actions {
@@ -2593,12 +2605,17 @@ textarea {
   }
 
   .topbar-wrap {
+    display: block;
+    min-height: 0;
     justify-content: center;
     text-align: center;
+    padding: 0.55rem 0;
   }
 
-  .topbar-wrap > div {
+  .topbar-wrap > div:first-child {
     width: 100%;
+    margin: 0;
+    flex: none;
   }
 
   .topbar-wrap > div:last-child {
