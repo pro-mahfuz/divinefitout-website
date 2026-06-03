@@ -862,6 +862,11 @@ main {
   background: linear-gradient(180deg, rgba(11, 17, 14, 0.02) 0%, rgba(11, 17, 14, 0.14) 44%, rgba(11, 17, 14, 0.48) 100%);
 }
 
+.hero-slide:not(.is-active) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .hero-slide.is-active {
   opacity: 1;
   visibility: visible;
