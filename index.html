@@ -15,22 +15,35 @@
   <link
     rel="preload"
     as="image"
-    href="/images/service-wooden-flooring-800.webp"
+    media="(max-width: 1040px)"
+    href="images/service-wooden-flooring-640.webp"
     type="image/webp"
-    imagesrcset="/images/service-wooden-flooring-480.webp 480w,
-                /images/service-wooden-flooring-560.webp 560w,
-                /images/service-wooden-flooring-640.webp 640w,
-                /images/service-wooden-flooring-800.webp 800w,
-                /images/service-wooden-flooring-1040.webp 1040w"
-    imagesizes="(max-width:560px) 100vw,
-                (max-width:1040px) calc(100vw - 2rem),
-                (max-width:1212px) calc((100vw - 4rem) * 0.45),
+    imagesrcset="images/service-wooden-flooring-480.webp 480w,
+                images/service-wooden-flooring-560.webp 560w,
+                images/service-wooden-flooring-640.webp 640w,
+                images/service-wooden-flooring-800.webp 800w,
+                images/service-wooden-flooring-1040.webp 1040w"
+    imagesizes="100vw"
+    fetchpriority="high">
+  <link
+    rel="preload"
+    as="image"
+    media="(min-width: 1041px)"
+    href="images/service-wooden-flooring-640.webp"
+    type="image/webp"
+    imagesrcset="images/service-wooden-flooring-480.webp 480w,
+                images/service-wooden-flooring-560.webp 560w,
+                images/service-wooden-flooring-640.webp 640w,
+                images/service-wooden-flooring-800.webp 800w,
+                images/service-wooden-flooring-1040.webp 1040w"
+    imagesizes="(max-width:1212px) calc((100vw - 4rem) * 0.45),
                 517px"
     fetchpriority="high">
-  
+  <link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/libre-baskerville-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.min.css?v=e12b567669">
-  <link rel="icon" href="https://divinefitout.com/favicon.svg?v=20260526" type="image/svg+xml">
-  <link rel="manifest" href="https://divinefitout.com/site.webmanifest?v=20260526">
+  <link rel="icon" href="/favicon.svg?v=20260526" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest?v=20260526">
 </head>
 <body class="page-home">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -42,14 +55,14 @@
   </div>
   <header class="site-header">
     <div class="header-wrap">
-      <a class="brand" href="https://divinefitout.com/" aria-label="Divine Fit-Out &amp; Renovation home">
+      <a class="brand" href="/" aria-label="Divine Fit-Out &amp; Renovation home">
         <img class="brand-mark brand-mark--logo" 
-        src="/images/divine-logo-full-96.webp" 
-        srcset="/images/divine-logo-full-96.webp 96w, 
-        /images/divine-logo-full-160.webp 160w, 
-        /images/divine-logo-full.webp 272w" 
+        src="images/divine-logo-full-96.webp" 
+        srcset="images/divine-logo-full-96.webp 96w, 
+        images/divine-logo-full-160.webp 160w, 
+        images/divine-logo-full.webp 272w" 
         sizes="(max-width: 560px) 48px, (max-width: 1040px) 54px, 72px" 
-        alt="Divine Fit-Out &amp; Renovation logo" width="272" height="272" loading="eager" decoding="async">
+        alt="Divine Fit-Out &amp; Renovation logo" width="272" height="272" loading="eager" decoding="async" fetchpriority="high">
         <span class="brand-text">Divine Fit-Out &amp; Renovation <small>Interiors &nbsp;|&nbsp; Fit-Out &nbsp;|&nbsp; Renovation</small></span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation" data-nav-toggle>
@@ -59,15 +72,15 @@
       </button>
       <nav class="main-nav" aria-label="Main navigation" data-main-nav>
         <ul>
-          <li><a data-nav-link href="https://divinefitout.com/">Home</a></li>
+          <li><a data-nav-link href="/">Home</a></li>
           <li class="has-submenu">
-              <a data-nav-link data-services-root href="https://divinefitout.com/services/">Our Services</a>
+              <a data-nav-link data-services-root href="/services/">Our Services</a>
             <div class="submenu" data-services-submenu></div>
           </li>
-          <li><a data-nav-link href="https://divinefitout.com/about.html">About</a></li>
-          <li><a data-nav-link href="https://divinefitout.com/contact.html">Contact</a></li>
+          <li><a data-nav-link href="/about.html">About</a></li>
+          <li><a data-nav-link href="/contact.html">Contact</a></li>
         </ul>
-        <a class="button button-primary" data-whatsapp-trigger="site-visit" href="https://divinefitout.com/contact.html">Request Site Visit</a>
+        <a class="button button-primary" data-whatsapp-trigger="site-visit" href="/contact.html">Request Site Visit</a>
       </nav>
     </div>
   </header>
@@ -75,16 +88,16 @@
   <main id="main">
     <section class="hero">
       <div class="section-wrap hero-grid">
-        <figure class="hero-visual hero-slider" data-hero-slider aria-label="Featured flooring and installation services in Dubai" aria-roledescription="carousel">
+        <figure class="hero-visual hero-slider" data-hero-slider aria-label="Featured flooring installation services in Dubai" aria-roledescription="carousel">
           <div class="hero-slider-stage">
-            <article class="hero-slide is-active" id="hero-slide-wood" role="tabpanel" aria-labelledby="hero-tab-wood" aria-hidden="false" data-hero-slide data-hero-title="Wooden Flooring Installation Dubai" data-hero-copy="Engineered wood, parquet, laminate, SPC, LVT and WPC flooring for villas, apartments, offices and retail interiors." data-hero-href="https://divinefitout.com/services/wooden-flooring-dubai.html" data-hero-cta="View wooden flooring">
+            <article class="hero-slide is-active" id="hero-slide-wood" role="tabpanel" aria-labelledby="hero-tab-wood" aria-hidden="false" data-hero-slide data-hero-title="Wooden Flooring Installation Dubai" data-hero-copy="Engineered wood, parquet, laminate, SPC, LVT and WPC flooring for villas, apartments, offices and retail interiors." data-hero-href="/services/wooden-flooring-dubai.html" data-hero-cta="View wooden flooring">
               <img
-                src="/images/service-wooden-flooring-800.webp"
-                srcset="/images/service-wooden-flooring-480.webp 480w,
-                        /images/service-wooden-flooring-560.webp 560w,
-                        /images/service-wooden-flooring-640.webp 640w,
-                        /images/service-wooden-flooring-800.webp 800w,
-                        /images/service-wooden-flooring-1040.webp 1040w"
+                src="images/service-wooden-flooring-800.webp"
+                srcset="images/service-wooden-flooring-480.webp 480w,
+                        images/service-wooden-flooring-560.webp 560w,
+                        images/service-wooden-flooring-640.webp 640w,
+                        images/service-wooden-flooring-800.webp 800w,
+                        images/service-wooden-flooring-1040.webp 1040w"
                 sizes="(max-width:560px) 100vw,
                       (max-width:1040px) calc(100vw - 2rem),
                       (max-width:1212px) calc((100vw - 4rem) * 0.45),
@@ -96,32 +109,92 @@
                 fetchpriority="high"
                 decoding="sync">
             </article>
-            <article class="hero-slide" id="hero-slide-tile" role="tabpanel" aria-labelledby="hero-tab-tile" aria-hidden="true" data-hero-slide inert data-hero-title="Tile Fixing Services Dubai" data-hero-copy="Precise floor and wall tile installation, leveling, adhesive selection, regrouting and repair work for homes and commercial spaces." data-hero-href="https://divinefitout.com/services/tile-fixing-dubai.html" data-hero-cta="View tile fixing">
-              <img src="/images/service-tile-fixing-480.webp" srcset="/images/service-tile-fixing-480.webp 480w, /images/service-tile-fixing-800.webp 800w, /images/service-tile-fixing-1200.webp 1200w, /images/service-tile-fixing.webp 1838w" sizes="(max-width: 560px) 100vw, (max-width: 1040px) calc(100vw - 2rem), (max-width: 1212px) calc((100vw - 4rem) * 0.45), 517px" alt="Large-format tile fixing in a Dubai bathroom and kitchen interior" width="1838" height="856" loading="lazy" decoding="async" fetchpriority="low">
+            <article class="hero-slide" id="hero-slide-tile" role="tabpanel" aria-labelledby="hero-tab-tile" aria-hidden="true" data-hero-slide data-hero-title="Tile Fixing Dubai" data-hero-copy="Large-format wall and floor tile fixing for bathrooms, kitchens, living spaces and commercial interiors across Dubai." data-hero-href="/services/tile-fixing-dubai.html" data-hero-cta="View tile fixing" inert>
+              <img
+                src="images/service-tile-fixing-480.webp"
+                srcset="images/service-tile-fixing-480.webp 480w,
+                        images/service-tile-fixing-800.webp 800w,
+                        images/service-tile-fixing-1200.webp 1200w"
+                sizes="(max-width:560px) 100vw,
+                      (max-width:1040px) calc(100vw - 2rem),
+                      (max-width:1212px) calc((100vw - 4rem) * 0.45),
+                      517px"
+                alt="Large-format tile fixing in a Dubai bathroom and kitchen interior"
+                width="1838"
+                height="856"
+                loading="lazy"
+                fetchpriority="low"
+                decoding="async">
             </article>
-            <article class="hero-slide" id="hero-slide-marble" role="tabpanel" aria-labelledby="hero-tab-marble" aria-hidden="true" data-hero-slide inert data-hero-title="Marble Installation Dubai" data-hero-copy="Premium marble flooring, stairs, wall cladding, polishing and sealing for luxury residential, retail and hospitality interiors." data-hero-href="https://divinefitout.com/services/marble-installation-dubai.html" data-hero-cta="View marble installation">
-              <img src="/images/service-marble-installation-360.webp" srcset="/images/service-marble-installation-360.webp 360w, /images/service-marble-installation-480.webp 480w, /images/service-marble-installation-800.webp 800w, /images/service-marble-installation-1200.webp 1200w, /images/service-marble-installation.webp 1717w" sizes="(max-width: 560px) 100vw, (max-width: 1040px) calc(100vw - 2rem), (max-width: 1212px) calc((100vw - 4rem) * 0.45), 517px" alt="Polished marble installation in a Dubai luxury reception interior" width="1717" height="916" loading="lazy" decoding="async" fetchpriority="low">
+            <article class="hero-slide" id="hero-slide-marble" role="tabpanel" aria-labelledby="hero-tab-marble" aria-hidden="true" data-hero-slide data-hero-title="Marble Installation Dubai" data-hero-copy="Polished marble installation, stair finishes and premium stone detailing for villas, lobbies and hospitality spaces." data-hero-href="/services/marble-installation-dubai.html" data-hero-cta="View marble installation" inert>
+              <img
+                src="images/service-marble-installation-360.webp"
+                srcset="images/service-marble-installation-360.webp 360w,
+                        images/service-marble-installation-480.webp 480w,
+                        images/service-marble-installation-800.webp 800w,
+                        images/service-marble-installation-1200.webp 1200w"
+                sizes="(max-width:560px) 100vw,
+                      (max-width:1040px) calc(100vw - 2rem),
+                      (max-width:1212px) calc((100vw - 4rem) * 0.45),
+                      517px"
+                alt="Polished marble installation in a Dubai luxury reception interior"
+                width="1717"
+                height="916"
+                loading="lazy"
+                fetchpriority="low"
+                decoding="async">
             </article>
-            <article class="hero-slide" id="hero-slide-stone" role="tabpanel" aria-labelledby="hero-tab-stone" aria-hidden="true" data-hero-slide inert data-hero-title="Stone Installation Dubai" data-hero-copy="Granite, travertine, limestone, sandstone and slate installation for floors, walls, stairs, courtyards and feature surfaces." data-hero-href="https://divinefitout.com/services/stone-installation-dubai.html" data-hero-cta="View stone installation">
-              <img src="/images/service-stone-installation-360.webp" srcset="/images/service-stone-installation-360.webp 360w, /images/service-stone-installation-480.webp 480w, /images/service-stone-installation-720.webp 720w, /images/service-stone-installation-800.webp 800w, /images/service-stone-installation-1200.webp 1200w, /images/service-stone-installation.webp 1774w" sizes="(max-width: 560px) 100vw, (max-width: 1040px) calc(100vw - 2rem), (max-width: 1212px) calc((100vw - 4rem) * 0.45), 517px" alt="Natural stone floor and wall installation in a Dubai villa courtyard transition space" width="1774" height="887" loading="lazy" decoding="async" fetchpriority="low">
+            <article class="hero-slide" id="hero-slide-stone" role="tabpanel" aria-labelledby="hero-tab-stone" aria-hidden="true" data-hero-slide data-hero-title="Stone Installation Dubai" data-hero-copy="Natural stone floor and wall installation for courtyards, feature walls, entrances and exterior-inspired interiors." data-hero-href="/services/stone-installation-dubai.html" data-hero-cta="View stone installation" inert>
+              <img
+                src="images/service-stone-installation-360.webp"
+                srcset="images/service-stone-installation-360.webp 360w,
+                        images/service-stone-installation-480.webp 480w,
+                        images/service-stone-installation-800.webp 800w,
+                        images/service-stone-installation-1200.webp 1200w"
+                sizes="(max-width:560px) 100vw,
+                      (max-width:1040px) calc(100vw - 2rem),
+                      (max-width:1212px) calc((100vw - 4rem) * 0.45),
+                      517px"
+                alt="Natural stone floor and wall installation in a Dubai villa courtyard transition space"
+                width="1774"
+                height="887"
+                loading="lazy"
+                fetchpriority="low"
+                decoding="async">
             </article>
-            <article class="hero-slide" id="hero-slide-carpet" role="tabpanel" aria-labelledby="hero-tab-carpet" aria-hidden="true" data-hero-slide inert data-hero-title="Carpet Installation Dubai" data-hero-copy="Wall-to-wall carpet, carpet tile fitting, underlay, stitching and replacement work for bedrooms, offices and hospitality spaces." data-hero-href="https://divinefitout.com/services/carpet-installation-dubai.html" data-hero-cta="View carpet installation">
-              <img src="/images/service-carpet-installation-360.webp" srcset="/images/service-carpet-installation-360.webp 360w, /images/service-carpet-installation-480.webp 480w, /images/service-carpet-installation-720.webp 720w, /images/service-carpet-installation-800.webp 800w, /images/service-carpet-installation-1200.webp 1200w, /images/service-carpet-installation.webp 1536w" sizes="(max-width: 560px) 100vw, (max-width: 1040px) calc(100vw - 2rem), (max-width: 1212px) calc((100vw - 4rem) * 0.45), 517px" alt="Premium carpet installation in a Dubai hotel suite or executive lounge" width="1536" height="1024" loading="lazy" decoding="async" fetchpriority="low">
+            <article class="hero-slide" id="hero-slide-carpet" role="tabpanel" aria-labelledby="hero-tab-carpet" aria-hidden="true" data-hero-slide data-hero-title="Carpet Installation Dubai" data-hero-copy="Premium carpet supply and fitting for bedrooms, offices, meeting rooms, hospitality suites and executive interiors." data-hero-href="/services/carpet-installation-dubai.html" data-hero-cta="View carpet installation" inert>
+              <img
+                src="images/service-carpet-installation-360.webp"
+                srcset="images/service-carpet-installation-360.webp 360w,
+                        images/service-carpet-installation-480.webp 480w,
+                        images/service-carpet-installation-720.webp 720w,
+                        images/service-carpet-installation-800.webp 800w,
+                        images/service-carpet-installation-1200.webp 1200w"
+                sizes="(max-width:560px) 100vw,
+                      (max-width:1040px) calc(100vw - 2rem),
+                      (max-width:1212px) calc((100vw - 4rem) * 0.45),
+                      517px"
+                alt="Premium carpet installation in a Dubai hotel suite or executive lounge"
+                width="1536"
+                height="1024"
+                loading="lazy"
+                fetchpriority="low"
+                decoding="async">
             </article>
           </div>
           <div class="hero-visual-note hero-slide-note" data-hero-note>
             <strong data-hero-note-title>Wooden Flooring Installation Dubai</strong>
             <span data-hero-note-copy>Engineered wood, parquet, laminate, SPC, LVT and WPC flooring for villas, apartments, offices and retail interiors.</span>
-            <a class="button button-secondary" data-hero-note-link href="https://divinefitout.com/services/wooden-flooring-dubai.html">View wooden flooring</a>
+            <a class="button button-secondary" data-hero-note-link href="/services/wooden-flooring-dubai.html">View wooden flooring</a>
           </div>
           <div class="hero-slider-controls" role="group" aria-label="Hero banner controls">
             <button class="hero-slider-button" type="button" data-hero-prev aria-label="Previous service banner">&#8592;</button>
-            <div class="hero-slider-dots" role="tablist" aria-label="Choose a featured service banner">
-              <button class="hero-slider-dot is-active" id="hero-tab-wood" role="tab" aria-controls="hero-slide-wood" aria-selected="true" tabindex="0" type="button" data-hero-dot aria-label="Show wooden flooring banner"></button>
-              <button class="hero-slider-dot" id="hero-tab-tile" role="tab" aria-controls="hero-slide-tile" aria-selected="false" tabindex="-1" type="button" data-hero-dot aria-label="Show tile fixing banner"></button>
-              <button class="hero-slider-dot" id="hero-tab-marble" role="tab" aria-controls="hero-slide-marble" aria-selected="false" tabindex="-1" type="button" data-hero-dot aria-label="Show marble installation banner"></button>
-              <button class="hero-slider-dot" id="hero-tab-stone" role="tab" aria-controls="hero-slide-stone" aria-selected="false" tabindex="-1" type="button" data-hero-dot aria-label="Show stone installation banner"></button>
-              <button class="hero-slider-dot" id="hero-tab-carpet" role="tab" aria-controls="hero-slide-carpet" aria-selected="false" tabindex="-1" type="button" data-hero-dot aria-label="Show carpet installation banner"></button>
+            <div class="hero-slider-dots" aria-label="Choose a featured service banner">
+              <button class="hero-slider-dot is-active" id="hero-tab-wood" type="button" data-hero-dot aria-selected="true" aria-label="Show wooden flooring banner"></button>
+              <button class="hero-slider-dot" id="hero-tab-tile" type="button" data-hero-dot aria-selected="false" aria-label="Show tile fixing banner"></button>
+              <button class="hero-slider-dot" id="hero-tab-marble" type="button" data-hero-dot aria-selected="false" aria-label="Show marble installation banner"></button>
+              <button class="hero-slider-dot" id="hero-tab-stone" type="button" data-hero-dot aria-selected="false" aria-label="Show stone installation banner"></button>
+              <button class="hero-slider-dot" id="hero-tab-carpet" type="button" data-hero-dot aria-selected="false" aria-label="Show carpet installation banner"></button>
             </div>
             <button class="hero-slider-button" type="button" data-hero-next aria-label="Next service banner">&#8594;</button>
           </div>
@@ -132,7 +205,7 @@
           <p>We install wooden floors, tiles, marble, natural stone and carpets for villas, apartments, offices, retail shops and hospitality spaces across Dubai. Our team handles site inspection, subfloor leveling, material planning, moisture checks, precise fitting, trims, polishing, sealing and clean handover from one point of contact.</p>
           <div class="hero-actions">
             <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Multiple Services" href="https://wa.me/971566363850">Request Service</a>
-            <a class="button button-secondary" href="https://divinefitout.com/services/">Explore service pages</a>
+            <a class="button button-secondary" href="/services/">Explore service pages</a>
           </div>
           <div class="hero-trust">
             <span class="chip"><strong>Dubai-ready</strong> installation methods for local heat, usage and finish expectations</span>
@@ -170,7 +243,7 @@
                 decoding="async"
                 fetchpriority="low">
             </div>
-            <h3><a href="https://divinefitout.com/services/wooden-flooring-dubai.html">Wooden Flooring Dubai</a></h3>
+            <h3><a href="/services/wooden-flooring-dubai.html">Wooden Flooring Dubai</a></h3>
             <p>Engineered wood, parquet, laminate, SPC, LVT and WPC flooring installation for Dubai homes, offices and design-led commercial interiors.</p>
             <ul>
               <li>Subfloor prep and underlay</li>
@@ -197,7 +270,7 @@
                 decoding="async"
                 fetchpriority="low">
             </div>
-            <h3><a href="https://divinefitout.com/services/tile-fixing-dubai.html">Tile Fixing Dubai</a></h3>
+            <h3><a href="/services/tile-fixing-dubai.html">Tile Fixing Dubai</a></h3>
             <p>Floor and wall tile fixing for bathrooms, kitchens, living areas, offices and commercial spaces that need durable, clean-lined tile work.</p>
             <ul>
               <li>Bathroom, kitchen and living areas</li>
@@ -225,7 +298,7 @@
                 decoding="async"
                 fetchpriority="low">
             </div>
-            <h3><a href="https://divinefitout.com/services/marble-installation-dubai.html">Marble Installation Dubai</a></h3>
+            <h3><a href="/services/marble-installation-dubai.html">Marble Installation Dubai</a></h3>
             <p>Marble flooring, staircases, wall cladding and polished stone finishes for luxury villas, reception areas, retail and hospitality interiors.</p>
             <ul>
               <li>Vein matching and precision cutting</li>
@@ -254,7 +327,7 @@
                 decoding="async"
                 fetchpriority="low">
             </div>
-            <h3><a href="https://divinefitout.com/services/stone-installation-dubai.html">Stone Installation Dubai</a></h3>
+            <h3><a href="/services/stone-installation-dubai.html">Stone Installation Dubai</a></h3>
             <p>Natural stone installation for granite, travertine, limestone, sandstone and other premium finishes used across indoor and outdoor Dubai projects.</p>
             <ul>
               <li>Indoor and outdoor stonework</li>
@@ -283,7 +356,7 @@
                 decoding="async"
                 fetchpriority="low">
             </div>
-            <h3><a href="https://divinefitout.com/services/carpet-installation-dubai.html">Carpet Installation Dubai</a></h3>
+            <h3><a href="/services/carpet-installation-dubai.html">Carpet Installation Dubai</a></h3>
             <p>Carpet installation for bedrooms, offices, lounges, hospitality interiors and commercial fit-outs that need comfort, acoustic support and clean finishing.</p>
             <ul>
               <li>Residential and commercial fitting</li>
@@ -437,7 +510,7 @@
           <p>Tell us which service you need and we can guide you on the right next step for wooden flooring, tile fixing, marble installation, stone installation or carpet installation in Dubai.</p>
           <div class="inline-actions">
             <a class="button button-primary" data-whatsapp-trigger="service-request" data-whatsapp-service="Multiple Services" href="https://wa.me/971566363850">Request Service</a>
-              <a class="button button-secondary" href="https://divinefitout.com/services/">See all service pages</a>
+              <a class="button button-secondary" href="/services/">See all service pages</a>
           </div>
         </div>
       </div>
@@ -448,27 +521,27 @@
     <div class="footer-wrap">
       <div class="footer-grid">
         <div class="footer-column">
-          <a class="brand brand--footer" href="https://divinefitout.com/" aria-label="Divine Fit-Out &amp; Renovation home">
-            <img class="brand-logo-full" src="/images/divine-logo-full-160.webp" srcset="/images/divine-logo-full-96.webp 96w, /images/divine-logo-full-160.webp 160w, /images/divine-logo-full.webp 272w" sizes="(max-width: 560px) 112px, (max-width: 1040px) 120px, 136px" alt="Divine Fit-Out &amp; Renovation logo" width="272" height="272" loading="lazy" decoding="async">
+          <a class="brand brand--footer" href="/" aria-label="Divine Fit-Out &amp; Renovation home">
+            <img class="brand-logo-full" src="images/divine-logo-full-160.webp" srcset="images/divine-logo-full-96.webp 96w, images/divine-logo-full-160.webp 160w, images/divine-logo-full.webp 272w" sizes="(max-width: 560px) 112px, (max-width: 1040px) 120px, 136px" alt="Divine Fit-Out &amp; Renovation logo" width="272" height="272" loading="lazy" decoding="async">
           </a>
           <p>Wooden flooring, tile fixing, marble installation, stone installation and carpet installation services across Dubai.</p>
         </div>
         <div class="footer-column">
           <h3>Services</h3>
           <ul>
-            <li><a href="https://divinefitout.com/services/wooden-flooring-dubai.html">Wooden Flooring</a></li>
-            <li><a href="https://divinefitout.com/services/tile-fixing-dubai.html">Tile Fixing</a></li>
-            <li><a href="https://divinefitout.com/services/marble-installation-dubai.html">Marble Installation</a></li>
-            <li><a href="https://divinefitout.com/services/stone-installation-dubai.html">Stone Installation</a></li>
-            <li><a href="https://divinefitout.com/services/carpet-installation-dubai.html">Carpet Installation</a></li>
+            <li><a href="/services/wooden-flooring-dubai.html">Wooden Flooring</a></li>
+            <li><a href="/services/tile-fixing-dubai.html">Tile Fixing</a></li>
+            <li><a href="/services/marble-installation-dubai.html">Marble Installation</a></li>
+            <li><a href="/services/stone-installation-dubai.html">Stone Installation</a></li>
+            <li><a href="/services/carpet-installation-dubai.html">Carpet Installation</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <h3>Company</h3>
           <ul>
-            <li><a href="https://divinefitout.com/about.html">About</a></li>
-            <li><a href="https://divinefitout.com/contact.html">Contact</a></li>
-            <li><a href="https://divinefitout.com/services/">Service Hub</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/services/">Service Hub</a></li>
           </ul>
         </div>
         <div class="footer-column">
@@ -488,7 +561,7 @@
       </div>
     </div>
   </footer>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HomeAndConstructionBusiness","@id":"https://divinefitout.com/#business","name":"Devine Fit-out \u0026 Renovation","url":"https://divinefitout.com/","telephone":"+971566363850","email":"service@divinefitout.com","image":"https://divinefitout.com/favicon.svg","priceRange":"$","description":"Dubai flooring company offering wooden flooring, tile fixing, marble installation, natural stone installation and carpet installation for villas, apartments, offices, retail spaces and hospitality projects.","address":{"@type":"PostalAddress","streetAddress":"Building-X07, England Cluster, Dubai International City","addressLocality":"Dubai","addressRegion":"Dubai","addressCountry":"United Arab Emirates"},"geo":{"@type":"GeoCoordinates","latitude":"25.13796","longitude":"55.22794"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"19:00"}],"areaServed":["Dubai Marina","Downtown Dubai","Business Bay","Palm Jumeirah","Jumeirah","Al Barsha","Dubai Hills","Mirdif","Arabian Ranches","JVC"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Flooring and installation services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Wooden flooring installation","url":"https://divinefitout.com/services/wooden-flooring-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Tile fixing","url":"https://divinefitout.com/services/tile-fixing-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Marble installation","url":"https://divinefitout.com/services/marble-installation-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stone installation","url":"https://divinefitout.com/services/stone-installation-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Carpet installation","url":"https://divinefitout.com/services/carpet-installation-dubai.html"}}]}},{"@type":"WebSite","@id":"https://divinefitout.com/#website","url":"https://divinefitout.com/","name":"Devine Fit-out \u0026 Renovation"},{"@type":"FAQPage","@id":"https://divinefitout.com/#faq","mainEntity":[{"@type":"Question","name":"Which flooring services do you provide in Dubai?","acceptedAnswer":{"@type":"Answer","text":"We provide wooden flooring installation, tile fixing, marble installation, stone installation and carpet installation across Dubai. Each service also has a dedicated page for more detailed project information."}},{"@type":"Question","name":"Do you work on villas, apartments and commercial spaces?","acceptedAnswer":{"@type":"Answer","text":"Yes. We work on villas, apartments, offices, retail spaces and hospitality interiors across Dubai, including both renovation and fit-out projects."}},{"@type":"Question","name":"Can you handle surface preparation before installation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our work can include subfloor leveling, moisture checks, underlay planning, crack repair, transition detailing and finishing preparation before the final material is installed."}},{"@type":"Question","name":"How can I request service in Dubai?","acceptedAnswer":{"@type":"Answer","text":"You can request service through WhatsApp, send your project details, and arrange a site visit for wooden flooring, tile fixing, marble installation, stone installation or carpet installation in Dubai."}}]}]}</script>
-  <script src="js/site.min.js?v=eef128f7e5" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HomeAndConstructionBusiness","@id":"https://divinefitout.com/#business","name":"Devine Fit-out \u0026 Renovation","url":"https://divinefitout.com/","telephone":"+971566363850","email":"service@divinefitout.com","image":"https://divinefitout.com/favicon.svg","priceRange":"$","description":"Dubai flooring company offering wooden flooring, tile fixing, marble installation, natural stone installation and carpet installation for villas, apartments, offices, retail spaces and hospitality projects.","address":{"@type":"PostalAddress","streetAddress":"Building-X07, England Cluster, Dubai International City","addressLocality":"Dubai","addressRegion":"Dubai","addressCountry":"United Arab Emirates"},"geo":{"@type":"GeoCoordinates","latitude":"25.13796","longitude":"55.22794"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:00","closes":"19:00"}],"areaServed":["Dubai Marina","Downtown Dubai","Business Bay","Palm Jumeirah","Jumeirah","Al Barsha","Dubai Hills","Mirdif","Arabian Ranches","JVC"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Flooring and installation services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Wooden flooring installation","url":"/services/wooden-flooring-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Tile fixing","url":"/services/tile-fixing-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Marble installation","url":"/services/marble-installation-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stone installation","url":"/services/stone-installation-dubai.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Carpet installation","url":"/services/carpet-installation-dubai.html"}}]}},{"@type":"WebSite","@id":"https://divinefitout.com/#website","url":"https://divinefitout.com/","name":"Devine Fit-out \u0026 Renovation"},{"@type":"FAQPage","@id":"https://divinefitout.com/#faq","mainEntity":[{"@type":"Question","name":"Which flooring services do you provide in Dubai?","acceptedAnswer":{"@type":"Answer","text":"We provide wooden flooring installation, tile fixing, marble installation, stone installation and carpet installation across Dubai. Each service also has a dedicated page for more detailed project information."}},{"@type":"Question","name":"Do you work on villas, apartments and commercial spaces?","acceptedAnswer":{"@type":"Answer","text":"Yes. We work on villas, apartments, offices, retail spaces and hospitality interiors across Dubai, including both renovation and fit-out projects."}},{"@type":"Question","name":"Can you handle surface preparation before installation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our work can include subfloor leveling, moisture checks, underlay planning, crack repair, transition detailing and finishing preparation before the final material is installed."}},{"@type":"Question","name":"How can I request service in Dubai?","acceptedAnswer":{"@type":"Answer","text":"You can request service through WhatsApp, send your project details, and arrange a site visit for wooden flooring, tile fixing, marble installation, stone installation or carpet installation in Dubai."}}]}]}</script>
+  <script src="js/site.min.js?v=4bc4698417" defer></script>
 </body>
 </html>

@@ -278,14 +278,14 @@ if (heroSlider) {
 
 const currentPath = normalizePath(window.location.pathname);
 const servicesSubmenuItems = [
-  { href: "https://divinefitout.com/services/wooden-flooring-dubai.html", label: "Wooden Flooring", woodRoot: true },
-  { href: "https://divinefitout.com/services/spc-flooring-dubai.html", label: "SPC Flooring", compact: true },
-  { href: "https://divinefitout.com/services/lvt-flooring-dubai.html", label: "LVT Flooring", compact: true },
-  { href: "https://divinefitout.com/services/wpc-flooring-dubai.html", label: "WPC Flooring", compact: true },
-  { href: "https://divinefitout.com/services/carpet-installation-dubai.html", label: "Carpet Installation" },
-  { href: "https://divinefitout.com/services/tile-fixing-dubai.html", label: "Tile Fixing" },
-  { href: "https://divinefitout.com/services/stone-installation-dubai.html", label: "Stone Installation" },
-  { href: "https://divinefitout.com/services/marble-installation-dubai.html", label: "Marble Installation" }
+  { href: "/services/wooden-flooring-dubai.html", label: "Wooden Flooring", woodRoot: true },
+  { href: "/services/spc-flooring-dubai.html", label: "SPC Flooring", compact: true },
+  { href: "/services/lvt-flooring-dubai.html", label: "LVT Flooring", compact: true },
+  { href: "/services/wpc-flooring-dubai.html", label: "WPC Flooring", compact: true },
+  { href: "/services/carpet-installation-dubai.html", label: "Carpet Installation" },
+  { href: "/services/tile-fixing-dubai.html", label: "Tile Fixing" },
+  { href: "/services/stone-installation-dubai.html", label: "Stone Installation" },
+  { href: "/services/marble-installation-dubai.html", label: "Marble Installation" }
 ];
 const servicesSubmenuMarkup = servicesSubmenuItems.map(({ href, label, compact, woodRoot }) => {
   const className = compact ? ' class="submenu-link--compact"' : "";
