@@ -1235,6 +1235,16 @@ main {
   transition: transform 220ms ease;
 }
 
+.page-home .service-card > img {
+  width: calc(100% + 2.8rem);
+  max-width: calc(100% + 2.8rem);
+  margin: -1.4rem -1.4rem 1.1rem;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  transition: transform 220ms ease;
+}
+
 .service-card--overlay .service-thumb {
   margin: 0;
   border-bottom: 0;
@@ -1270,7 +1280,9 @@ main {
 }
 
 .service-card:hover .service-thumb img,
-.service-card:focus-within .service-thumb img {
+.service-card:focus-within .service-thumb img,
+.page-home .service-card:hover > img,
+.page-home .service-card:focus-within > img {
   transform: scale(1.03);
 }
 
@@ -2785,6 +2797,7 @@ textarea {
   }
 
   .service-thumb img,
+  .page-home .service-card > img,
   .service-card--overlay .service-thumb img {
     height: auto;
     aspect-ratio: auto;
