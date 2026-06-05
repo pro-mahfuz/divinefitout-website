@@ -695,6 +695,18 @@ main {
   gap: 1.4rem;
 }
 
+body.page-home {
+  font-family: var(--font-ui);
+}
+
+.page-home h1,
+.page-home h2,
+.page-home h3,
+.page-home h4,
+.page-home .service-card-title {
+  font-family: var(--font-ui);
+}
+
 .page-home .hero-copy,
 .page-home .hero-copy h1,
 .page-home .hero-copy p,
