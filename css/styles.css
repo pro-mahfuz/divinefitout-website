@@ -782,7 +782,7 @@ main {
   letter-spacing: -0.025em;
 }
 
-.page-home .service-card h3 {
+.page-home .service-card-title {
   font-size: clamp(1.3rem, 1.25vw + 1.04rem, 1.64rem);
   line-height: 1.08;
 }
@@ -1221,6 +1221,20 @@ main {
 .service-card {
   position: relative;
   overflow: hidden;
+}
+
+.service-card-title {
+  display: block;
+  margin-bottom: 0.7rem;
+  font-family: var(--font-serif);
+  font-size: var(--title-sm);
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.service-card-title:hover,
+.service-card-title:focus-visible {
+  color: var(--accent-deep);
 }
 
 .service-card--overlay {
@@ -2124,7 +2138,23 @@ textarea {
   align-content: start;
   justify-items: start;
   gap: 0.8rem;
-  color: inherit;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.footer-brand::before {
+  content: "";
+  display: block;
+  width: 5.5rem;
+  aspect-ratio: 1;
+  background:
+    image-set(
+      url("https://cdn.divinefitout.com/images/divine-logo-full-96.webp") 1x,
+      url("https://cdn.divinefitout.com/images/divine-logo-full-160.webp") 1.66x,
+      url("https://cdn.divinefitout.com/images/divine-logo-full.webp") 2.83x
+    )
+    center / contain no-repeat;
+  filter: drop-shadow(0 14px 28px rgba(49, 34, 20, 0.14));
 }
 
 .footer-brand span {
@@ -2609,7 +2639,7 @@ textarea {
     line-height: 1.04;
   }
 
-  .page-home .service-card h3 {
+  .page-home .service-card-title {
     font-size: 1.3rem;
     line-height: 1.1;
   }
@@ -2785,6 +2815,10 @@ textarea {
   .footer-column ul {
     align-items: center;
     justify-items: center;
+  }
+
+  .footer-brand::before {
+    width: 5rem;
   }
 
   .footer-column a,

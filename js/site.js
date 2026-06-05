@@ -77,7 +77,6 @@ if (navToggle && mainNav) {
 if (heroSlider) {
   let heroSliderInitialized = false;
   let heroSliderInitScheduled = false;
-  const heroSliderDomLightViewport = window.matchMedia("(max-width: 820px)");
   const initHeroSlider = () => {
     if (heroSliderInitialized) return;
     heroSliderInitialized = true;
@@ -424,6 +423,19 @@ if (heroSlider) {
     setHeroSlide(activeHeroIndex);
     syncHeroAutoplayState();
   };
+  const warmHeroSlideAsset = (slideData) => {
+    if (!slideData?.id || !slideData?.image?.src || document.head.querySelector(`[data-hero-warmup="${slideData.id}"]`)) {
+      return;
+    }
+
+    const preload = document.createElement("link");
+    preload.rel = "prefetch";
+    preload.as = "image";
+    preload.href = slideData.image.src;
+    preload.setAttribute("data-hero-warmup", slideData.id);
+    document.head.append(preload);
+  };
+
   const requestHeroSliderInit = () => {
     if (heroSliderInitialized || heroSliderInitScheduled) return;
     heroSliderInitScheduled = true;
@@ -434,15 +446,15 @@ if (heroSlider) {
   heroSlider.addEventListener("focusin", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("pointerdown", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("click", requestHeroSliderInit, { once: true });
-  const syncHeroSliderInitStrategy = (event) => {
-    const shouldDelayHeroSlider = typeof event?.matches === "boolean" ? event.matches : heroSliderDomLightViewport.matches;
-    if (!shouldDelayHeroSlider) {
-      scheduleAfterLoad(requestHeroSliderInit, 900);
-    }
-  };
-
-  syncHeroSliderInitStrategy();
-  addMediaQueryChangeListener(heroSliderDomLightViewport, syncHeroSliderInitStrategy);
+  heroSlider.addEventListener("keydown", requestHeroSliderInit, { once: true });
+  scheduleAfterLoad(() => {
+    warmHeroSlideAsset({
+      id: "hero-slide-tile",
+      image: {
+        src: toCdnAssetUrl("images/service-tile-fixing-480.webp")
+      }
+    });
+  }, 3200);
 }
 
 const currentPath = normalizePath(window.location.pathname);
@@ -1065,7 +1077,8 @@ if (!floatingUi.hasAttribute("data-floating-ui-root")) {
     </div>
   </div>
 `;
-  document.body.appendChild(floatingUi);
+  const floatingUiHost = document.querySelector(".site-footer") || document.querySelector("#main") || document.body;
+  floatingUiHost.appendChild(floatingUi);
 }
 
 const floatingTools = floatingUi.querySelector(".floating-tools");
