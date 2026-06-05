@@ -74,9 +74,12 @@ if (navToggle && mainNav) {
 
 if (heroSlider) {
   let heroSliderInitialized = false;
+  let heroSliderInitScheduled = false;
+  const heroSliderDomLightViewport = window.matchMedia("(max-width: 820px)");
   const initHeroSlider = () => {
     if (heroSliderInitialized) return;
     heroSliderInitialized = true;
+    heroSlider.classList.add("is-enhanced");
 
     const deferredHeroSlides = [
       {
@@ -420,14 +423,24 @@ if (heroSlider) {
     syncHeroAutoplayState();
   };
   const requestHeroSliderInit = () => {
-    if (heroSliderInitialized) return;
+    if (heroSliderInitialized || heroSliderInitScheduled) return;
+    heroSliderInitScheduled = true;
     queueFrame(initHeroSlider);
   };
 
   heroSlider.addEventListener("pointerenter", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("focusin", requestHeroSliderInit, { once: true });
+  heroSlider.addEventListener("pointerdown", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("click", requestHeroSliderInit, { once: true });
-  requestHeroSliderInit();
+  const syncHeroSliderInitStrategy = (event) => {
+    const shouldDelayHeroSlider = typeof event?.matches === "boolean" ? event.matches : heroSliderDomLightViewport.matches;
+    if (!shouldDelayHeroSlider) {
+      scheduleAfterLoad(requestHeroSliderInit, 900);
+    }
+  };
+
+  syncHeroSliderInitStrategy();
+  addMediaQueryChangeListener(heroSliderDomLightViewport, syncHeroSliderInitStrategy);
 }
 
 const currentPath = normalizePath(window.location.pathname);
@@ -489,6 +502,20 @@ const applyMobileNavTop = (headerHeight) => {
   document.documentElement.style.setProperty("--mobile-nav-top", `${nextTop}px`);
 };
 
+let cachedSiteHeaderHeight = 0;
+let siteHeaderMeasureQueued = false;
+const setCachedSiteHeaderHeight = (headerHeight) => {
+  const nextHeight = Math.max(0, Math.round(headerHeight || 0));
+  if (nextHeight) {
+    cachedSiteHeaderHeight = nextHeight;
+  }
+  return cachedSiteHeaderHeight;
+};
+const measureSiteHeaderHeight = () => {
+  if (!siteHeader) return cachedSiteHeaderHeight;
+  return setCachedSiteHeaderHeight(siteHeader.getBoundingClientRect().height || siteHeader.clientHeight);
+};
+
 let mobileNavGeometryQueued = false;
 const syncMobileNavGeometry = () => {
   if (!mainNav || !siteHeader) return;
@@ -503,7 +530,17 @@ const syncMobileNavGeometry = () => {
   mobileNavGeometryQueued = true;
   queueFrame(() => {
     mobileNavGeometryQueued = false;
-    applyMobileNavTop(siteHeader.offsetHeight);
+    applyMobileNavTop(cachedSiteHeaderHeight);
+  });
+};
+const queueSiteHeaderMeasurement = () => {
+  if (!siteHeader || siteHeaderMeasureQueued) return;
+
+  siteHeaderMeasureQueued = true;
+  queueFrame(() => {
+    siteHeaderMeasureQueued = false;
+    measureSiteHeaderHeight();
+    syncMobileNavGeometry();
   });
 };
 
@@ -759,13 +796,15 @@ const handleMobileNavViewportChange = () => {
 };
 
 addMediaQueryChangeListener(mobileNavQuery, handleMobileNavViewportChange);
-window.addEventListener("resize", syncMobileNavGeometry);
+window.addEventListener("resize", queueSiteHeaderMeasurement);
 if (siteHeader && typeof window.ResizeObserver === "function") {
   const headerResizeObserver = new window.ResizeObserver((entries) => {
     const nextEntry = entries[0];
-    applyMobileNavTop(nextEntry?.borderBoxSize?.[0]?.blockSize || nextEntry?.contentRect?.height || siteHeader.offsetHeight);
+    applyMobileNavTop(setCachedSiteHeaderHeight(nextEntry?.borderBoxSize?.[0]?.blockSize || nextEntry?.contentRect?.height || cachedSiteHeaderHeight));
   });
   headerResizeObserver.observe(siteHeader);
+} else if (siteHeader) {
+  queueSiteHeaderMeasurement();
 }
 
 document.addEventListener("keydown", (event) => {
@@ -808,10 +847,11 @@ const initSectionLinkTracking = () => {
 
   const getSectionOffset = () => (window.innerWidth < 720 ? 170 : 220);
   const refreshSectionPositions = () => {
-    sectionPositions = sectionTargets.map((item) => ({
+    const nextSectionPositions = sectionTargets.map((item) => ({
       hash: item.hash,
       top: item.section.getBoundingClientRect().top + window.scrollY
     }));
+    sectionPositions = nextSectionPositions;
   };
 
   const updateActiveSectionLink = () => {
@@ -867,6 +907,12 @@ const initSectionLinkTracking = () => {
   window.addEventListener("scroll", handleSectionScroll, { passive: true });
   window.addEventListener("resize", handleSectionLayoutChange);
   window.addEventListener("load", handleSectionLayoutChange, { once: true });
+  if (typeof window.ResizeObserver === "function") {
+    const sectionResizeObserver = new window.ResizeObserver(handleSectionLayoutChange);
+    sectionTargets.forEach(({ section }) => {
+      sectionResizeObserver.observe(section);
+    });
+  }
   window.addEventListener("hashchange", () => {
     const matchingHash = sectionTargets.find((item) => item.hash === window.location.hash);
     if (matchingHash) {
@@ -1130,7 +1176,16 @@ const toggleScrollButton = () => {
 };
 
 toggleScrollButton();
-window.addEventListener("scroll", toggleScrollButton, { passive: true });
+let scrollButtonQueued = false;
+const queueScrollButtonUpdate = () => {
+  if (scrollButtonQueued) return;
+  scrollButtonQueued = true;
+  queueFrame(() => {
+    scrollButtonQueued = false;
+    toggleScrollButton();
+  });
+};
+window.addEventListener("scroll", queueScrollButtonUpdate, { passive: true });
 
 if (scrollTopButton) {
   scrollTopButton.addEventListener("click", () => {

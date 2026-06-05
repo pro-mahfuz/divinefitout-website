@@ -2,8 +2,8 @@
   "name": "divine-website",
   "private": true,
   "scripts": {
-    "build:css": "esbuild css/styles.css --minify --legal-comments=none --outfile=css/styles.min.css",
-    "build:js": "esbuild js/site.js --minify --legal-comments=none --outfile=js/site.min.js",
+    "build:css": "node scripts/build-assets.mjs",
+    "build:js": "node scripts/build-assets.mjs",
     "build:assets": "node scripts/build-assets.mjs",
     "watch:assets": "node scripts/watch-assets.mjs"
   },

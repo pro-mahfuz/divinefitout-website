@@ -1,73 +1,69 @@
-import * as esbuild from "esbuild";
-import { formatBuildSummary, refreshAssetVersions } from "./assets-lib.mjs";
+import { watch } from "node:fs";
+import { buildAssets, formatBuildSummary } from "./assets-lib.mjs";
 
+let isBuilding = false;
 let isShuttingDown = false;
-let refreshTimer = null;
+let rebuildQueued = false;
+let rebuildTimer = null;
 
-const contexts = await Promise.all([
-  esbuild.context({
-    entryPoints: ["css/styles.css"],
-    minify: true,
-    legalComments: "none",
-    outfile: "css/styles.min.css",
-    plugins: [createVersionRefreshPlugin()]
-  }),
-  esbuild.context({
-    entryPoints: ["js/site.js"],
-    minify: true,
-    legalComments: "none",
-    outfile: "js/site.min.js",
-    plugins: [createVersionRefreshPlugin()]
-  })
-]);
+const watchers = [
+  watch("css/styles.css", queueBuild),
+  watch("js/site.js", queueBuild)
+];
 
-await Promise.all(contexts.map((context) => context.watch()));
-queueVersionRefresh();
+await runBuild();
 
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
-console.log("Watching css/styles.css and js/site.js for minified rebuilds...");
+console.log("Watching css/styles.css and js/site.js for hashed asset rebuilds...");
 
-function queueVersionRefresh() {
+function queueBuild() {
   if (isShuttingDown) return;
 
-  if (refreshTimer) {
-    clearTimeout(refreshTimer);
+  if (rebuildTimer) {
+    clearTimeout(rebuildTimer);
   }
 
-  refreshTimer = setTimeout(async () => {
-    refreshTimer = null;
-
-    try {
-      const result = await refreshAssetVersions();
-      console.log(formatBuildSummary(result));
-    } catch (error) {
-      console.error("[watch:version] failed:", error?.message ?? error);
-    }
+  rebuildTimer = setTimeout(() => {
+    rebuildTimer = null;
+    runBuild();
   }, 80);
 }
 
-function createVersionRefreshPlugin() {
-  return {
-    name: "refresh-asset-versions",
-    setup(build) {
-      build.onEnd(() => {
-        queueVersionRefresh();
-      });
+async function runBuild() {
+  if (isShuttingDown) return;
+
+  if (isBuilding) {
+    rebuildQueued = true;
+    return;
+  }
+
+  isBuilding = true;
+
+  do {
+    rebuildQueued = false;
+
+    try {
+      const result = await buildAssets();
+      console.log(formatBuildSummary(result));
+    } catch (error) {
+      console.error("[watch:assets] failed:", error?.message ?? error);
     }
-  };
+  } while (rebuildQueued && !isShuttingDown);
+
+  isBuilding = false;
 }
 
 async function shutdown() {
   if (isShuttingDown) return;
   isShuttingDown = true;
 
-  if (refreshTimer) {
-    clearTimeout(refreshTimer);
-    refreshTimer = null;
+  if (rebuildTimer) {
+    clearTimeout(rebuildTimer);
+    rebuildTimer = null;
   }
 
-  await Promise.all(contexts.map((context) => context.dispose()));
+  await Promise.all(watchers.map((watcher) => watcher.close?.()));
   process.exit(0);
 }

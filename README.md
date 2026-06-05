@@ -37,5 +37,5 @@ Replace the following placeholder details everywhere they appear:
 
 - Install dependencies with `npm install`
 - Rebuild minified assets once with `npm run build:assets`
-- Each asset rebuild also refreshes the versioned `?v=` CSS and JS references across the HTML pages so browsers pick up the latest files
+- Each asset rebuild emits hashed filenames like `styles.<hash>.min.css` and `site.<hash>.min.js`, then refreshes the HTML references automatically
 - Watch `css/styles.css` and `js/site.js` and auto-regenerate minified files with `npm run watch:assets`
