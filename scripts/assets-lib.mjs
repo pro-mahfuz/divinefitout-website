@@ -5,6 +5,7 @@ import * as esbuild from "esbuild";
 
 const htmlExtension = ".html";
 const hashLength = 10;
+const assetCdnOrigin = "https://cdn.divinefitout.com";
 
 const cssEntryPoint = "css/styles.css";
 const cssOutputDir = "css";
@@ -16,8 +17,8 @@ const jsOutputDir = "js";
 const jsBaseName = "site";
 const jsExtension = ".js";
 
-const styleHrefPattern = /((?:\.\.\/)?css\/)styles(?:\.[a-f0-9]{10})?\.min\.css(?:\?v=[^"'\\s>)]*)?/g;
-const scriptSrcPattern = /((?:\.\.\/)?js\/)site(?:\.[a-f0-9]{10})?\.min\.js(?:\?v=[^"'\\s>)]*)?/g;
+const styleHrefPattern = /(?:https:\/\/cdn\.divinefitout\.com\/|(?:\.\.\/)?)(css\/)styles(?:\.[a-f0-9]{10})?\.min\.css(?:\?v=[^"'\\s>)]*)?/g;
+const scriptSrcPattern = /(?:https:\/\/cdn\.divinefitout\.com\/|(?:\.\.\/)?)(js\/)site(?:\.[a-f0-9]{10})?\.min\.js(?:\?v=[^"'\\s>)]*)?/g;
 
 export async function buildAssets() {
   const [cssAsset, jsAsset] = await Promise.all([
@@ -88,8 +89,8 @@ async function updateHtmlAssetReferences({ cssFileName, jsFileName }) {
     htmlFiles.map(async (filePath) => {
       const source = await readFile(filePath, "utf8");
       const next = source
-        .replace(styleHrefPattern, (_, prefix) => `${prefix}${cssFileName}`)
-        .replace(scriptSrcPattern, (_, prefix) => `${prefix}${jsFileName}`);
+        .replace(styleHrefPattern, (_, assetDirectory) => `${assetCdnOrigin}/${assetDirectory}${cssFileName}`)
+        .replace(scriptSrcPattern, (_, assetDirectory) => `${assetCdnOrigin}/${assetDirectory}${jsFileName}`);
 
       if (next !== source) {
         await writeFile(filePath, next, "utf8");

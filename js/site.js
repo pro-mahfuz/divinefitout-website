@@ -3,6 +3,8 @@ const mainNav = document.querySelector("[data-main-nav]");
 const heroSlider = document.querySelector("[data-hero-slider]");
 const siteHeader = document.querySelector(".site-header");
 const mobileNavQuery = window.matchMedia("(max-width: 1040px)");
+const assetCdnOrigin = "https://cdn.divinefitout.com";
+const toCdnAssetUrl = (assetPath) => `${assetCdnOrigin}/${String(assetPath || "").replace(/^\/+/, "")}`;
 const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
   return normalized === "" ? "/" : normalized;
@@ -90,8 +92,8 @@ if (heroSlider) {
         href: "/services/tile-fixing-dubai.html",
         cta: "View tile fixing",
         image: {
-          src: "images/service-tile-fixing-480.webp",
-          srcset: "images/service-tile-fixing-480.webp 480w, images/service-tile-fixing-800.webp 800w, images/service-tile-fixing-1200.webp 1200w",
+          src: toCdnAssetUrl("images/service-tile-fixing-480.webp"),
+          srcset: `${toCdnAssetUrl("images/service-tile-fixing-480.webp")} 480w, ${toCdnAssetUrl("images/service-tile-fixing-800.webp")} 800w, ${toCdnAssetUrl("images/service-tile-fixing-1200.webp")} 1200w`,
           sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
           alt: "Large-format tile fixing in a Dubai bathroom and kitchen interior",
           width: "1838",
@@ -106,8 +108,8 @@ if (heroSlider) {
         href: "/services/marble-installation-dubai.html",
         cta: "View marble installation",
         image: {
-          src: "images/service-marble-installation-360.webp",
-          srcset: "images/service-marble-installation-360.webp 360w, images/service-marble-installation-480.webp 480w, images/service-marble-installation-800.webp 800w, images/service-marble-installation-1200.webp 1200w",
+          src: toCdnAssetUrl("images/service-marble-installation-360.webp"),
+          srcset: `${toCdnAssetUrl("images/service-marble-installation-360.webp")} 360w, ${toCdnAssetUrl("images/service-marble-installation-480.webp")} 480w, ${toCdnAssetUrl("images/service-marble-installation-800.webp")} 800w, ${toCdnAssetUrl("images/service-marble-installation-1200.webp")} 1200w`,
           sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
           alt: "Polished marble installation in a Dubai luxury reception interior",
           width: "1717",
@@ -122,8 +124,8 @@ if (heroSlider) {
         href: "/services/stone-installation-dubai.html",
         cta: "View stone installation",
         image: {
-          src: "images/service-stone-installation-360.webp",
-          srcset: "images/service-stone-installation-360.webp 360w, images/service-stone-installation-480.webp 480w, images/service-stone-installation-800.webp 800w, images/service-stone-installation-1200.webp 1200w",
+          src: toCdnAssetUrl("images/service-stone-installation-360.webp"),
+          srcset: `${toCdnAssetUrl("images/service-stone-installation-360.webp")} 360w, ${toCdnAssetUrl("images/service-stone-installation-480.webp")} 480w, ${toCdnAssetUrl("images/service-stone-installation-800.webp")} 800w, ${toCdnAssetUrl("images/service-stone-installation-1200.webp")} 1200w`,
           sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
           alt: "Natural stone floor and wall installation in a Dubai villa courtyard transition space",
           width: "1774",
@@ -138,8 +140,8 @@ if (heroSlider) {
         href: "/services/carpet-installation-dubai.html",
         cta: "View carpet installation",
         image: {
-          src: "images/service-carpet-installation-360.webp",
-          srcset: "images/service-carpet-installation-360.webp 360w, images/service-carpet-installation-480.webp 480w, images/service-carpet-installation-720.webp 720w, images/service-carpet-installation-800.webp 800w, images/service-carpet-installation-1200.webp 1200w",
+          src: toCdnAssetUrl("images/service-carpet-installation-360.webp"),
+          srcset: `${toCdnAssetUrl("images/service-carpet-installation-360.webp")} 360w, ${toCdnAssetUrl("images/service-carpet-installation-480.webp")} 480w, ${toCdnAssetUrl("images/service-carpet-installation-720.webp")} 720w, ${toCdnAssetUrl("images/service-carpet-installation-800.webp")} 800w, ${toCdnAssetUrl("images/service-carpet-installation-1200.webp")} 1200w`,
           sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
           alt: "Premium carpet installation in a Dubai hotel suite or executive lounge",
           width: "1536",
