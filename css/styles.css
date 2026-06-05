@@ -2001,6 +2001,18 @@ textarea {
   transition: transform 180ms ease, opacity 180ms ease, background 180ms ease;
 }
 
+.floating-action::before {
+  content: attr(data-icon);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
 .floating-action:hover,
 .floating-action:focus-visible {
   transform: translateY(-2px);
@@ -2025,6 +2037,10 @@ textarea {
   color: #fffaf2;
 }
 
+.floating-action--call::before {
+  font-size: 1.05rem;
+}
+
 .floating-action--scroll {
   width: 3.35rem;
   padding: 0;
@@ -2041,6 +2057,10 @@ textarea {
   transform: translateY(0);
 }
 
+.floating-action--scroll::before {
+  font-size: 1.1rem;
+}
+
 .floating-icon {
   display: inline-flex;
   align-items: center;
@@ -2055,6 +2075,13 @@ textarea {
   width: 1.6rem;
   height: 1.6rem;
   display: block;
+}
+
+.floating-action--whatsapp::before {
+  width: auto;
+  min-width: 1.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
 }
 
 .whatsapp-backdrop {
@@ -2150,8 +2177,7 @@ textarea {
   background:
     image-set(
       url("https://cdn.divinefitout.com/images/divine-logo-full-96.webp") 1x,
-      url("https://cdn.divinefitout.com/images/divine-logo-full-160.webp") 1.66x,
-      url("https://cdn.divinefitout.com/images/divine-logo-full.webp") 2.83x
+      url("https://cdn.divinefitout.com/images/divine-logo-full-160.webp") 2x
     )
     center / contain no-repeat;
   filter: drop-shadow(0 14px 28px rgba(49, 34, 20, 0.14));

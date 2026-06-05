@@ -151,11 +151,9 @@ if (heroSlider) {
     const ensureHeroSlide = (slideData) => {
       if (!slideData || heroSlider.querySelector(`#${slideData.id}`)) return;
 
-      const slide = document.createElement("article");
+      const slide = document.createElement("div");
       slide.className = "hero-slide";
       slide.id = slideData.id;
-      slide.setAttribute("role", "tabpanel");
-      slide.setAttribute("aria-labelledby", slideData.tabId);
       slide.setAttribute("aria-hidden", "true");
       slide.setAttribute("data-hero-slide", "");
       slide.setAttribute("data-hero-title", slideData.title);
@@ -1031,23 +1029,9 @@ if (!floatingUi.hasAttribute("data-floating-ui-root")) {
   floatingUi.setAttribute("data-floating-ui-root", "");
   floatingUi.innerHTML = `
   <div class="floating-tools" aria-label="Quick actions">
-    <button class="floating-action floating-action--scroll" type="button" data-scroll-top aria-label="Scroll to top">
-      <span class="floating-icon">&#8593;</span>
-    </button>
-    <a class="floating-action floating-action--call" href="tel:+971566363850" data-call-action aria-label="Call +971 56 636 3850">
-      <span class="floating-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" focusable="false">
-          <path fill="currentColor" d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.56 3.52.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.19 2.41.56 3.52a1 1 0 0 1-.24 1.01l-2.2 2.26Z"/>
-        </svg>
-      </span>
-    </a>
-    <button class="floating-action floating-action--whatsapp" type="button" data-open-whatsapp aria-label="Open WhatsApp request form" aria-haspopup="dialog" aria-controls="whatsapp-backdrop">
-      <span class="floating-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" focusable="false">
-          <path fill="currentColor" d="M12.04 2C6.52 2 2.04 6.48 2.04 12c0 1.76.46 3.49 1.34 5.02L2 22l5.12-1.34A9.93 9.93 0 0 0 12.04 22C17.56 22 22.04 17.52 22.04 12S17.56 2 12.04 2Zm0 18.1c-1.51 0-2.98-.4-4.28-1.15l-.31-.18-3.04.8.81-2.96-.2-.31A8.07 8.07 0 0 1 3.94 12c0-4.47 3.63-8.1 8.1-8.1 2.17 0 4.2.84 5.74 2.37a8.05 8.05 0 0 1 2.36 5.73c0 4.47-3.63 8.1-8.1 8.1Zm4.44-6.08c-.24-.12-1.42-.7-1.64-.77-.22-.08-.38-.12-.54.12-.16.23-.62.77-.76.92-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.18-.7-.62-1.17-1.39-1.31-1.62-.14-.23-.01-.36.1-.48.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.31-.02-.43-.06-.12-.54-1.29-.74-1.76-.2-.48-.4-.41-.54-.42h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.68 2.56 4.06 3.59.57.25 1.02.39 1.37.5.58.19 1.1.16 1.51.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.03.14-1.14-.06-.11-.22-.18-.46-.3Z"/>
-        </svg>
-      </span>
-    </button>
+    <button class="floating-action floating-action--scroll" type="button" data-scroll-top data-icon="↑" aria-label="Scroll to top"></button>
+    <a class="floating-action floating-action--call" href="tel:+971566363850" data-call-action data-icon="☎" aria-label="Call +971 56 636 3850"></a>
+    <button class="floating-action floating-action--whatsapp" type="button" data-open-whatsapp data-icon="WA" aria-label="Open WhatsApp request form" aria-haspopup="dialog" aria-controls="whatsapp-backdrop"></button>
   </div>
   <div class="whatsapp-backdrop" id="whatsapp-backdrop" data-whatsapp-backdrop aria-hidden="true">
     <div class="whatsapp-modal" role="dialog" aria-modal="true" aria-labelledby="whatsapp-title" aria-describedby="whatsapp-description">
@@ -1087,14 +1071,8 @@ if (floatingTools && !floatingTools.querySelector("[data-call-action]")) {
   callAction.className = "floating-action floating-action--call";
   callAction.href = "tel:+971566363850";
   callAction.setAttribute("data-call-action", "");
+  callAction.setAttribute("data-icon", "☎");
   callAction.setAttribute("aria-label", "Call +971 56 636 3850");
-  callAction.innerHTML = `
-      <span class="floating-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" focusable="false">
-          <path fill="currentColor" d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.11.37 2.3.56 3.52.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.19 2.41.56 3.52a1 1 0 0 1-.24 1.01l-2.2 2.26Z"/>
-        </svg>
-      </span>
-    `;
   const whatsappAction = floatingTools.querySelector("[data-open-whatsapp]");
   floatingTools.insertBefore(callAction, whatsappAction || null);
 }
