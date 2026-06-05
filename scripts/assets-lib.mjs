@@ -1,11 +1,10 @@
 import { createHash } from "node:crypto";
 import { readdir, readFile, rm, writeFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { dirname, join, relative } from "node:path";
 import * as esbuild from "esbuild";
 
 const htmlExtension = ".html";
 const hashLength = 10;
-const assetCdnOrigin = "https://cdn.divinefitout.com";
 
 const cssEntryPoint = "css/styles.css";
 const cssOutputDir = "css";
@@ -88,9 +87,11 @@ async function updateHtmlAssetReferences({ cssFileName, jsFileName }) {
   await Promise.all(
     htmlFiles.map(async (filePath) => {
       const source = await readFile(filePath, "utf8");
+      const styleHref = getRelativeAssetPath(filePath, cssOutputDir, cssFileName);
+      const scriptSrc = getRelativeAssetPath(filePath, jsOutputDir, jsFileName);
       const next = source
-        .replace(styleHrefPattern, (_, assetDirectory) => `${assetCdnOrigin}/${assetDirectory}${cssFileName}`)
-        .replace(scriptSrcPattern, (_, assetDirectory) => `${assetCdnOrigin}/${assetDirectory}${jsFileName}`);
+        .replace(styleHrefPattern, styleHref)
+        .replace(scriptSrcPattern, scriptSrc);
 
       if (next !== source) {
         await writeFile(filePath, next, "utf8");
@@ -99,6 +100,10 @@ async function updateHtmlAssetReferences({ cssFileName, jsFileName }) {
   );
 
   return htmlFiles;
+}
+
+function getRelativeAssetPath(htmlFilePath, assetDirectory, fileName) {
+  return relative(dirname(htmlFilePath), join(process.cwd(), assetDirectory, fileName)).replace(/\\/g, "/");
 }
 
 function createAssetMatcher(baseName, extension) {
