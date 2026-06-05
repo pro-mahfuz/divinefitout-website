@@ -445,6 +445,7 @@ if (heroSlider) {
   heroSlider.addEventListener("pointerdown", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("click", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("keydown", requestHeroSliderInit, { once: true });
+  scheduleAfterLoad(requestHeroSliderInit, 1800);
   scheduleAfterLoad(() => {
     warmHeroSlideAsset({
       id: "hero-slide-tile",
