@@ -2119,6 +2119,19 @@ textarea {
   border-top: 1px solid rgba(29, 38, 30, 0.08);
 }
 
+.footer-brand {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 0.8rem;
+  color: inherit;
+}
+
+.footer-brand span {
+  color: var(--muted);
+  line-height: 1.72;
+}
+
 .footer-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 0.8fr));
@@ -2760,12 +2773,14 @@ textarea {
   }
 
   .site-footer,
+  .footer-brand,
   .footer-column,
   .footer-bottom {
     text-align: center;
   }
 
   .brand--footer,
+  .footer-brand,
   .footer-column,
   .footer-column ul {
     align-items: center;
