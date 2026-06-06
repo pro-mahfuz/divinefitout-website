@@ -817,19 +817,22 @@ body.page-home {
 }
 
 .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: inline-grid;
+  align-content: start;
+  gap: 0.18rem;
   padding: 0.75rem 0.95rem;
   border-radius: 999px;
   background: rgba(255, 250, 242, 0.8);
   border: 1px solid rgba(29, 38, 30, 0.1);
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
-.chip strong {
+.chip::before {
+  content: attr(data-chip-label);
   color: var(--accent-deep);
+  font-weight: 800;
 }
 
 .hero-panel {
@@ -1425,7 +1428,7 @@ body.page-home {
 .page-wood-flooring .form-shell,
 .page-wood-flooring .material-card,
 .page-wood-flooring .process-card,
-.page-wood-flooring .faq-card div,
+.page-wood-flooring .faq-card > p,
 .page-wood-flooring .service-thumb-copy p,
 .page-wood-flooring .cta-banner p,
 .page-wood-flooring .footer-column p,
@@ -1530,6 +1533,38 @@ body.page-home {
   gap: 1rem;
 }
 
+.process-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: process-step;
+}
+
+.process-list > .process-card {
+  counter-increment: process-step;
+}
+
+.process-list > .process-card::before {
+  content: counter(process-step, decimal-leading-zero);
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(159, 86, 50, 0.12);
+  color: var(--accent-deep);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.process-list > .process-card strong {
+  display: block;
+  margin-bottom: 0.7rem;
+  line-height: 1.12;
+  color: var(--ink);
+}
+
 .process-card span {
   display: inline-flex;
   width: 2.5rem;
@@ -1631,8 +1666,9 @@ body.page-home {
   content: "−";
 }
 
-.faq-card div {
+.faq-card > p {
   padding: 0 1.25rem 1.15rem;
+  margin: 0;
 }
 
 .related-services-mobile {
@@ -2218,11 +2254,13 @@ textarea {
 
 .footer-column {
   display: grid;
-  gap: 0.8rem;
+  align-content: start;
+  gap: 0.5rem;
 }
 
 .footer-column h3 {
   font-size: clamp(1.55rem, 3vw, 1.2rem);
+  margin-bottom: 0.1rem;
 }
 
 .footer-column ul,
@@ -2232,6 +2270,11 @@ textarea {
   margin: 0;
   display: grid;
   gap: 0.5rem;
+}
+
+.footer-column > a,
+.footer-column > span {
+  line-height: 1.72;
 }
 
 .footer-column a:hover,
@@ -2709,7 +2752,7 @@ textarea {
   .page-wood-flooring .form-shell,
   .page-wood-flooring .material-card,
   .page-wood-flooring .process-card,
-  .page-wood-flooring .faq-card div,
+  .page-wood-flooring .faq-card > p,
   .page-wood-flooring .service-thumb-copy p,
   .page-wood-flooring .cta-banner p {
     font-size: 0.97rem;
