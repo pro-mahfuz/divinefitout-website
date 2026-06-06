@@ -3,8 +3,6 @@ const mainNav = document.querySelector("[data-main-nav]");
 const heroSlider = document.querySelector("[data-hero-slider]");
 const siteHeader = document.querySelector(".site-header");
 const mobileNavQuery = window.matchMedia("(max-width: 1040px)");
-const assetCdnOrigin = "https://cdn.divinefitout.com";
-const toCdnAssetUrl = (assetPath) => `${assetCdnOrigin}/${String(assetPath || "").replace(/^\/+/, "")}`;
 const normalizePath = (pathname) => {
   const normalized = pathname.replace(/\\/g, "/").replace(/\/index\.html$/, "").replace(/\/$/, "");
   return normalized === "" ? "/" : normalized;
@@ -81,153 +79,6 @@ if (heroSlider) {
     if (heroSliderInitialized) return;
     heroSliderInitialized = true;
     heroSlider.classList.add("is-enhanced");
-
-    const deferredHeroSlides = [
-      {
-        id: "hero-slide-tile",
-        tabId: "hero-tab-tile",
-        title: "Tile Fixing Dubai",
-        copy: "Large-format wall and floor tile fixing for bathrooms, kitchens, living spaces and commercial interiors across Dubai.",
-        href: "/services/tile-fixing-dubai.html",
-        cta: "View tile fixing",
-        image: {
-          src: toCdnAssetUrl("images/service-tile-fixing-480.webp"),
-          srcset: `${toCdnAssetUrl("images/service-tile-fixing-480.webp")} 480w, ${toCdnAssetUrl("images/service-tile-fixing-800.webp")} 800w, ${toCdnAssetUrl("images/service-tile-fixing-1200.webp")} 1200w`,
-          sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
-          alt: "Large-format tile fixing in a Dubai bathroom and kitchen interior",
-          width: "1838",
-          height: "856"
-        }
-      },
-      {
-        id: "hero-slide-marble",
-        tabId: "hero-tab-marble",
-        title: "Marble Installation Dubai",
-        copy: "Polished marble installation, stair finishes and premium stone detailing for villas, lobbies and hospitality spaces.",
-        href: "/services/marble-installation-dubai.html",
-        cta: "View marble installation",
-        image: {
-          src: toCdnAssetUrl("images/service-marble-installation-360.webp"),
-          srcset: `${toCdnAssetUrl("images/service-marble-installation-360.webp")} 360w, ${toCdnAssetUrl("images/service-marble-installation-480.webp")} 480w, ${toCdnAssetUrl("images/service-marble-installation-800.webp")} 800w, ${toCdnAssetUrl("images/service-marble-installation-1200.webp")} 1200w`,
-          sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
-          alt: "Polished marble installation in a Dubai luxury reception interior",
-          width: "1717",
-          height: "916"
-        }
-      },
-      {
-        id: "hero-slide-stone",
-        tabId: "hero-tab-stone",
-        title: "Stone Installation Dubai",
-        copy: "Natural stone floor and wall installation for courtyards, feature walls, entrances and exterior-inspired interiors.",
-        href: "/services/stone-installation-dubai.html",
-        cta: "View stone installation",
-        image: {
-          src: toCdnAssetUrl("images/service-stone-installation-360.webp"),
-          srcset: `${toCdnAssetUrl("images/service-stone-installation-360.webp")} 360w, ${toCdnAssetUrl("images/service-stone-installation-480.webp")} 480w, ${toCdnAssetUrl("images/service-stone-installation-800.webp")} 800w, ${toCdnAssetUrl("images/service-stone-installation-1200.webp")} 1200w`,
-          sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
-          alt: "Natural stone floor and wall installation in a Dubai villa courtyard transition space",
-          width: "1774",
-          height: "887"
-        }
-      },
-      {
-        id: "hero-slide-carpet",
-        tabId: "hero-tab-carpet",
-        title: "Carpet Installation Dubai",
-        copy: "Premium carpet supply and fitting for bedrooms, offices, meeting rooms, hospitality suites and executive interiors.",
-        href: "/services/carpet-installation-dubai.html",
-        cta: "View carpet installation",
-        image: {
-          src: toCdnAssetUrl("images/service-carpet-installation-360.webp"),
-          srcset: `${toCdnAssetUrl("images/service-carpet-installation-360.webp")} 360w, ${toCdnAssetUrl("images/service-carpet-installation-480.webp")} 480w, ${toCdnAssetUrl("images/service-carpet-installation-720.webp")} 720w, ${toCdnAssetUrl("images/service-carpet-installation-800.webp")} 800w, ${toCdnAssetUrl("images/service-carpet-installation-1200.webp")} 1200w`,
-          sizes: "(max-width:560px) 100vw, (max-width:1040px) calc(100vw - 2rem), (max-width:1212px) calc((100vw - 4rem) * 0.45), 517px",
-          alt: "Premium carpet installation in a Dubai hotel suite or executive lounge",
-          width: "1536",
-          height: "1024"
-        }
-      }
-    ];
-    const ensureHeroSlide = (slideData) => {
-      if (!slideData || heroSlider.querySelector(`#${slideData.id}`)) return;
-
-      const slide = document.createElement("div");
-      slide.className = "hero-slide";
-      slide.id = slideData.id;
-      slide.setAttribute("aria-hidden", "true");
-      slide.setAttribute("data-hero-slide", "");
-      slide.setAttribute("data-hero-title", slideData.title);
-      slide.setAttribute("data-hero-copy", slideData.copy);
-      slide.setAttribute("data-hero-href", slideData.href);
-      slide.setAttribute("data-hero-cta", slideData.cta);
-      slide.setAttribute("inert", "");
-
-      const img = document.createElement("img");
-      img.src = slideData.image.src;
-      img.srcset = slideData.image.srcset;
-      img.sizes = slideData.image.sizes;
-      img.alt = slideData.image.alt;
-      img.width = Number(slideData.image.width);
-      img.height = Number(slideData.image.height);
-      img.loading = "lazy";
-      img.decoding = "async";
-      img.fetchPriority = "low";
-      slide.append(img);
-
-      const note = heroSlider.querySelector("[data-hero-note]");
-      heroSlider.insertBefore(slide, note || null);
-    };
-    const ensureHeroSliderControls = () => {
-      if (heroSlider.querySelector(".hero-slider-controls")) return;
-
-      const controls = document.createElement("div");
-      controls.className = "hero-slider-controls";
-      controls.setAttribute("role", "group");
-      controls.setAttribute("aria-label", "Hero banner controls");
-
-      const prevButton = document.createElement("button");
-      prevButton.className = "hero-slider-button";
-      prevButton.type = "button";
-      prevButton.setAttribute("data-hero-prev", "");
-      prevButton.setAttribute("aria-label", "Previous service banner");
-      prevButton.innerHTML = "&#8592;";
-
-      const dots = document.createElement("div");
-      dots.className = "hero-slider-dots";
-      dots.setAttribute("aria-label", "Choose a featured service banner");
-
-      const allSlides = [
-        { id: "hero-slide-wood", tabId: "hero-tab-wood", label: "Show wooden flooring banner", active: true },
-        { id: "hero-slide-tile", tabId: "hero-tab-tile", label: "Show tile fixing banner" },
-        { id: "hero-slide-marble", tabId: "hero-tab-marble", label: "Show marble installation banner" },
-        { id: "hero-slide-stone", tabId: "hero-tab-stone", label: "Show stone installation banner" },
-        { id: "hero-slide-carpet", tabId: "hero-tab-carpet", label: "Show carpet installation banner" }
-      ];
-
-      allSlides.forEach((dotData) => {
-        const dot = document.createElement("button");
-        dot.className = `hero-slider-dot${dotData.active ? " is-active" : ""}`;
-        dot.id = dotData.tabId;
-        dot.type = "button";
-        dot.setAttribute("data-hero-dot", "");
-        dot.setAttribute("aria-selected", dotData.active ? "true" : "false");
-        dot.setAttribute("aria-label", dotData.label);
-        dots.append(dot);
-      });
-
-      const nextButton = document.createElement("button");
-      nextButton.className = "hero-slider-button";
-      nextButton.type = "button";
-      nextButton.setAttribute("data-hero-next", "");
-      nextButton.setAttribute("aria-label", "Next service banner");
-      nextButton.innerHTML = "&#8594;";
-
-      controls.append(prevButton, dots, nextButton);
-      heroSlider.append(controls);
-    };
-
-    deferredHeroSlides.forEach(ensureHeroSlide);
-    ensureHeroSliderControls();
 
     const heroSlides = Array.from(heroSlider.querySelectorAll("[data-hero-slide]"));
     const heroDots = Array.from(heroSlider.querySelectorAll("[data-hero-dot]"));
@@ -421,18 +272,6 @@ if (heroSlider) {
     setHeroSlide(activeHeroIndex);
     syncHeroAutoplayState();
   };
-  const warmHeroSlideAsset = (slideData) => {
-    if (!slideData?.id || !slideData?.image?.src || document.head.querySelector(`[data-hero-warmup="${slideData.id}"]`)) {
-      return;
-    }
-
-    const preload = document.createElement("link");
-    preload.rel = "prefetch";
-    preload.as = "image";
-    preload.href = slideData.image.src;
-    preload.setAttribute("data-hero-warmup", slideData.id);
-    document.head.append(preload);
-  };
 
   const requestHeroSliderInit = () => {
     if (heroSliderInitialized || heroSliderInitScheduled) return;
@@ -445,15 +284,7 @@ if (heroSlider) {
   heroSlider.addEventListener("pointerdown", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("click", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("keydown", requestHeroSliderInit, { once: true });
-  scheduleAfterLoad(requestHeroSliderInit, 1800);
-  scheduleAfterLoad(() => {
-    warmHeroSlideAsset({
-      id: "hero-slide-tile",
-      image: {
-        src: toCdnAssetUrl("images/service-tile-fixing-480.webp")
-      }
-    });
-  }, 3200);
+  requestHeroSliderInit();
 }
 
 const currentPath = normalizePath(window.location.pathname);
