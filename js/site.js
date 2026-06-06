@@ -1230,7 +1230,6 @@ whatsappForms.forEach((form) => {
 });
 };
 
-scheduleAfterLoad(initFloatingUiAndWhatsapp, 9000);
-["pointerdown", "keydown", "focusin"].forEach((eventName) => {
+["pointerdown", "keydown"].forEach((eventName) => {
   document.addEventListener(eventName, initFloatingUiAndWhatsapp, { once: true, passive: eventName === "pointerdown" });
 });
