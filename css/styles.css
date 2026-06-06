@@ -868,8 +868,18 @@ body.page-home {
   min-height: 31rem;
 }
 
+.hero-slider-stage {
+  position: relative;
+  display: grid;
+  min-height: inherit;
+}
+
 .hero-slide {
   position: relative;
+}
+
+.hero-slider-stage .hero-slide {
+  grid-area: 1 / 1;
 }
 
 .hero-slide:not(.is-active) {
@@ -1452,12 +1462,11 @@ body.page-home {
   background: radial-gradient(circle, rgba(190, 159, 89, 0.16), transparent 70%);
 }
 
-.service-card ul {
+.service-points {
   margin-top: 1rem;
-}
-
-.service-card li + li {
-  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.72;
 }
 
 .stats-band {
