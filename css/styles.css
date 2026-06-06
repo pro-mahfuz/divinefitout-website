@@ -294,6 +294,7 @@ h4 {
   justify-content: space-between;
   gap: 1rem 1.5rem;
   padding: 0.85rem 0;
+  min-height: 6.2rem;
 }
 
 .site-header,
@@ -360,6 +361,7 @@ h4 {
   object-position: center;
   overflow: hidden;
   box-shadow: none;
+  flex-shrink: 0;
 }
 
 .brand--footer {
@@ -2356,6 +2358,7 @@ textarea {
     align-items: center;
     column-gap: 0.8rem;
     row-gap: 0.8rem;
+    min-height: 5rem;
   }
 
   .brand {
@@ -2684,6 +2687,10 @@ textarea {
 }
 
 @media (max-width: 560px) {
+  .header-wrap {
+    min-height: 4.6rem;
+  }
+
   body {
     background: #f4efe6;
   }

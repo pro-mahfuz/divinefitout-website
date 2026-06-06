@@ -75,6 +75,7 @@ if (navToggle && mainNav) {
 if (heroSlider) {
   let heroSliderInitialized = false;
   let heroSliderInitScheduled = false;
+  const heroSliderInitViewport = window.matchMedia("(min-width: 821px)");
   const initHeroSlider = () => {
     if (heroSliderInitialized) return;
     heroSliderInitialized = true;
@@ -284,7 +285,14 @@ if (heroSlider) {
   heroSlider.addEventListener("pointerdown", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("click", requestHeroSliderInit, { once: true });
   heroSlider.addEventListener("keydown", requestHeroSliderInit, { once: true });
-  requestHeroSliderInit();
+
+  if (heroSliderInitViewport.matches) {
+    if (document.readyState === "complete") {
+      requestHeroSliderInit();
+    } else {
+      window.addEventListener("load", requestHeroSliderInit, { once: true });
+    }
+  }
 }
 
 const currentPath = normalizePath(window.location.pathname);
