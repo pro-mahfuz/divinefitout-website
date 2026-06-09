@@ -1035,6 +1035,33 @@ const openWhatsappMessage = (message) => {
   window.location.href = whatsappUrl;
 };
 
+const createLeadBeforeWhatsapp = async ({ clientName, phoneNumber, serviceNeeded }) => {
+  const leadEndpoint = "http://localhost:7000/lead/public/create/1";
+  const payload = {
+    websiteName: "Divine Fit-Out & Renovation",
+    clientName,
+    phoneNumber,
+    serviceNeeded
+  };
+
+  try {
+    const response = await fetch(leadEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Lead request failed with status ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Lead capture failed before WhatsApp redirect.", error);
+  }
+};
+
 const buildSiteVisitMessage = (button) => {
   const preferredService = button.dataset.whatsappService || currentService || "";
   const pageName = document.title;
@@ -1182,7 +1209,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 whatsappForms.forEach((form) => {
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (typeof form.reportValidity === "function" && !form.reportValidity()) {
@@ -1220,6 +1247,11 @@ whatsappForms.forEach((form) => {
       `Page: ${pageName}`
     ].filter(Boolean).join("\n");
 
+    await createLeadBeforeWhatsapp({
+      clientName: name,
+      phoneNumber: phone,
+      serviceNeeded: service
+    });
     openWhatsappMessage(message);
     closeWhatsappModal();
   });
