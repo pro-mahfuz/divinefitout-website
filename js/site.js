@@ -287,11 +287,7 @@ if (heroSlider) {
   heroSlider.addEventListener("keydown", requestHeroSliderInit, { once: true });
 
   if (heroSliderInitViewport.matches) {
-    if (document.readyState === "complete") {
-      requestHeroSliderInit();
-    } else {
-      window.addEventListener("load", requestHeroSliderInit, { once: true });
-    }
+    scheduleAfterLoad(requestHeroSliderInit, 1800);
   }
 }
 
