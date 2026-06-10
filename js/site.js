@@ -1036,7 +1036,7 @@ const openWhatsappMessage = (message) => {
 };
 
 const createLeadBeforeWhatsapp = async ({ clientName, phoneNumber, serviceNeeded }) => {
-  const leadEndpoint = "http://localhost:7000/lead/public/create/1";
+  const leadEndpoint = "https://api.divinefitout.com/lead/public/create/1";
   const payload = {
     websiteName: "Divine Fit-Out & Renovation",
     clientName,
