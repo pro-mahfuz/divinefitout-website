@@ -1028,16 +1028,32 @@ const shouldOpenWhatsappApp = () => {
   );
 };
 
+const openExternalUrl = (url) => {
+  if (typeof window.open === "function") {
+    const popup = window.open(url, "_blank", "noopener");
+    if (popup) {
+      return true;
+    }
+  }
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.click();
+  return false;
+};
+
 const openWhatsappMessage = (message, popupWindow = null) => {
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/971566363850?text=${encodedMessage}`;
   const whatsappAppUrl = `whatsapp://send?phone=971566363850&text=${encodedMessage}`;
 
   if (shouldOpenWhatsappApp()) {
-    window.location.assign(whatsappAppUrl);
+    openExternalUrl(whatsappAppUrl);
     window.setTimeout(() => {
       if (document.visibilityState === "visible") {
-        window.location.assign(whatsappUrl);
+        openExternalUrl(whatsappUrl);
       }
     }, 900);
     return;
@@ -1053,18 +1069,7 @@ const openWhatsappMessage = (message, popupWindow = null) => {
     }
   }
 
-  if (typeof window.open === "function") {
-    const popup = window.open(whatsappUrl, "_blank", "noopener");
-    if (popup) {
-      return;
-    }
-  }
-
-  const fallbackLink = document.createElement("a");
-  fallbackLink.href = whatsappUrl;
-  fallbackLink.target = "_blank";
-  fallbackLink.rel = "noopener noreferrer";
-  fallbackLink.click();
+  openExternalUrl(whatsappUrl);
 };
 
 const openPendingWhatsappTab = () => {
