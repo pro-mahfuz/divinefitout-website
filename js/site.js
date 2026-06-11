@@ -1018,8 +1018,18 @@ if (scrollTopButton) {
   });
 }
 
-const openWhatsappMessage = (message) => {
+const openWhatsappMessage = (message, popupWindow = null) => {
   const whatsappUrl = `https://wa.me/971566363850?text=${encodeURIComponent(message)}`;
+
+  if (popupWindow && !popupWindow.closed) {
+    try {
+      popupWindow.opener = null;
+      popupWindow.location.replace(whatsappUrl);
+      return;
+    } catch (error) {
+      console.error("Unable to reuse pending WhatsApp tab.", error);
+    }
+  }
 
   if (typeof window.open === "function") {
     const popup = window.open(whatsappUrl, "_blank", "noopener");
@@ -1035,7 +1045,25 @@ const openWhatsappMessage = (message) => {
   fallbackLink.click();
 };
 
-const createLeadBeforeWhatsapp = ({ clientName, phoneNumber, serviceNeeded }) => {
+const openPendingWhatsappTab = () => {
+  if (typeof window.open !== "function") return null;
+
+  const popup = window.open("about:blank", "_blank");
+  if (!popup || popup.closed) {
+    return null;
+  }
+
+  try {
+    popup.document.title = "Opening WhatsApp...";
+    popup.document.body.textContent = "Opening WhatsApp...";
+  } catch (error) {
+    console.error("Unable to prepare pending WhatsApp tab.", error);
+  }
+
+  return popup;
+};
+
+const createLeadBeforeWhatsapp = async ({ clientName, phoneNumber, serviceNeeded }) => {
   const leadEndpoint = "https://api.divinefitout.com/lead/public/create/1";
   const payload = {
     websiteName: "Divine Fit-Out & Renovation",
@@ -1043,36 +1071,28 @@ const createLeadBeforeWhatsapp = ({ clientName, phoneNumber, serviceNeeded }) =>
     phoneNumber,
     serviceNeeded
   };
-  const payloadJson = JSON.stringify(payload);
-
-  if (typeof navigator.sendBeacon === "function") {
-    try {
-      const beaconPayload = new Blob([payloadJson], { type: "application/json" });
-      if (navigator.sendBeacon(leadEndpoint, beaconPayload)) {
-        return;
-      }
-    } catch (error) {
-      console.error("Lead capture beacon failed before WhatsApp redirect.", error);
-    }
-  }
-
-  fetch(leadEndpoint, {
+  
+  try {
+    const response = await fetch(leadEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: payloadJson,
+      body: JSON.stringify(payload),
+      mode: "cors",
       keepalive: true
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Lead request failed with status ${response.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error("Lead capture failed before WhatsApp redirect.", error);
     });
+
+    if (!response.ok) {
+      throw new Error(`Lead request failed with status ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Lead capture failed before WhatsApp redirect.", error);
+    return false;
+  }
 };
 
 const setWhatsappModalMode = ({ requestType = "quote", preferredService = "", forceServiceSelection = false } = {}) => {
@@ -1238,7 +1258,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 whatsappForms.forEach((form) => {
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (typeof form.reportValidity === "function" && !form.reportValidity()) {
@@ -1264,6 +1284,8 @@ whatsappForms.forEach((form) => {
       return;
     }
 
+    const pendingWhatsappTab = openPendingWhatsappTab();
+
     const pageName = document.title;
     const message = [
       requestType === "service-request"
@@ -1280,12 +1302,12 @@ whatsappForms.forEach((form) => {
       `Page: ${pageName}`
     ].filter(Boolean).join("\n");
 
-    createLeadBeforeWhatsapp({
+    await createLeadBeforeWhatsapp({
       clientName: name || "Website Visitor",
       phoneNumber: phone,
       serviceNeeded: service
     });
-    openWhatsappMessage(message);
+    openWhatsappMessage(message, pendingWhatsappTab);
     closeWhatsappModal();
   });
 });
