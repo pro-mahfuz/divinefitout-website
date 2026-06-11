@@ -1022,8 +1022,13 @@ if (scrollTopButton) {
   });
 }
 
-const openWhatsappMessage = (message) => {
+const openWhatsappMessage = (message, popupWindow = null) => {
   const whatsappUrl = `https://wa.me/971566363850?text=${encodeURIComponent(message)}`;
+
+  if (popupWindow && !popupWindow.closed) {
+    popupWindow.location.href = whatsappUrl;
+    return;
+  }
 
   if (typeof window.open === "function") {
     const popup = window.open(whatsappUrl, "_blank", "noopener");
@@ -1032,7 +1037,11 @@ const openWhatsappMessage = (message) => {
     }
   }
 
-  window.location.href = whatsappUrl;
+  const fallbackLink = document.createElement("a");
+  fallbackLink.href = whatsappUrl;
+  fallbackLink.target = "_blank";
+  fallbackLink.rel = "noopener noreferrer";
+  fallbackLink.click();
 };
 
 const createLeadBeforeWhatsapp = async ({ clientName, phoneNumber, serviceNeeded }) => {
@@ -1233,6 +1242,10 @@ whatsappForms.forEach((form) => {
       return;
     }
 
+    const pendingWhatsappWindow = typeof window.open === "function"
+      ? window.open("", "_blank", "noopener")
+      : null;
+
     const pageName = document.title;
     const message = [
       requestType === "service-request"
@@ -1252,7 +1265,7 @@ whatsappForms.forEach((form) => {
       phoneNumber: phone,
       serviceNeeded: service
     });
-    openWhatsappMessage(message);
+    openWhatsappMessage(message, pendingWhatsappWindow);
     closeWhatsappModal();
   });
 });
