@@ -880,10 +880,6 @@ if (!floatingUi.hasAttribute("data-floating-ui-root")) {
       </div>
       <form class="whatsapp-form" data-whatsapp-form>
         <div class="field">
-          <label for="wa-name">Full name</label>
-          <input id="wa-name" name="name" type="text" required>
-        </div>
-        <div class="field">
           <label for="wa-phone">Phone number</label>
           <input id="wa-phone" name="phone" type="tel" required>
         </div>
@@ -919,12 +915,13 @@ const whatsappTriggerButtons = document.querySelectorAll("[data-whatsapp-trigger
 const whatsappBackdrop = document.querySelector("[data-whatsapp-backdrop]");
 const closeWhatsappButtons = document.querySelectorAll("[data-close-whatsapp]");
 const whatsappForms = document.querySelectorAll("[data-whatsapp-form]");
-const whatsappModalNameField = document.querySelector("#wa-name");
+const whatsappModalPhoneField = document.querySelector("#wa-phone");
 const whatsappModalForm = document.querySelector(".whatsapp-modal .whatsapp-form");
 const whatsappModalTitle = document.querySelector("#whatsapp-title");
 const whatsappModalIntro = document.querySelector(".whatsapp-modal-head p");
 const whatsappModalSubmitButton = whatsappModalForm?.querySelector("button[type='submit']");
 const whatsappModalServiceField = whatsappModalForm?.querySelector('[name="service"]');
+const whatsappModalServiceFieldWrap = whatsappModalServiceField?.closest(".field");
 const whatsappModalServiceLabel = whatsappModalForm?.querySelector('label[for="wa-service"]');
 const modalFocusableSelector = "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex='-1'])";
 let whatsappModalRequestType = "quote";
@@ -932,7 +929,6 @@ let lastFocusedElement = null;
 
 const configureWhatsappFormAccessibility = (form) => {
   const fieldRules = [
-    { name: "name", attributes: { autocomplete: "name" } },
     { name: "phone", attributes: { autocomplete: "tel", inputmode: "tel" } },
     { name: "email", attributes: { autocomplete: "email", inputmode: "email" } },
     { name: "area", attributes: { autocomplete: "address-level2" } }
@@ -1022,13 +1018,8 @@ if (scrollTopButton) {
   });
 }
 
-const openWhatsappMessage = (message, popupWindow = null) => {
+const openWhatsappMessage = (message) => {
   const whatsappUrl = `https://wa.me/971566363850?text=${encodeURIComponent(message)}`;
-
-  if (popupWindow && !popupWindow.closed) {
-    popupWindow.location.href = whatsappUrl;
-    return;
-  }
 
   if (typeof window.open === "function") {
     const popup = window.open(whatsappUrl, "_blank", "noopener");
@@ -1044,7 +1035,7 @@ const openWhatsappMessage = (message, popupWindow = null) => {
   fallbackLink.click();
 };
 
-const createLeadBeforeWhatsapp = async ({ clientName, phoneNumber, serviceNeeded }) => {
+const createLeadBeforeWhatsapp = ({ clientName, phoneNumber, serviceNeeded }) => {
   const leadEndpoint = "https://api.divinefitout.com/lead/public/create/1";
   const payload = {
     websiteName: "Divine Fit-Out & Renovation",
@@ -1052,38 +1043,53 @@ const createLeadBeforeWhatsapp = async ({ clientName, phoneNumber, serviceNeeded
     phoneNumber,
     serviceNeeded
   };
+  const payloadJson = JSON.stringify(payload);
 
-  try {
-    const response = await fetch(leadEndpoint, {
+  if (typeof navigator.sendBeacon === "function") {
+    try {
+      const beaconPayload = new Blob([payloadJson], { type: "application/json" });
+      if (navigator.sendBeacon(leadEndpoint, beaconPayload)) {
+        return;
+      }
+    } catch (error) {
+      console.error("Lead capture beacon failed before WhatsApp redirect.", error);
+    }
+  }
+
+  fetch(leadEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: payloadJson,
+      keepalive: true
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Lead request failed with status ${response.status}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Lead capture failed before WhatsApp redirect.", error);
     });
-
-    if (!response.ok) {
-      throw new Error(`Lead request failed with status ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Lead capture failed before WhatsApp redirect.", error);
-  }
-};
-
-const buildSiteVisitMessage = (button) => {
-  const preferredService = button.dataset.whatsappService || currentService || "";
-  const pageName = document.title;
-
-  return [
-    "Hello, I would like to request a free site visit.",
-    preferredService ? `Service: ${preferredService}` : "",
-    `Page: ${pageName}`
-  ].filter(Boolean).join("\n");
 };
 
 const setWhatsappModalMode = ({ requestType = "quote", preferredService = "", forceServiceSelection = false } = {}) => {
   whatsappModalRequestType = requestType;
+
+  if (whatsappModalServiceFieldWrap && whatsappModalServiceField) {
+    const hideServiceField = requestType === "site-visit";
+    whatsappModalServiceFieldWrap.hidden = hideServiceField;
+    whatsappModalServiceFieldWrap.style.display = hideServiceField ? "none" : "";
+    whatsappModalServiceFieldWrap.setAttribute("aria-hidden", String(hideServiceField));
+    whatsappModalServiceField.disabled = hideServiceField;
+    whatsappModalServiceField.required = !hideServiceField;
+
+    if (hideServiceField) {
+      whatsappModalServiceField.value = "Request Site Visit";
+    }
+  }
 
   if (whatsappModalTitle && whatsappModalIntro && whatsappModalSubmitButton) {
     if (requestType === "service-request") {
@@ -1092,6 +1098,13 @@ const setWhatsappModalMode = ({ requestType = "quote", preferredService = "", fo
       whatsappModalSubmitButton.textContent = "Request on WhatsApp";
       if (whatsappModalServiceLabel) {
         whatsappModalServiceLabel.textContent = "Service Needed";
+      }
+    } else if (requestType === "site-visit") {
+      whatsappModalTitle.textContent = "Request Site Visit on WhatsApp";
+      whatsappModalIntro.textContent = "Confirm your details and continue to WhatsApp to request a site visit.";
+      whatsappModalSubmitButton.textContent = "Request Site Visit";
+      if (whatsappModalServiceLabel) {
+        whatsappModalServiceLabel.textContent = "Service";
       }
     } else {
       whatsappModalTitle.textContent = "WhatsApp Request";
@@ -1104,6 +1117,10 @@ const setWhatsappModalMode = ({ requestType = "quote", preferredService = "", fo
   }
 
   if (!whatsappModalServiceField) return;
+
+  if (requestType === "site-visit") {
+    return;
+  }
 
   if (forceServiceSelection) {
     whatsappModalServiceField.value = "";
@@ -1140,7 +1157,7 @@ const openWhatsappModal = (options = {}) => {
   document.body.style.overflow = "hidden";
   const preferredFocusField = options.requestType === "service-request" && whatsappModalServiceField
     ? whatsappModalServiceField
-    : whatsappModalNameField;
+    : whatsappModalPhoneField;
   if (preferredFocusField) {
     window.setTimeout(() => preferredFocusField.focus(), 50);
   }
@@ -1179,7 +1196,10 @@ whatsappTriggerButtons.forEach((button) => {
       return;
     }
 
-    openWhatsappMessage(buildSiteVisitMessage(button));
+    openWhatsappModal({
+      requestType: "site-visit",
+      preferredService: button.dataset.whatsappService || currentService || "Multiple Services"
+    });
   });
 });
 
@@ -1218,7 +1238,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 whatsappForms.forEach((form) => {
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     if (typeof form.reportValidity === "function" && !form.reportValidity()) {
@@ -1234,24 +1254,24 @@ whatsappForms.forEach((form) => {
     const phone = String(formData.get("phone") || "").trim();
     const email = String(formData.get("email") || "").trim();
     const area = String(formData.get("area") || "").trim();
-    const service = String(formData.get("service") || "").trim();
-    const details = String(formData.get("message") || "").trim();
     const requestType = form.dataset.whatsappRequest || whatsappModalRequestType;
+    const service = requestType === "site-visit"
+      ? "Request Site Visit"
+      : String(formData.get("service") || "").trim();
+    const details = String(formData.get("message") || "").trim();
 
-    if (!name || !phone || !service) {
+    if (!phone || !service) {
       return;
     }
-
-    const pendingWhatsappWindow = typeof window.open === "function"
-      ? window.open("", "_blank", "noopener")
-      : null;
 
     const pageName = document.title;
     const message = [
       requestType === "service-request"
         ? "Hello, I would like to request a service."
-        : "Hello, I would like to request a quote.",
-      `Name: ${name}`,
+        : requestType === "site-visit"
+          ? "Hello, I would like to request a free site visit."
+          : "Hello, I would like to request a quote.",
+      name ? `Name: ${name}` : "",
       `Phone: ${phone}`,
       email ? `Email: ${email}` : "",
       area ? `Area: ${area}` : "",
@@ -1260,12 +1280,12 @@ whatsappForms.forEach((form) => {
       `Page: ${pageName}`
     ].filter(Boolean).join("\n");
 
-    await createLeadBeforeWhatsapp({
-      clientName: name,
+    createLeadBeforeWhatsapp({
+      clientName: name || "Website Visitor",
       phoneNumber: phone,
       serviceNeeded: service
     });
-    openWhatsappMessage(message, pendingWhatsappWindow);
+    openWhatsappMessage(message);
     closeWhatsappModal();
   });
 });
