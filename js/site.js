@@ -1018,8 +1018,30 @@ if (scrollTopButton) {
   });
 }
 
+const shouldOpenWhatsappApp = () => {
+  const mobileUserAgent = navigator.userAgent || "";
+  const mobilePlatform = navigator.platform || "";
+  return mobileNavQuery.matches && (
+    Boolean(navigator.userAgentData?.mobile) ||
+    /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(mobileUserAgent) ||
+    (mobilePlatform === "MacIntel" && Number(navigator.maxTouchPoints || 0) > 1)
+  );
+};
+
 const openWhatsappMessage = (message, popupWindow = null) => {
-  const whatsappUrl = `https://wa.me/971566363850?text=${encodeURIComponent(message)}`;
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappUrl = `https://wa.me/971566363850?text=${encodedMessage}`;
+  const whatsappAppUrl = `whatsapp://send?phone=971566363850&text=${encodedMessage}`;
+
+  if (shouldOpenWhatsappApp()) {
+    window.location.assign(whatsappAppUrl);
+    window.setTimeout(() => {
+      if (document.visibilityState === "visible") {
+        window.location.assign(whatsappUrl);
+      }
+    }, 900);
+    return;
+  }
 
   if (popupWindow && !popupWindow.closed) {
     try {
@@ -1046,6 +1068,7 @@ const openWhatsappMessage = (message, popupWindow = null) => {
 };
 
 const openPendingWhatsappTab = () => {
+  if (shouldOpenWhatsappApp()) return null;
   if (typeof window.open !== "function") return null;
 
   const popup = window.open("about:blank", "_blank");
