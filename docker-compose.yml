@@ -1,0 +1,11 @@
+
+services:
+  divine-website:
+    image: divine-website:latest
+    build: .
+    container_name: divinefitout_website
+    restart: unless-stopped
+    ports:
+      - "9000:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
