@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { readdir, readFile, rm, writeFile } from "node:fs/promises";
-import { dirname, join, relative } from "node:path";
+import { join, relative } from "node:path";
 import * as esbuild from "esbuild";
 
 const htmlExtension = ".html";
@@ -16,8 +16,8 @@ const jsOutputDir = "js";
 const jsBaseName = "site";
 const jsExtension = ".js";
 
-const styleHrefPattern = /(?:https:\/\/cdn\.divinefitout\.com\/|(?:\.\.\/)?)(css\/)styles(?:\.[a-f0-9]{10})?\.min\.css(?:\?v=[^"'\\s>)]*)?/g;
-const scriptSrcPattern = /(?:https:\/\/cdn\.divinefitout\.com\/|(?:\.\.\/)?)(js\/)site(?:\.[a-f0-9]{10})?\.min\.js(?:\?v=[^"'\\s>)]*)?/g;
+const styleHrefPattern = /(?:https:\/\/cdn\.divinefitout\.com\/|\/(?:\.\.\/)*|(?:\.\.\/)*)(css\/)styles(?:\.[a-f0-9]{10})?\.min\.css(?:\?v=[^"'\\s>)]*)?/g;
+const scriptSrcPattern = /(?:https:\/\/cdn\.divinefitout\.com\/|\/(?:\.\.\/)*|(?:\.\.\/)*)(js\/)site(?:\.[a-f0-9]{10})?\.min\.js(?:\?v=[^"'\\s>)]*)?/g;
 
 export async function buildAssets() {
   const [cssAsset, jsAsset] = await Promise.all([
@@ -87,8 +87,8 @@ async function updateHtmlAssetReferences({ cssFileName, jsFileName }) {
   await Promise.all(
     htmlFiles.map(async (filePath) => {
       const source = await readFile(filePath, "utf8");
-      const styleHref = getRelativeAssetPath(filePath, cssOutputDir, cssFileName);
-      const scriptSrc = getRelativeAssetPath(filePath, jsOutputDir, jsFileName);
+      const styleHref = getSharedAssetPath(cssOutputDir, cssFileName);
+      const scriptSrc = getSharedAssetPath(jsOutputDir, jsFileName);
       const next = source
         .replace(styleHrefPattern, styleHref)
         .replace(scriptSrcPattern, scriptSrc);
@@ -102,8 +102,8 @@ async function updateHtmlAssetReferences({ cssFileName, jsFileName }) {
   return htmlFiles;
 }
 
-function getRelativeAssetPath(htmlFilePath, assetDirectory, fileName) {
-  return relative(dirname(htmlFilePath), join(process.cwd(), assetDirectory, fileName)).replace(/\\/g, "/");
+function getSharedAssetPath(assetDirectory, fileName) {
+  return `/${assetDirectory}/${fileName}`;
 }
 
 function createAssetMatcher(baseName, extension) {

@@ -292,16 +292,23 @@ if (heroSlider) {
 }
 
 const currentPath = normalizePath(window.location.pathname);
+const marketCode = document.documentElement.dataset.market || currentPath.split("/").filter(Boolean)[0] || "ae";
+const marketPrefix = marketCode === "qa" ? "/qa" : "/ae";
+const marketServiceSuffix = marketCode === "qa" ? "qatar" : "dubai";
 const servicesSubmenuItems = [
-  { href: "/services/wooden-flooring-dubai.html", label: "Wooden Flooring", woodRoot: true },
-  { href: "/services/spc-flooring-dubai.html", label: "SPC Flooring", compact: true },
-  { href: "/services/lvt-flooring-dubai.html", label: "LVT Flooring", compact: true },
-  { href: "/services/wpc-flooring-dubai.html", label: "WPC Flooring", compact: true },
-  { href: "/services/carpet-installation-dubai.html", label: "Carpet Installation" },
-  { href: "/services/tile-fixing-dubai.html", label: "Tile Fixing" },
-  { href: "/services/stone-installation-dubai.html", label: "Stone Installation" },
-  { href: "/services/marble-installation-dubai.html", label: "Marble Installation" }
-];
+  { href: `${marketPrefix}/services/wooden-flooring-${marketServiceSuffix}.html`, label: "Wooden Flooring", woodRoot: true },
+  { href: `${marketPrefix}/services/spc-flooring-${marketServiceSuffix}.html`, label: "SPC Flooring", compact: true },
+  { href: `${marketPrefix}/services/lvt-flooring-${marketServiceSuffix}.html`, label: "LVT Flooring", compact: true },
+  { href: `${marketPrefix}/services/wpc-flooring-${marketServiceSuffix}.html`, label: "WPC Flooring", compact: true },
+  { href: `${marketPrefix}/services/carpet-installation-${marketServiceSuffix}.html`, label: "Carpet Installation" },
+  { href: `${marketPrefix}/services/tile-fixing-${marketServiceSuffix}.html`, label: "Tile Fixing" },
+  { href: `${marketPrefix}/services/stone-installation-${marketServiceSuffix}.html`, label: "Stone Installation" },
+  { href: `${marketPrefix}/services/marble-installation-${marketServiceSuffix}.html`, label: "Marble Installation" }
+].filter(({ label }) => marketCode !== "qa" || ![
+  "Tile Fixing",
+  "Stone Installation",
+  "Marble Installation"
+].includes(label));
 const servicesSubmenuMarkup = servicesSubmenuItems.map(({ href, label, compact, woodRoot }) => {
   const className = compact ? ' class="submenu-link--compact"' : "";
   const woodRootAttr = woodRoot ? " data-wood-root" : "";
@@ -838,7 +845,11 @@ const serviceOptions = [
   { value: "Stone Installation", label: "Stone Installation" },
   { value: "Carpet Installation", label: "Carpet Installation" },
   { value: "Multiple Services", label: "Multiple Services" }
-];
+].filter(({ value }) => marketCode !== "qa" || ![
+  "Tile Fixing",
+  "Marble Installation",
+  "Stone Installation"
+].includes(value));
 const serviceOptionsMarkup = serviceOptions
   .map((option) => `<option value="${option.value}">${option.label}</option>`)
   .join("");

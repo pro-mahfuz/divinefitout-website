@@ -2,9 +2,13 @@
   "name": "divine-website",
   "private": true,
   "scripts": {
+    "start": "node server.js",
+    "build": "npm run build:assets && npm run build:regions && npm run check:regions",
     "build:css": "node scripts/build-assets.mjs",
     "build:js": "node scripts/build-assets.mjs",
     "build:assets": "node scripts/build-assets.mjs",
+    "build:regions": "node scripts/build-regional-sites.mjs",
+    "check:regions": "node scripts/validate-regional-sites.mjs",
     "watch:assets": "node scripts/watch-assets.mjs"
   },
   "devDependencies": {

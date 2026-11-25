@@ -1,52 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://divinefitout.com/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/" />
   </url>
   <url>
-    <loc>https://divinefitout.com/about.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/about.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/about.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/about.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/about.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/contact.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/contact.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/contact.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/contact.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/contact.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/wooden-flooring-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/carpet-installation-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/carpet-installation-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/carpet-installation-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/carpet-installation-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/spc-flooring-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/lvt-flooring-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/lvt-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/lvt-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/lvt-flooring-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/lvt-flooring-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/marble-installation-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/marble-installation-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/marble-installation-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/wpc-flooring-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/spc-flooring-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/spc-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/spc-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/spc-flooring-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/tile-fixing-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/stone-installation-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/stone-installation-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/stone-installation-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/marble-installation-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/tile-fixing-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/tile-fixing-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/tile-fixing-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/stone-installation-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/wooden-flooring-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/wooden-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/wooden-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/wooden-flooring-dubai.html" />
   </url>
   <url>
-    <loc>https://divinefitout.com/services/carpet-installation-dubai.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <loc>https://divinefitout.com/ae/services/wpc-flooring-dubai.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/wpc-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/wpc-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/wpc-flooring-dubai.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/about.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/about.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/about.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/about.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/contact.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/contact.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/contact.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/contact.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/services/</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/services/carpet-installation-qatar.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/carpet-installation-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/carpet-installation-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/carpet-installation-dubai.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/services/lvt-flooring-qatar.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/lvt-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/lvt-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/lvt-flooring-dubai.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/services/spc-flooring-qatar.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/spc-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/spc-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/spc-flooring-dubai.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/services/wooden-flooring-qatar.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/wooden-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/wooden-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/wooden-flooring-dubai.html" />
+  </url>
+  <url>
+    <loc>https://divinefitout.com/qa/services/wpc-flooring-qatar.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="en-ae" href="https://divinefitout.com/ae/services/wpc-flooring-dubai.html" />
+    <xhtml:link rel="alternate" hreflang="en-qa" href="https://divinefitout.com/qa/services/wpc-flooring-qatar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://divinefitout.com/ae/services/wpc-flooring-dubai.html" />
   </url>
 </urlset>
-

@@ -1,8 +1,21 @@
 # Devine Fit-out & Renovation Website
 
-Static multi-page SEO website for a Dubai flooring business.
+Static multi-page SEO website with separate Dubai and Qatar market architecture.
 
-## Included pages
+## Market architecture
+
+- `/ae/` is the canonical Dubai site and its HTML files are edited directly inside `ae/`.
+- `/qa/` is the canonical Qatar site and its HTML files are edited directly inside `qa/`.
+- Each market has its own home, about, contact, service hub and service-detail URLs.
+- The two content trees are independent; building the project never copies Dubai content over Qatar content.
+- Dubai service slugs end in `-dubai.html`; Qatar service slugs end in `-qatar.html`.
+- Images, fonts, CSS and JavaScript stay shared at the domain root.
+- Reciprocal `hreflang` links and the XML sitemap connect equivalent market pages.
+- Legacy root and `/services/` URLs redirect to their `/ae/` equivalents in Express and Nginx.
+
+Run `npm run build` after editing either regional content tree, CSS or JavaScript. The build refreshes shared hashed assets, rebuilds the sitemap from the independent pages, and validates both sites.
+
+## Included pages in each market
 
 - Homepage
 - About page
