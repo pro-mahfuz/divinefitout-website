@@ -293,8 +293,8 @@ if (heroSlider) {
 
 const currentPath = normalizePath(window.location.pathname);
 const marketCode = document.documentElement.dataset.market || currentPath.split("/").filter(Boolean)[0] || "ae";
-const marketPrefix = marketCode === "qa" ? "/qa" : "/ae";
-const marketServiceSuffix = marketCode === "qa" ? "qatar" : "dubai";
+const marketPrefix = marketCode === "kw" ? "/kw" : "/ae";
+const marketServiceSuffix = marketCode === "kw" ? "kuwait" : "dubai";
 const servicesSubmenuItems = [
   { href: `${marketPrefix}/services/wooden-flooring-${marketServiceSuffix}.html`, label: "Wooden Flooring", woodRoot: true },
   { href: `${marketPrefix}/services/spc-flooring-${marketServiceSuffix}.html`, label: "SPC Flooring", compact: true },
@@ -304,7 +304,7 @@ const servicesSubmenuItems = [
   { href: `${marketPrefix}/services/tile-fixing-${marketServiceSuffix}.html`, label: "Tile Fixing" },
   { href: `${marketPrefix}/services/stone-installation-${marketServiceSuffix}.html`, label: "Stone Installation" },
   { href: `${marketPrefix}/services/marble-installation-${marketServiceSuffix}.html`, label: "Marble Installation" }
-].filter(({ label }) => marketCode !== "qa" || ![
+].filter(({ label }) => marketCode !== "kw" || ![
   "Tile Fixing",
   "Stone Installation",
   "Marble Installation"
@@ -845,7 +845,7 @@ const serviceOptions = [
   { value: "Stone Installation", label: "Stone Installation" },
   { value: "Carpet Installation", label: "Carpet Installation" },
   { value: "Multiple Services", label: "Multiple Services" }
-].filter(({ value }) => marketCode !== "qa" || ![
+].filter(({ value }) => marketCode !== "kw" || ![
   "Tile Fixing",
   "Marble Installation",
   "Stone Installation"

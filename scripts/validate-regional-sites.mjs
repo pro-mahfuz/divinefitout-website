@@ -22,8 +22,8 @@ const routeForFile = (filePath) => {
 };
 
 const counterpartForRoute = (route) => route.startsWith("/ae/")
-  ? route.replace(/^\/ae\//, "/qa/").replaceAll("-dubai", "-qatar")
-  : route.replace(/^\/qa\//, "/ae/").replaceAll("-qatar", "-dubai");
+  ? route.replace(/^\/ae\//, "/kw/").replaceAll("-dubai", "-kuwait")
+  : route.replace(/^\/kw\//, "/ae/").replaceAll("-kuwait", "-dubai");
 
 const fileForInternalPath = (urlPath) => {
   const cleanPath = urlPath.split(/[?#]/)[0];
@@ -34,7 +34,7 @@ const fileForInternalPath = (urlPath) => {
 
 const pageFiles = [
   ...(await collectHtmlFiles(path.join(projectRoot, "ae"))),
-  ...(await collectHtmlFiles(path.join(projectRoot, "qa")))
+  ...(await collectHtmlFiles(path.join(projectRoot, "kw")))
 ];
 const pageRoutes = new Set(pageFiles.map(routeForFile));
 
@@ -43,7 +43,7 @@ if (!pageFiles.length) errors.push("No regional HTML pages were found.");
 for (const filePath of pageFiles) {
   const html = await readFile(filePath, "utf8");
   const route = routeForFile(filePath);
-  const market = route.startsWith("/qa/") ? "qa" : "ae";
+  const market = route.startsWith("/kw/") ? "kw" : "ae";
   const counterpart = counterpartForRoute(route);
   const hasCounterpart = pageRoutes.has(counterpart);
   const relative = path.relative(projectRoot, filePath);
@@ -54,29 +54,29 @@ for (const filePath of pageFiles) {
     errors.push(`${relative}: canonical is ${canonical || "missing"}; expected ${expectedCanonical}.`);
   }
 
-  const requiredHreflangs = market === "qa" || hasCounterpart
-    ? ["en-ae", "en-qa", "x-default"]
+  const requiredHreflangs = market === "kw" || hasCounterpart
+    ? ["en-ae", "en-kw", "x-default"]
     : ["en-ae", "x-default"];
   for (const hreflang of requiredHreflangs) {
     if (!html.includes(`rel="alternate" hreflang="${hreflang}"`)) {
       errors.push(`${relative}: missing ${hreflang} alternate.`);
     }
   }
-  if (market === "ae" && !hasCounterpart && html.includes('rel="alternate" hreflang="en-qa"')) {
-    errors.push(`${relative}: links to a Qatar alternate that does not exist.`);
+  if (market === "ae" && !hasCounterpart && html.includes('rel="alternate" hreflang="en-kw"')) {
+    errors.push(`${relative}: links to a Kuwait alternate that does not exist.`);
   }
-  if (market === "qa" && !hasCounterpart) {
-    errors.push(`${relative}: Qatar page is missing its Dubai counterpart.`);
+  if (market === "kw" && !hasCounterpart) {
+    errors.push(`${relative}: Kuwait page is missing its Dubai counterpart.`);
   }
 
-  const qatarContent = html
+  const kuwaitContent = html
     .replace(/<link rel="alternate"[^>]+>/g, "")
     .replace(/<a href="\/ae\/[^"]*"[^>]*>Dubai<\/a>/g, "");
-  if (market === "qa" && /dubai/i.test(qatarContent)) {
-    errors.push(`${relative}: Qatar page still contains Dubai text or a Dubai URL.`);
+  if (market === "kw" && /dubai/i.test(kuwaitContent)) {
+    errors.push(`${relative}: Kuwait page still contains Dubai text or a Dubai URL.`);
   }
 
-  if (/(?:\/ae\/ae\/|\/qa\/qa\/)/.test(html)) {
+  if (/(?:\/ae\/ae\/|\/kw\/kw\/)/.test(html)) {
     errors.push(`${relative}: contains a duplicate regional prefix.`);
   }
 

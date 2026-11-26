@@ -1,6 +1,6 @@
 const express = require("express");
 const createDubaiRouter = require("./routes/ae");
-const createQatarRouter = require("./routes/qa");
+const createKuwaitRouter = require("./routes/kw");
 
 function createRoutes(rootDirectory) {
     const router = express.Router();
@@ -12,7 +12,7 @@ function createRoutes(rootDirectory) {
     router.get("/services/:service", (req, res) => res.redirect(301, `/ae/services/${req.params.service}`));
 
     // Normalize market roots before handing off to the independent sites.
-    router.get(["/ae", "/qa", "/ae/", "/qa/"], (req, res, next) => {
+    router.get(["/ae", "/kw", "/ae/", "/kw/"], (req, res, next) => {
         if (!req.path.endsWith("/")) {
             return res.redirect(301, `${req.path}/`);
         }
@@ -20,7 +20,7 @@ function createRoutes(rootDirectory) {
     });
 
     router.use("/ae", createDubaiRouter(rootDirectory));
-    router.use("/qa", createQatarRouter(rootDirectory));
+    router.use("/kw", createKuwaitRouter(rootDirectory));
 
     return router;
 }

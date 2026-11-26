@@ -1,14 +1,14 @@
 # Devine Fit-out & Renovation Website
 
-Static multi-page SEO website with separate Dubai and Qatar market architecture.
+Static multi-page SEO website with separate Dubai and Kuwait market architecture.
 
 ## Market architecture
 
 - `/ae/` is the canonical Dubai site and its HTML files are edited directly inside `ae/`.
-- `/qa/` is the canonical Qatar site and its HTML files are edited directly inside `qa/`.
+- `/kw/` is the canonical Kuwait site and its HTML files are edited directly inside `kw/`.
 - Each market has its own home, about, contact, service hub and service-detail URLs.
-- The two content trees are independent; building the project never copies Dubai content over Qatar content.
-- Dubai service slugs end in `-dubai.html`; Qatar service slugs end in `-qatar.html`.
+- The two content trees are independent; building the project never copies Dubai content over Kuwait content.
+- Dubai service slugs end in `-dubai.html`; Kuwait service slugs end in `-kuwait.html`.
 - Images, fonts, CSS and JavaScript stay shared at the domain root.
 - Reciprocal `hreflang` links and the XML sitemap connect equivalent market pages.
 - Legacy root and `/services/` URLs redirect to their `/ae/` equivalents in Express and Nginx.

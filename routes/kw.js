@@ -1,11 +1,11 @@
 const path = require("path");
 const createMarketRouter = require("./create-market-router");
 
-function createQatarRouter(rootDirectory) {
+function createKuwaitRouter(rootDirectory) {
     return createMarketRouter({
-        marketPath: "qa",
-        serviceSuffix: "qatar",
-        siteDirectory: path.join(rootDirectory, "qa"),
+        marketPath: "kw",
+        serviceSuffix: "kuwait",
+        siteDirectory: path.join(rootDirectory, "kw"),
         serviceRoutes: [
             "wooden-flooring",
             "spc-flooring",
@@ -21,4 +21,4 @@ function createQatarRouter(rootDirectory) {
     });
 }
 
-module.exports = createQatarRouter;
+module.exports = createKuwaitRouter;

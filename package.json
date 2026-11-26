@@ -9,6 +9,7 @@
     "build:assets": "node scripts/build-assets.mjs",
     "build:regions": "node scripts/build-regional-sites.mjs",
     "check:regions": "node scripts/validate-regional-sites.mjs",
+    "sync:footers": "node scripts/sync-footers.mjs",
     "watch:assets": "node scripts/watch-assets.mjs"
   },
   "devDependencies": {

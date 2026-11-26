@@ -24,12 +24,12 @@ const routeForFile = (filePath) => {
 };
 
 const counterpartForRoute = (route) => route.startsWith("/ae/")
-  ? route.replace(/^\/ae\//, "/qa/").replaceAll("-dubai", "-qatar")
-  : route.replace(/^\/qa\//, "/ae/").replaceAll("-qatar", "-dubai");
+  ? route.replace(/^\/ae\//, "/kw/").replaceAll("-dubai", "-kuwait")
+  : route.replace(/^\/kw\//, "/ae/").replaceAll("-kuwait", "-dubai");
 
 const pageFiles = [
   ...(await collectHtmlFiles(path.join(projectRoot, "ae"))),
-  ...(await collectHtmlFiles(path.join(projectRoot, "qa")))
+  ...(await collectHtmlFiles(path.join(projectRoot, "kw")))
 ];
 const pages = await Promise.all(pageFiles.map(async (filePath) => {
   const route = routeForFile(filePath);
@@ -51,17 +51,17 @@ const entries = pages.map(({ route }) => {
   const hasCounterpart = routeSet.has(counterpart);
 
   if (!isDubai && !hasCounterpart) {
-    throw new Error(`Qatar page is missing its Dubai counterpart: ${route}`);
+    throw new Error(`Kuwait page is missing its Dubai counterpart: ${route}`);
   }
 
   const aeRoute = isDubai ? route : counterpart;
-  const qaRoute = isDubai ? counterpart : route;
+  const kwRoute = isDubai ? counterpart : route;
   const alternates = [
     `    <xhtml:link rel="alternate" hreflang="en-ae" href="${domain}${aeRoute}" />`
   ];
 
   if (hasCounterpart) {
-    alternates.push(`    <xhtml:link rel="alternate" hreflang="en-qa" href="${domain}${qaRoute}" />`);
+    alternates.push(`    <xhtml:link rel="alternate" hreflang="en-kw" href="${domain}${kwRoute}" />`);
   }
 
   alternates.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${domain}${aeRoute}" />`);
